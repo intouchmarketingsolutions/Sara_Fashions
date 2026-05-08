@@ -105,15 +105,6 @@ export default function HeroSection() {
                 </p>
               )}
 
-              {/* single CTA */}
-              <div className="mt-1 sm:mt-2">
-                <Link
-                  to={slide.ctaLink}
-                  className="inline-block bg-[#c8a96b] hover:bg-[#D4AF37] text-white text-[13px] sm:text-[14px] font-bold uppercase tracking-widest px-6 sm:px-8 py-2.5 sm:py-3 rounded-full transition-all duration-300 hover:shadow-xl hover:shadow-[#c8a96b]/40 hover:-translate-y-0.5"
-                >
-                  {slide.cta}
-                </Link>
-              </div>
             </motion.div>
           </AnimatePresence>
         </div>
