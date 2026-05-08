@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { FiCheck, FiUser, FiCalendar, FiAward } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
 import consultationImage from '../assets/images/categories/western.jpg'
 
 const services = [
@@ -29,11 +30,6 @@ export default function Consultation() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
             >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-[1px] bg-[#c8a96b]" />
-                <span className="text-[#b68b45] uppercase tracking-widest text-[11px] font-semibold">Personal Styling</span>
-              </div>
-
               <h1 className="text-[28px] sm:text-[38px] md:text-[48px] font-semibold leading-tight text-[#1a1a1a] mb-4">
                 Expert Fashion<br />
                 <span className="text-[#b68b45]">Consultation</span>
@@ -53,12 +49,12 @@ export default function Consultation() {
               </div>
 
               <div className="flex flex-wrap gap-3">
-                <button className="bg-[#111] hover:bg-[#c8a96b] text-white px-7 py-3 rounded-full text-[14px] font-semibold transition-all duration-300">
+                <a href="#booking-form" className="bg-[#111] hover:bg-[#c8a96b] text-white px-7 py-3 rounded-full text-[14px] font-semibold transition-all duration-300">
                   Book Consultation
-                </button>
-                <button className="border border-[#c8a96b] hover:bg-[#c8a96b] hover:text-white text-[#c8a96b] px-7 py-3 rounded-full text-[14px] font-semibold transition-all duration-300">
+                </a>
+                <Link to="/contact" className="border border-[#c8a96b] hover:bg-[#c8a96b] hover:text-white text-[#c8a96b] px-7 py-3 rounded-full text-[14px] font-semibold transition-all duration-300">
                   Contact Boutique
-                </button>
+                </Link>
               </div>
             </motion.div>
 
@@ -115,7 +111,7 @@ export default function Consultation() {
       </section>
 
       {/* BOOKING FORM */}
-      <section className="py-10 md:py-14">
+      <section id="booking-form" className="py-10 md:py-14">
         <div className="max-w-2xl mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

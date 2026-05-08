@@ -125,7 +125,7 @@ export default function App() {
           <Navbar />
 
           {/* MAIN CONTENT */}
-          <main className="flex-1 pt-[82px] md:pt-[92px]">
+          <main className="flex-1">
 
             <AppRoutes />
 
