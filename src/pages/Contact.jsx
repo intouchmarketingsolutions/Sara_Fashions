@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { MapPin, Phone, Clock, Mail, Instagram, Facebook } from 'lucide-react'
+import { FiMapPin, FiPhone, FiClock, FiMail, FiInstagram, FiFacebook } from 'react-icons/fi'
 
 export default function Contact() {
   return (
@@ -37,10 +37,10 @@ export default function Contact() {
               className="grid grid-cols-2 gap-3 sm:gap-4"
             >
               {[
-                { icon: <MapPin size={20} />, title: 'Location', lines: ['Opp. KIA Showroom,', 'Near SBI Bank,', 'Udyavara, Udupi'] },
-                { icon: <Phone size={20} />,  title: 'Phone',    lines: ['+91 9663098124', 'Sara Central Boutique'] },
-                { icon: <Mail size={20} />,   title: 'Email',    lines: ['hello@saracentral.com', 'support@saracentral.com'] },
-                { icon: <Clock size={20} />,  title: 'Hours',    lines: ['Mon – Sat', '10:00 AM – 8:00 PM'] },
+                { icon: <FiMapPin size={20} />, title: 'Location', lines: ['Opp. KIA Showroom,', 'Near SBI Bank,', 'Udyavara, Udupi'] },
+                { icon: <FiPhone size={20} />,  title: 'Phone',    lines: ['+91 9663098124', 'Sara Central Boutique'] },
+                { icon: <FiMail size={20} />,   title: 'Email',    lines: ['hello@saracentral.com', 'support@saracentral.com'] },
+                { icon: <FiClock size={20} />,  title: 'Hours',    lines: ['Mon – Sat', '10:00 AM – 8:00 PM'] },
               ].map((card, i) => (
                 <motion.div
                   key={i}
@@ -80,7 +80,7 @@ export default function Contact() {
 
               <div className="flex items-center gap-4 mt-6 pt-5 border-t border-[#eee]">
                 <p className="text-[#666] text-[13px]">Follow Us:</p>
-                {[Instagram, Facebook].map((Icon, i) => (
+                {[FiInstagram, FiFacebook].map((Icon, i) => (
                   <button key={i} className="w-10 h-10 rounded-full border border-[#ddd] flex items-center justify-center hover:bg-[#c8a96b] hover:text-white hover:border-[#c8a96b] transition-all duration-300">
                     <Icon size={17} />
                   </button>
