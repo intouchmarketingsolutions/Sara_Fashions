@@ -24,12 +24,23 @@ export default function ProductCard({ product, index = 0 }) {
         <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-400 border border-[#f1ebe3]">
 
           {/* IMAGE */}
-          <div className="relative overflow-hidden">
+          <div className="relative overflow-hidden bg-[#f5efe8]">
             <img
               src={product.image}
               alt={product.name}
               className="w-full h-[260px] sm:h-[300px] md:h-[340px] object-cover object-top group-hover:scale-105 transition-transform duration-600"
+              onError={(e) => {
+                e.target.style.display = 'none'
+                e.target.nextSibling.style.display = 'flex'
+              }}
             />
+            <div
+              style={{ display: 'none' }}
+              className="w-full h-[260px] sm:h-[300px] md:h-[340px] flex flex-col items-center justify-center bg-[#f5efe8] gap-2"
+            >
+              <span className="text-5xl">👗</span>
+              <span className="text-[12px] text-[#c8a96b] font-medium uppercase tracking-widest">{product.subcategory}</span>
+            </div>
 
             {/* category badge */}
             <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full">
