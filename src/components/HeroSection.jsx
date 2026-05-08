@@ -9,7 +9,7 @@ const slides = [
   {
     image:   heroImage1,
     heading: 'Bridal & Festive\nCollection',
-    sub:     'Exquisite lehengas & sarees crafted for your most special moments',
+    sub:     '',
     cta:     'Explore Collection',
     ctaLink: '/products',
     pos:     'object-center object-top',
@@ -17,7 +17,7 @@ const slides = [
   {
     image:   heroImage2,
     heading: 'Modern Ethnic\nFashion',
-    sub:     'Where contemporary style meets timeless Indian elegance',
+    sub:     '',
     cta:     'Shop Now',
     ctaLink: '/products',
     pos:     'object-center',
@@ -99,9 +99,11 @@ export default function HeroSection() {
               </h1>
 
               {/* subtitle */}
-              <p className="text-[13px] sm:text-[15px] md:text-[16px] text-white/80 leading-relaxed drop-shadow">
-                {slide.sub}
-              </p>
+              {slide.sub && (
+                <p className="text-[13px] sm:text-[15px] md:text-[16px] text-white/80 leading-relaxed drop-shadow">
+                  {slide.sub}
+                </p>
+              )}
 
               {/* single CTA */}
               <div className="mt-1 sm:mt-2">
