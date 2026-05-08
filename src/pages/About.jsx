@@ -1,123 +1,165 @@
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion'
+import { FiAward, FiHeart, FiScissors, FiUsers } from 'react-icons/fi'
+
+import heroImage    from '../assets/images/categories/saree.jpg'
+import boutiqueImage from '../assets/images/categories/lehenga.jpg'
+
+const values = [
+  { icon: <FiScissors size={22} />, title: 'Boutique Tailoring', desc: 'Personalised tailoring crafted for comfort, elegance, and confidence.' },
+  { icon: <FiHeart size={22} />,    title: 'Women Exclusive',    desc: 'Collections thoughtfully curated for women across every occasion.' },
+  { icon: <FiAward size={22} />,    title: 'Premium Quality',    desc: 'Refined stitching and quality craftsmanship for lasting style.' },
+  { icon: <FiUsers size={22} />,    title: 'Modern Styling',     desc: 'Blending tradition with modern trends for today\'s women.' },
+]
 
 export default function About() {
   return (
-    <div className="bg-black min-h-screen pt-20">
-      {/* Hero */}
-      <div className="relative h-80 md:h-[500px] overflow-hidden">
-        <img
-          src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=1600&q=80"
-          alt="About Sara Fashion"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/65" />
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="font-poppins text-gold text-xs tracking-[0.5em] uppercase mb-4">
-            Our Story
-          </motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="section-title">
-            About Sara Fashion
-          </motion.h1>
-          <div className="gold-divider mx-auto mt-4" />
-        </div>
-      </div>
+    <div className="bg-[#f8f3eb] overflow-hidden min-h-screen">
 
-      {/* Story */}
-      <section className="max-w-4xl mx-auto px-6 py-24">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
-        >
-          <p className="font-poppins text-gold text-xs tracking-[0.4em] uppercase mb-4">The Beginning</p>
-          <h2 className="font-playfair text-4xl text-white mb-6">Born from a Passion for Beauty</h2>
-          <div className="gold-divider mx-auto mb-8" />
-          <p className="text-gray-400 font-poppins leading-relaxed text-base">
-            Sara Fashion was founded with a singular vision — to make luxury fashion accessible without compromising on artistry.
-            Every collection is a dialogue between tradition and modernity, between the timeless craft of Indian textile artisans
-            and the forward-looking sensibilities of global fashion.
-          </p>
-          <p className="text-gray-400 font-poppins leading-relaxed text-base mt-4">
-            We work directly with master weavers in Varanasi, Kanjipuram, and Surat — ensuring not just quality, but the
-            preservation of centuries-old techniques that deserve to live on.
-          </p>
-        </motion.div>
+      {/* HERO */}
+      <section className="relative pt-[70px] sm:pt-[76px] lg:pt-[82px] pb-10 sm:pb-14">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#f8f3eb] via-[#fdfaf6] to-[#efe5d6]" />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-24">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="text-center mb-10 sm:mb-14"
           >
-            <img
-              src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80"
-              alt="Craftsmanship"
-              className="w-full aspect-[4/5] object-cover"
-            />
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <p className="font-poppins text-gold text-xs tracking-[0.4em] uppercase mb-4">Our Vision</p>
-            <h3 className="font-playfair text-3xl text-white mb-4">Redefining Indian Luxury</h3>
-            <div className="gold-divider mb-6" />
-            <p className="text-gray-400 font-poppins text-sm leading-relaxed mb-4">
-              We believe luxury isn't just about price — it's about intention, craft, and the story woven into every thread.
-              Sara Fashion is committed to offering pieces that outlast seasons and trends.
-            </p>
-            <p className="text-gray-400 font-poppins text-sm leading-relaxed">
-              Our designers travel across India to discover rare textiles, embroidery styles, and silhouettes that become the
-              foundation of each collection — rooted in heritage, styled for today.
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="w-10 h-[1px] bg-[#c8a96b]" />
+              <span className="text-[#b68b45] uppercase tracking-widest text-[11px] font-semibold">About Sara Central</span>
+              <div className="w-10 h-[1px] bg-[#c8a96b]" />
+            </div>
+
+            <h1 className="text-[28px] sm:text-[38px] md:text-[48px] font-semibold leading-tight text-[#1a1a1a] mb-4">
+              Udupi's Destination For{' '}
+              <span className="text-[#b68b45]">Exclusive Women's Fashion</span>
+            </h1>
+
+            <p className="max-w-2xl mx-auto text-[#666] text-[14px] sm:text-[15px] leading-relaxed">
+              Where tradition meets modern touch, and every woman finds her perfect fashion piece designed with elegance, comfort, and confidence.
             </p>
           </motion.div>
-        </div>
 
-        {/* Values */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
-          {[
-            { num: '01', title: 'Artisan-Made', desc: 'Every piece is handcrafted by skilled artisans who have inherited generations of knowledge.' },
-            { num: '02', title: 'Sustainable', desc: 'We source ethically, support fair wages, and reduce waste at every stage of production.' },
-            { num: '03', title: 'Timeless', desc: 'Our designs transcend trends — they are wardrobe investments that grow more beautiful with time.' },
-          ].map((v, i) => (
+          {/* IMAGE + STORY */}
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-14 items-center">
+
             <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <img
+                src={heroImage}
+                alt="Sara Central Boutique"
+                className="w-full h-[280px] sm:h-[380px] md:h-[500px] object-cover object-top rounded-2xl shadow-xl"
+              />
+              <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm px-4 py-3 rounded-2xl shadow-lg border border-[#eee]">
+                <p className="text-[#b68b45] text-[10px] tracking-widest uppercase mb-1">Women Exclusive</p>
+                <h3 className="text-[15px] font-semibold text-[#1a1a1a]">Elegant Boutique Studio</h3>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-[24px] sm:text-[32px] md:text-[38px] font-semibold leading-tight text-[#1a1a1a] mb-4">
+                Styled For Every Occasion
+              </h2>
+
+              <p className="text-[#666] text-[14px] sm:text-[15px] leading-relaxed mb-4">
+                Sara Central is a premium women's fashion boutique offering a curated collection of ethnic and contemporary wear designed for elegance, comfort, and quality.
+              </p>
+
+              <p className="text-[#666] text-[14px] sm:text-[15px] leading-relaxed mb-5">
+                Our collection includes sarees, lehengas, kurtis, gowns, western wear, and festive outfits — along with personalised tailoring and fitting services.
+              </p>
+
+              <div className="grid grid-cols-2 gap-3">
+                {['Designer Sarees', 'Bridal Collections', 'Custom Tailoring', 'Modern Fashion'].map((item, i) => (
+                  <div key={i} className="bg-white border border-[#eee] rounded-xl px-4 py-3 text-[13px] font-medium text-[#1a1a1a]">
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* VALUES */}
+      <section className="py-10 md:py-14 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+          <div className="text-center mb-8 sm:mb-10">
+            <h2 className="text-[24px] sm:text-[32px] font-semibold text-[#1a1a1a]">Boutique Fashion Experience</h2>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+            {values.map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -4 }}
+                className="bg-[#f8f3eb] rounded-2xl p-5 sm:p-6 border border-[#eee]"
+              >
+                <div className="w-11 h-11 rounded-full bg-[#c8a96b] text-white flex items-center justify-center mb-4">
+                  {item.icon}
+                </div>
+                <h3 className="text-[14px] sm:text-[16px] font-semibold text-[#1a1a1a] mb-2">{item.title}</h3>
+                <p className="text-[#666] text-[12px] sm:text-[13px] leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* STORY + IMAGE */}
+      <section className="py-10 md:py-14">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-14 items-center">
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.15 }}
-              className="border border-gold/15 p-8 hover:border-gold/40 transition-colors duration-500"
             >
-              <div className="font-playfair text-5xl text-gold/20 mb-4">{v.num}</div>
-              <h4 className="font-playfair text-xl text-white mb-3">{v.title}</h4>
-              <p className="text-gray-500 text-sm font-poppins leading-relaxed">{v.desc}</p>
+              <h2 className="text-[24px] sm:text-[32px] md:text-[38px] font-semibold leading-tight text-[#1a1a1a] mb-4">
+                Fashion Crafted With Care
+              </h2>
+              <p className="text-[#666] text-[14px] sm:text-[15px] leading-relaxed mb-4">
+                We deliver high-standard fashion using premium fabrics, refined craftsmanship, quality stitching, and comfortable fits.
+              </p>
+              <p className="text-[#666] text-[14px] sm:text-[15px] leading-relaxed">
+                With a commitment to quality and timely service, Sara Central strives to provide fashionable clothing that reflects confidence, tradition, and modern elegance.
+              </p>
             </motion.div>
-          ))}
-        </div>
 
-        {/* Numbers */}
-        <div className="grid grid-cols-3 gap-8 mt-20 py-12 border-t border-gold/15">
-          {[
-            { num: '15+', label: 'Years of Luxury' },
-            { num: '50K+', label: 'Happy Customers' },
-            { num: '200+', label: 'Artisan Partners' },
-          ].map((stat, i) => (
             <motion.div
-              key={i}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+              initial={{ opacity: 0, scale: 1.04 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.7 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="text-center"
             >
-              <div className="font-playfair text-4xl gold-text mb-2">{stat.num}</div>
-              <p className="text-gray-500 text-xs font-poppins tracking-widest uppercase">{stat.label}</p>
+              <img
+                src={boutiqueImage}
+                alt="Boutique Fashion"
+                className="w-full h-[260px] sm:h-[360px] md:h-[440px] object-cover object-top rounded-2xl shadow-xl"
+              />
             </motion.div>
-          ))}
+          </div>
         </div>
       </section>
     </div>
-  );
+  )
 }

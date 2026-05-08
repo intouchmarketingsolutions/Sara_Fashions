@@ -1,214 +1,304 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FiMinus, FiPlus, FiX, FiCheck } from 'react-icons/fi';
-import { useCart } from '../context/CartContext';
+import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { motion, AnimatePresence } from 'framer-motion'
+import { FiMinus, FiPlus, FiTrash2, FiCheck, FiShoppingBag, FiCreditCard, FiSmartphone, FiPackage } from 'react-icons/fi'
+import { useCart } from '../context/CartContext'
 
 export default function Cart() {
-  const { items, removeItem, updateQty, totalPrice, clearCart } = useCart();
-  const [step, setStep] = useState('cart'); // cart | checkout | success
-  const [paymentMethod, setPaymentMethod] = useState('online');
-  const [form, setForm] = useState({ name: '', phone: '', email: '', address: '', postal: '', city: '', state: '' });
+  const { items, removeItem, updateQty, totalPrice, clearCart } = useCart()
 
-  const handleFormChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const [step,          setStep]          = useState('cart')
+  const [paymentMethod, setPaymentMethod] = useState('upi')
+  const [form, setForm] = useState({ name: '', phone: '', email: '', address: '', city: '', postal: '' })
 
-  const handlePlaceOrder = (e) => {
-    e.preventDefault();
-    setStep('success');
-    clearCart();
-  };
+  const handleForm = (e) => setForm({ ...form, [e.target.name]: e.target.value })
+
+  const shipping   = totalPrice > 3000 ? 0 : 199
+  const tax        = Math.round(totalPrice * 0.05)
+  const finalTotal = totalPrice + shipping + tax
+
+  const handleOrder = (e) => {
+    e.preventDefault()
+    setStep('success')
+    clearCart()
+  }
 
   if (step === 'success') {
     return (
-      <div className="min-h-screen bg-black pt-20 flex items-center justify-center px-4">
+      <div className="min-h-screen bg-[#f8f3eb] flex items-center justify-center px-4 pt-[70px]">
         <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          className="text-center max-w-md"
+          initial={{ opacity: 0, scale: 0.88 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="bg-white rounded-3xl shadow-2xl border border-[#eee] p-8 sm:p-12 text-center max-w-md w-full"
         >
-          <div className="w-20 h-20 bg-gold/10 border border-gold rounded-full flex items-center justify-center mx-auto mb-6">
-            <FiCheck size={32} className="text-gold" />
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#c8a96b]/10 flex items-center justify-center mx-auto mb-6">
+            <FiCheck className="text-[#c8a96b]" size={32} />
           </div>
-          <h2 className="font-playfair text-4xl text-white mb-4">Order Placed!</h2>
-          <p className="text-gray-400 font-poppins text-sm mb-8">
-            Thank you for your order. We'll confirm via email and ship within 3–5 business days.
+          <h1 className="text-[24px] sm:text-[30px] font-semibold text-[#1a1a1a] mb-3">Order Confirmed!</h1>
+          <p className="text-[#666] text-[14px] leading-relaxed mb-7">
+            Your order has been placed. Our team will contact you shortly for delivery details.
           </p>
-          <Link to="/" className="btn-gold">Continue Shopping</Link>
+          <Link
+            to="/products"
+            className="inline-flex items-center gap-2 bg-[#111] hover:bg-[#c8a96b] text-white px-7 py-3 rounded-full text-[14px] font-semibold transition-all duration-300"
+          >
+            <FiShoppingBag size={15} /> Continue Shopping
+          </Link>
         </motion.div>
       </div>
-    );
+    )
   }
 
   return (
-    <div className="min-h-screen bg-black pt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-10">
-          <p className="font-poppins text-gold text-xs tracking-[0.4em] uppercase mb-2">Your Selection</p>
-          <h1 className="section-title">{step === 'cart' ? 'Shopping Cart' : 'Checkout'}</h1>
-          <div className="gold-divider" />
+    <div className="bg-[#f8f3eb] min-h-screen pt-[70px] sm:pt-[76px] lg:pt-[82px]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-8 sm:py-10">
+
+        {/* HEADER */}
+        <div className="text-center mb-8">
+          <h1 className="text-[24px] sm:text-[32px] font-semibold text-[#1a1a1a]">
+            {step === 'cart' ? 'Your Cart' : 'Checkout'}
+          </h1>
         </div>
 
+        {/* EMPTY */}
         {items.length === 0 && step === 'cart' ? (
-          <div className="text-center py-24">
-            <p className="font-playfair text-3xl text-gray-500 mb-6">Your cart is empty</p>
-            <Link to="/" className="btn-gold">Discover Collections</Link>
+          <div className="bg-white rounded-3xl border border-[#eee] p-10 sm:p-14 text-center max-w-md mx-auto">
+            <FiShoppingBag size={40} className="text-[#ddd] mx-auto mb-4" />
+            <h2 className="text-[20px] font-semibold text-[#1a1a1a] mb-3">Your Cart Is Empty</h2>
+            <p className="text-[#666] text-[14px] mb-6">Explore our collection and add your favourite styles.</p>
+            <Link to="/products" className="bg-[#111] hover:bg-[#c8a96b] text-white px-7 py-3 rounded-full text-[14px] font-semibold transition-all duration-300">
+              Explore Collection
+            </Link>
           </div>
+
         ) : step === 'cart' ? (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            {/* Cart Items */}
-            <div className="lg:col-span-2 space-y-4">
+          <div className="flex flex-col lg:flex-row gap-6">
+
+            {/* ITEMS */}
+            <div className="flex-1 space-y-4">
               <AnimatePresence>
                 {items.map((item) => (
                   <motion.div
                     key={`${item.id}-${item.size}`}
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, x: -30 }}
-                    className="flex gap-4 border border-white/10 p-4 hover:border-gold/20 transition-colors duration-300"
+                    exit={{ opacity: 0, x: -20 }}
+                    className="bg-white rounded-2xl border border-[#eee] p-4 sm:p-5 flex gap-4"
                   >
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-24 h-32 object-cover flex-shrink-0"
-                      onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1445205170230-053b83016050?w=400&q=80'; }}
-                    />
+                    <div className="w-20 h-24 sm:w-24 sm:h-28 rounded-xl overflow-hidden flex-shrink-0">
+                      <img src={item.image} alt={item.name} className="w-full h-full object-cover object-top" />
+                    </div>
+
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-playfair text-white text-lg leading-tight mb-1">{item.name}</h3>
-                      <p className="text-gray-500 text-xs font-poppins uppercase tracking-wider mb-1">Size: {item.size}</p>
-                      <p className="text-gold font-playfair text-lg mb-3">₹{item.price.toLocaleString()}</p>
+                      <p className="text-[#b68b45] text-[10px] uppercase tracking-widest font-semibold mb-1">{item.subcategory}</p>
+                      <h3 className="text-[14px] sm:text-[15px] font-semibold text-[#1a1a1a] leading-snug mb-1 truncate">{item.name}</h3>
+                      <p className="text-[#888] text-[12px] mb-2">Size: {item.size}</p>
+                      <p className="text-[#b68b45] text-[15px] font-semibold mb-3">₹{item.price.toLocaleString()}</p>
+
                       <div className="flex items-center gap-3">
-                        <div className="flex items-center border border-white/20">
-                          <button onClick={() => item.quantity > 1 && updateQty(item.id, item.size, item.quantity - 1)} className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gold">
+                        <div className="flex items-center bg-[#f8f3eb] rounded-full border border-[#eee] overflow-hidden">
+                          <button onClick={() => item.quantity > 1 && updateQty(item.id, item.size, item.quantity - 1)} className="w-8 h-8 flex items-center justify-center hover:bg-[#eee]">
                             <FiMinus size={12} />
                           </button>
-                          <span className="w-8 text-center text-white text-sm font-poppins">{item.quantity}</span>
-                          <button onClick={() => updateQty(item.id, item.size, item.quantity + 1)} className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gold">
+                          <span className="w-8 text-center text-[13px] font-medium">{item.quantity}</span>
+                          <button onClick={() => updateQty(item.id, item.size, item.quantity + 1)} className="w-8 h-8 flex items-center justify-center hover:bg-[#eee]">
                             <FiPlus size={12} />
                           </button>
                         </div>
-                        <button onClick={() => removeItem(item.id, item.size)} className="text-gray-600 hover:text-red-400 transition-colors">
-                          <FiX size={16} />
+                        <button onClick={() => removeItem(item.id, item.size)} className="text-red-400 hover:text-red-500 transition">
+                          <FiTrash2 size={16} />
                         </button>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <p className="font-playfair text-gold">₹{(item.price * item.quantity).toLocaleString()}</p>
+
+                    <div className="text-right flex-shrink-0">
+                      <p className="text-[15px] font-semibold text-[#1a1a1a]">₹{(item.price * item.quantity).toLocaleString()}</p>
                     </div>
                   </motion.div>
                 ))}
               </AnimatePresence>
             </div>
 
-            {/* Summary */}
-            <div className="border border-gold/20 p-8 h-fit">
-              <h3 className="font-playfair text-xl text-white mb-6">Order Summary</h3>
-              <div className="space-y-3 mb-6 pb-6 border-b border-white/10">
-                <div className="flex justify-between text-sm font-poppins text-gray-400">
-                  <span>Subtotal</span>
-                  <span>₹{totalPrice.toLocaleString()}</span>
-                </div>
-                <div className="flex justify-between text-sm font-poppins text-gray-400">
-                  <span>Shipping</span>
-                  <span className="text-green-400">{totalPrice > 2000 ? 'Free' : '₹199'}</span>
-                </div>
-                <div className="flex justify-between text-sm font-poppins text-gray-400">
-                  <span>Tax (5%)</span>
-                  <span>₹{Math.round(totalPrice * 0.05).toLocaleString()}</span>
-                </div>
+            {/* SUMMARY */}
+            <div className="lg:w-80 xl:w-96 bg-white rounded-2xl border border-[#eee] p-5 sm:p-6 h-fit lg:sticky lg:top-[80px]">
+              <h3 className="text-[17px] font-semibold text-[#1a1a1a] mb-5">Order Summary</h3>
+
+              <div className="space-y-3 border-b border-[#eee] pb-4 mb-4 text-[14px]">
+                <div className="flex justify-between text-[#666]"><span>Subtotal</span><span>₹{totalPrice.toLocaleString()}</span></div>
+                <div className="flex justify-between text-[#666]"><span>Shipping</span><span>{shipping === 0 ? 'Free' : `₹${shipping}`}</span></div>
+                <div className="flex justify-between text-[#666]"><span>Tax (5%)</span><span>₹{tax.toLocaleString()}</span></div>
               </div>
-              <div className="flex justify-between font-playfair text-lg text-white mb-8">
-                <span>Total</span>
-                <span className="text-gold">₹{(totalPrice + (totalPrice > 2000 ? 0 : 199) + Math.round(totalPrice * 0.05)).toLocaleString()}</span>
+
+              <div className="flex justify-between items-center mb-5">
+                <span className="text-[16px] font-semibold text-[#1a1a1a]">Total</span>
+                <span className="text-[20px] font-semibold text-[#c8a96b]">₹{finalTotal.toLocaleString()}</span>
               </div>
-              <button onClick={() => setStep('checkout')} className="btn-gold w-full">
-                Proceed to Checkout
+
+              {shipping > 0 && (
+                <p className="text-[11px] text-[#888] mb-4 text-center">Free shipping on orders above ₹3,000</p>
+              )}
+
+              <button
+                onClick={() => setStep('checkout')}
+                className="w-full bg-[#111] hover:bg-[#c8a96b] text-white py-3.5 rounded-full text-[14px] font-semibold transition-all duration-300"
+              >
+                Proceed To Checkout
               </button>
-              <Link to="/" className="block text-center text-gray-500 text-xs font-poppins mt-4 hover:text-gold transition-colors">
+              <Link to="/products" className="block text-center mt-4 text-[13px] text-[#666] hover:text-[#c8a96b] transition">
                 ← Continue Shopping
               </Link>
             </div>
           </div>
+
         ) : (
-          /* Checkout Form */
-          <form onSubmit={handlePlaceOrder} className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            <div className="lg:col-span-2 space-y-8">
-              {/* Delivery */}
-              <div>
-                <h3 className="font-playfair text-2xl text-white mb-6">Delivery Details</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {[
-                    { name: 'name', label: 'Full Name', type: 'text', full: false },
-                    { name: 'phone', label: 'Phone Number', type: 'tel', full: false },
-                    { name: 'email', label: 'Email Address', type: 'email', full: true },
-                    { name: 'address', label: 'Delivery Address', type: 'text', full: true },
-                    { name: 'city', label: 'City', type: 'text', full: false },
-                    { name: 'state', label: 'State', type: 'text', full: false },
-                    { name: 'postal', label: 'Postal Code', type: 'text', full: false },
-                  ].map(field => (
-                    <div key={field.name} className={field.full ? 'sm:col-span-2' : ''}>
-                      <label className="block text-xs font-poppins text-gray-400 tracking-wider uppercase mb-2">{field.label}</label>
+          /* CHECKOUT */
+          <form onSubmit={handleOrder} className="flex flex-col lg:flex-row gap-6">
+
+            {/* FORM */}
+            <div className="flex-1 bg-white rounded-2xl border border-[#eee] p-5 sm:p-7">
+
+              <h2 className="text-[18px] sm:text-[20px] font-semibold text-[#1a1a1a] mb-5">Delivery Details</h2>
+
+              <div className="grid sm:grid-cols-2 gap-4 mb-6">
+                {[
+                  { name: 'name',  label: 'Full Name',    type: 'text'  },
+                  { name: 'phone', label: 'Phone Number', type: 'tel'   },
+                  { name: 'email', label: 'Email Address',type: 'email' },
+                  { name: 'city',  label: 'City',         type: 'text'  },
+                ].map((f) => (
+                  <input
+                    key={f.name}
+                    type={f.type}
+                    name={f.name}
+                    required
+                    value={form[f.name]}
+                    onChange={handleForm}
+                    placeholder={f.label}
+                    className="border border-[#ddd] px-4 py-3 rounded-xl outline-none focus:border-[#c8a96b] text-[14px] transition-colors"
+                  />
+                ))}
+                <textarea
+                  name="address"
+                  rows="3"
+                  required
+                  value={form.address}
+                  onChange={handleForm}
+                  placeholder="Delivery Address"
+                  className="sm:col-span-2 border border-[#ddd] px-4 py-3 rounded-xl outline-none focus:border-[#c8a96b] text-[14px] transition-colors resize-none"
+                />
+                <input
+                  type="text"
+                  name="postal"
+                  required
+                  value={form.postal}
+                  onChange={handleForm}
+                  placeholder="Postal Code"
+                  className="border border-[#ddd] px-4 py-3 rounded-xl outline-none focus:border-[#c8a96b] text-[14px] transition-colors"
+                />
+              </div>
+
+              {/* PAYMENT */}
+              <h3 className="text-[16px] sm:text-[18px] font-semibold text-[#1a1a1a] mb-4">Payment Method</h3>
+
+              <div className="grid sm:grid-cols-3 gap-3">
+                {[
+                  { value: 'upi',    label: 'UPI / GPay',     icon: <FiSmartphone size={20} />,  sub: 'PhonePe, GPay, Paytm' },
+                  { value: 'card',   label: 'Card Payment',   icon: <FiCreditCard size={20} />,  sub: 'Debit / Credit card'  },
+                  { value: 'cod',    label: 'Cash on Delivery',icon: <FiPackage size={20} />,    sub: 'Pay on delivery'      },
+                ].map((m) => (
+                  <button
+                    key={m.value}
+                    type="button"
+                    onClick={() => setPaymentMethod(m.value)}
+                    className={`border rounded-xl p-4 text-left transition-all duration-200 ${
+                      paymentMethod === m.value
+                        ? 'border-[#c8a96b] bg-[#c8a96b]/8'
+                        : 'border-[#eee] hover:border-[#c8a96b]/50'
+                    }`}
+                  >
+                    <div className={`mb-2 ${paymentMethod === m.value ? 'text-[#c8a96b]' : 'text-[#555]'}`}>{m.icon}</div>
+                    <p className="text-[13px] font-semibold text-[#1a1a1a]">{m.label}</p>
+                    <p className="text-[11px] text-[#888] mt-0.5">{m.sub}</p>
+                  </button>
+                ))}
+              </div>
+
+              {paymentMethod !== 'cod' && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  className="mt-4 bg-[#f8f3eb] border border-[#eee] rounded-xl p-4 overflow-hidden"
+                >
+                  {paymentMethod === 'upi' ? (
+                    <div className="space-y-3">
+                      <p className="text-[12px] text-[#888] uppercase tracking-wider font-semibold">Enter UPI ID</p>
                       <input
-                        type={field.type}
-                        name={field.name}
-                        value={form[field.name]}
-                        onChange={handleFormChange}
-                        required
-                        className="w-full bg-white/5 border border-white/15 text-white font-poppins text-sm px-4 py-3 focus:outline-none focus:border-gold transition-colors"
-                        placeholder={`Enter ${field.label.toLowerCase()}`}
+                        type="text"
+                        placeholder="yourname@upi"
+                        className="w-full border border-[#ddd] px-4 py-2.5 rounded-xl outline-none focus:border-[#c8a96b] text-[14px]"
                       />
                     </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Payment */}
-              <div>
-                <h3 className="font-playfair text-2xl text-white mb-6">Payment Method</h3>
-                <div className="flex gap-4">
-                  {[
-                    { value: 'online', label: 'Online Payment', icon: '💳' },
-                    { value: 'cod', label: 'Cash on Delivery', icon: '💵' },
-                  ].map(method => (
-                    <button
-                      key={method.value}
-                      type="button"
-                      onClick={() => setPaymentMethod(method.value)}
-                      className={`flex-1 flex items-center gap-3 p-4 border transition-all duration-300 ${
-                        paymentMethod === method.value ? 'border-gold bg-gold/10' : 'border-white/15 hover:border-gold/40'
-                      }`}
-                    >
-                      <span className="text-xl">{method.icon}</span>
-                      <span className="font-poppins text-sm text-white">{method.label}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
+                  ) : (
+                    <div className="space-y-3">
+                      <p className="text-[12px] text-[#888] uppercase tracking-wider font-semibold">Card Details</p>
+                      <input type="text" placeholder="Card Number" maxLength="19"
+                        className="w-full border border-[#ddd] px-4 py-2.5 rounded-xl outline-none focus:border-[#c8a96b] text-[14px]" />
+                      <div className="grid grid-cols-2 gap-3">
+                        <input type="text" placeholder="MM / YY"
+                          className="border border-[#ddd] px-4 py-2.5 rounded-xl outline-none focus:border-[#c8a96b] text-[14px]" />
+                        <input type="text" placeholder="CVV" maxLength="3"
+                          className="border border-[#ddd] px-4 py-2.5 rounded-xl outline-none focus:border-[#c8a96b] text-[14px]" />
+                      </div>
+                    </div>
+                  )}
+                </motion.div>
+              )}
             </div>
 
-            {/* Summary Sidebar */}
-            <div className="border border-gold/20 p-8 h-fit">
-              <h3 className="font-playfair text-xl text-white mb-4">Order ({items.length} items)</h3>
-              <div className="space-y-3 mb-6">
-                {items.map(item => (
-                  <div key={`${item.id}-${item.size}`} className="flex justify-between text-sm font-poppins text-gray-400">
-                    <span className="truncate flex-1 mr-2">{item.name} ×{item.quantity}</span>
-                    <span>₹{(item.price * item.quantity).toLocaleString()}</span>
+            {/* SUMMARY */}
+            <div className="lg:w-80 xl:w-96 bg-white rounded-2xl border border-[#eee] p-5 sm:p-6 h-fit lg:sticky lg:top-[80px]">
+              <h3 className="text-[17px] font-semibold text-[#1a1a1a] mb-4">Order Summary</h3>
+
+              <div className="space-y-3 border-b border-[#eee] pb-4 mb-4 text-[13px]">
+                {items.map((item) => (
+                  <div key={`${item.id}-${item.size}`} className="flex justify-between gap-3">
+                    <div>
+                      <p className="text-[#1a1a1a] font-medium text-[13px] leading-snug">{item.name}</p>
+                      <p className="text-[#888] text-[11px]">Qty: {item.quantity} · {item.size}</p>
+                    </div>
+                    <span className="text-[#c8a96b] font-semibold flex-shrink-0">₹{(item.price * item.quantity).toLocaleString()}</span>
                   </div>
                 ))}
               </div>
-              <div className="h-px bg-gold/15 mb-4" />
-              <div className="flex justify-between font-playfair text-lg text-white mb-8">
-                <span>Total</span>
-                <span className="text-gold">₹{(totalPrice + (totalPrice > 2000 ? 0 : 199) + Math.round(totalPrice * 0.05)).toLocaleString()}</span>
+
+              <div className="space-y-2 border-b border-[#eee] pb-4 mb-4 text-[13px] text-[#666]">
+                <div className="flex justify-between"><span>Subtotal</span><span>₹{totalPrice.toLocaleString()}</span></div>
+                <div className="flex justify-between"><span>Shipping</span><span>{shipping === 0 ? 'Free' : `₹${shipping}`}</span></div>
+                <div className="flex justify-between"><span>Tax (5%)</span><span>₹{tax.toLocaleString()}</span></div>
               </div>
-              <button type="submit" className="btn-gold w-full">Place Order</button>
-              <button type="button" onClick={() => setStep('cart')} className="block text-center text-gray-500 text-xs font-poppins mt-4 hover:text-gold transition-colors w-full">
-                ← Back to Cart
+
+              <div className="flex justify-between items-center mb-5">
+                <span className="text-[15px] font-semibold text-[#1a1a1a]">Total</span>
+                <span className="text-[20px] font-semibold text-[#c8a96b]">₹{finalTotal.toLocaleString()}</span>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full bg-[#111] hover:bg-[#c8a96b] text-white py-3.5 rounded-full text-[14px] font-semibold transition-all duration-300"
+              >
+                Place Order
+              </button>
+              <button
+                type="button"
+                onClick={() => setStep('cart')}
+                className="w-full mt-3 text-[13px] text-[#666] hover:text-[#c8a96b] transition py-2"
+              >
+                ← Back To Cart
               </button>
             </div>
           </form>
         )}
       </div>
     </div>
-  );
+  )
 }

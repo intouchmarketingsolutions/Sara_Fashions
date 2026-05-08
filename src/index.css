@@ -1,85 +1,272 @@
+/* src/index.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+/* -------------------------------- */
+/* ROOT VARIABLES */
+/* -------------------------------- */
+
+:root {
+  --primary: #111111;
+  --secondary: #f8f3eb;
+  --gold: #c8a96b;
+  --gold-dark: #b68b45;
+  --text: #1a1a1a;
+  --muted: #666666;
+  --border: #ececec;
+  --white: #ffffff;
+}
+
+/* -------------------------------- */
+/* GLOBAL RESET */
+/* -------------------------------- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--secondary);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* -------------------------------- */
+/* TYPOGRAPHY */
+/* -------------------------------- */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+p {
+  line-height: 1.7;
+}
+
+a {
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+button {
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+/* -------------------------------- */
+/* SCROLLBAR */
+/* -------------------------------- */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1ece3;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c8a96b;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b68b45;
+}
+
+/* -------------------------------- */
+/* TEXT SELECTION */
+/* -------------------------------- */
+
+::selection {
+  background: #c8a96b;
+  color: white;
+}
+
+/* -------------------------------- */
+/* INPUTS */
+/* -------------------------------- */
+
+input,
+textarea,
+select {
+  font-family: 'Inter', sans-serif;
+  background: white;
+  outline: none;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+/* -------------------------------- */
+/* IMAGES */
+/* -------------------------------- */
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* -------------------------------- */
+/* COMMON UTILITIES */
+/* -------------------------------- */
+
+.section-padding {
+  @apply py-20 md:py-28;
+}
+
+.container-custom {
+  @apply max-w-7xl mx-auto px-5 lg:px-10;
+}
+
+.gold-text {
+  color: var(--gold);
+}
+
+.gold-bg {
+  background: var(--gold);
+}
+
+.gold-border {
+  border-color: var(--gold);
+}
+
+/* -------------------------------- */
+/* BUTTONS */
+/* -------------------------------- */
+
+.btn-primary {
+  @apply bg-[#111111] text-white px-8 py-4 rounded-full shadow-xl transition-all duration-300;
+}
+
+.btn-primary:hover {
+  background: var(--gold);
+}
+
+.btn-outline {
+  @apply border border-[#c8a96b] text-[#111111] px-8 py-4 rounded-full transition-all duration-300;
+}
+
+.btn-outline:hover {
+  background: var(--gold);
+  color: white;
+}
+
+/* -------------------------------- */
+/* CARD STYLE */
+/* -------------------------------- */
+
+.card-luxury {
+  @apply bg-white rounded-[30px] border border-[#eee] shadow-sm;
+}
+
+/* -------------------------------- */
+/* ANIMATIONS */
+/* -------------------------------- */
+
+.fade-up {
+  animation: fadeUp 0.7s ease forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
   }
 
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    background-color: #000000;
-    color: #ffffff;
-    font-family: 'Poppins', sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #111;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #D4AF37;
-    border-radius: 3px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@layer components {
-  .gold-gradient {
-    background: linear-gradient(135deg, #D4AF37 0%, #F0D060 50%, #A8861C 100%);
+.float-animation {
+  animation: floating 5s ease-in-out infinite;
+}
+
+@keyframes floating {
+  0% {
+    transform: translateY(0px);
   }
 
-  .gold-text {
-    background: linear-gradient(135deg, #D4AF37, #F0D060, #A8861C);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  50% {
+    transform: translateY(-10px);
   }
 
-  .btn-gold {
-    @apply bg-gold text-black font-poppins font-semibold px-6 py-3 tracking-widest uppercase text-xs transition-all duration-300 hover:bg-gold-light hover:scale-105 active:scale-95;
-  }
-
-  .btn-outline-gold {
-    @apply border border-gold text-gold font-poppins font-semibold px-6 py-3 tracking-widest uppercase text-xs transition-all duration-300 hover:bg-gold hover:text-black;
-  }
-
-  .card-hover {
-    @apply transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl;
-  }
-
-  .section-title {
-    @apply font-playfair text-3xl md:text-4xl lg:text-5xl text-white tracking-wide;
-  }
-
-  .gold-divider {
-    @apply w-16 h-px bg-gold my-4;
-  }
-
-  .nav-link {
-    @apply text-gray-300 hover:text-gold transition-colors duration-300 font-poppins text-sm tracking-widest uppercase;
-  }
-
-  .overlay-dark {
-    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
+  100% {
+    transform: translateY(0px);
   }
 }
 
-/* Page transition */
-.page-enter {
-  opacity: 0;
-  transform: translateY(10px);
+/* -------------------------------- */
+/* TEXT CLAMP */
+/* -------------------------------- */
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
-.page-enter-active {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 400ms, transform 400ms;
+
+/* -------------------------------- */
+/* HIDE SCROLLBAR */
+/* -------------------------------- */
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* -------------------------------- */
+/* RESPONSIVE */
+/* -------------------------------- */
+
+@media (max-width: 768px) {
+
+  h1 {
+    line-height: 1.15;
+  }
+
+  section {
+    overflow: hidden;
+  }
+}
+
+/* -------------------------------- */
+/* REMOVE TAP HIGHLIGHT */
+/* -------------------------------- */
+
+button,
+a,
+div {
+  -webkit-tap-highlight-color: transparent;
 }

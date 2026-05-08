@@ -1,114 +1,136 @@
-import { Link } from 'react-router-dom';
-import { FiInstagram, FiFacebook, FiTwitter, FiYoutube } from 'react-icons/fi';
-import { BsWhatsapp } from 'react-icons/bs';
+// src/components/Footer.jsx
+
+import { Link } from 'react-router-dom'
+import {
+  FiInstagram,
+  FiFacebook,
+  FiMapPin,
+  FiPhone,
+  FiMail,
+} from 'react-icons/fi'
+
+import logo from '../assets/images/logo/Sara-logo.png'
 
 export default function Footer() {
   return (
-    <footer className="bg-charcoal border-t border-gold/15">
-      {/* Top Section */}
-      <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-        {/* Brand */}
+    <footer className="bg-[#111111] text-white">
+
+      {/* TOP */}
+      <div className="max-w-7xl mx-auto px-6 py-16 grid lg:grid-cols-4 gap-12">
+
+        {/* BRAND */}
         <div>
-          <div className="mb-6">
-            <span className="font-playfair text-3xl font-bold gold-text">SARA</span>
-            <p className="font-poppins text-[9px] tracking-[0.4em] text-gold/60 uppercase mt-0.5">Fashion</p>
+          <div className="flex items-center gap-3 mb-6">
+            <img
+              src={logo}
+              alt="Sara Central"
+              className="h-14 object-contain"
+            />
+
+            
           </div>
-          <p className="text-gray-400 text-sm font-poppins leading-relaxed mb-6">
-            Luxury fashion for those who demand the finest. Every thread tells a story of craftsmanship and elegance.
+
+          <p className="text-gray-400 leading-relaxed text-sm">
+            Exclusive women’s fashion boutique offering bridal wear,
+            designer sarees, tailoring services, and personal style
+            consultation.
           </p>
-          <div className="flex gap-4">
-            {[FiInstagram, FiFacebook, FiTwitter, FiYoutube].map((Icon, i) => (
-              <a key={i} href="#" className="w-9 h-9 border border-gold/30 flex items-center justify-center text-gold/70 hover:border-gold hover:text-gold hover:bg-gold/10 transition-all duration-300">
-                <Icon size={16} />
+
+          {/* SOCIAL */}
+          <div className="flex gap-4 mt-6">
+            {[FiInstagram, FiFacebook].map((Icon, i) => (
+              <a
+                key={i}
+                href="#"
+                className="w-10 h-10 rounded-full border border-[#d4af7a]/30 flex items-center justify-center hover:bg-[#d4af7a] hover:text-black transition-all duration-300"
+              >
+                <Icon size={17} />
               </a>
             ))}
           </div>
         </div>
 
-        {/* Categories */}
+        {/* QUICK LINKS */}
         <div>
-          <h4 className="font-playfair text-lg text-white mb-6 tracking-wide">Categories</h4>
-          <div className="h-px w-8 bg-gold mb-6" />
-          <ul className="space-y-3">
-            {['Women', 'Men', 'Kids', 'Wedding'].map(cat => (
-              <li key={cat}>
-                <Link to={`/${cat.toLowerCase()}`} className="text-gray-400 hover:text-gold transition-colors duration-300 text-sm font-poppins tracking-wide">
-                  {cat}
-                </Link>
-              </li>
-            ))}
+          <h3 className="text-lg font-semibold mb-6 text-[#d4af7a]">
+            Quick Links
+          </h3>
+
+          <ul className="space-y-4 text-gray-400">
+            <li>
+              <Link to="/" className="hover:text-[#d4af7a]">
+                Home
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/women" className="hover:text-[#d4af7a]">
+                Collections
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/tailoring" className="hover:text-[#d4af7a]">
+                Tailoring
+              </Link>
+            </li>
+
+            <li>
+              <Link to="/consultation" className="hover:text-[#d4af7a]">
+                Consultation
+              </Link>
+            </li>
           </ul>
         </div>
 
-        {/* Customer Care */}
+        {/* COLLECTIONS */}
         <div>
-          <h4 className="font-playfair text-lg text-white mb-6 tracking-wide">Customer Care</h4>
-          <div className="h-px w-8 bg-gold mb-6" />
-          <ul className="space-y-3">
-            {['Orders & Shipment', 'Returns & Exchange', 'Contact Us', 'FAQs', 'Check Gift Card Balance'].map(item => (
-              <li key={item}>
-                <a href="#" className="text-gray-400 hover:text-gold transition-colors duration-300 text-sm font-poppins tracking-wide">
-                  {item}
-                </a>
-              </li>
-            ))}
+          <h3 className="text-lg font-semibold mb-6 text-[#d4af7a]">
+            Collections
+          </h3>
+
+          <ul className="space-y-4 text-gray-400">
+            <li>Sarees</li>
+            <li>Bridal Wear</li>
+            <li>Lehengas</li>
+            <li>Kurtis</li>
           </ul>
         </div>
 
-        {/* Need Help */}
+        {/* CONTACT */}
         <div>
-          <h4 className="font-playfair text-lg text-white mb-6 tracking-wide">Need Help?</h4>
-          <div className="h-px w-8 bg-gold mb-6" />
-          <ul className="space-y-4">
-            <li>
-              <a href="#" className="text-gray-400 hover:text-gold transition-colors duration-300 text-sm font-poppins tracking-wide block">
-                Store Locator
-              </a>
-            </li>
-            <li>
-              <a href="mailto:hello@sarafashion.com" className="text-gray-400 hover:text-gold transition-colors duration-300 text-sm font-poppins tracking-wide block">
-                hello@sarafashion.com
-              </a>
-            </li>
-            <li>
-              <a href="https://wa.me/919999313366" className="flex items-center gap-2 text-gray-400 hover:text-gold transition-colors duration-300 text-sm font-poppins tracking-wide">
-                <BsWhatsapp size={15} />
-                +91 99993 13366
-              </a>
-            </li>
-          </ul>
+          <h3 className="text-lg font-semibold mb-6 text-[#d4af7a]">
+            Contact
+          </h3>
 
-          <div className="mt-8">
-            <p className="text-xs text-gray-500 font-poppins mb-3 tracking-wider uppercase">Newsletter</p>
-            <div className="flex">
-              <input
-                type="email"
-                placeholder="Your email"
-                className="flex-1 bg-white/5 border border-gold/20 text-white placeholder-gray-600 px-3 py-2 text-xs font-poppins focus:outline-none focus:border-gold transition-colors"
-              />
-              <button className="bg-gold text-black px-3 py-2 text-xs font-poppins font-semibold hover:bg-gold-light transition-colors">
-                →
-              </button>
+          <div className="space-y-5 text-gray-400 text-sm">
+
+            <div className="flex gap-3">
+              <FiMapPin className="mt-1 text-[#d4af7a]" />
+              <p>
+                Opp. KIA Showroom,
+                Near SBI Bank,
+                Udyavara, Udupi
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <FiPhone className="text-[#d4af7a]" />
+              <p>+91 9663098124</p>
+            </div>
+
+            <div className="flex gap-3">
+              <FiMail className="text-[#d4af7a]" />
+              <p>hello@saracentral.com</p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-gold/10 py-6 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-600 text-xs font-poppins tracking-wide">
-            © 2024 Sara Fashion. All rights reserved.
-          </p>
-          <div className="flex flex-wrap gap-6">
-            {['Corporate Information', 'Terms & Conditions', 'Privacy Policy', 'Cookie Policy', 'Shipping Policy'].map(item => (
-              <a key={item} href="#" className="text-gray-600 hover:text-gold/70 transition-colors duration-300 text-xs font-poppins tracking-wide">
-                {item}
-              </a>
-            ))}
-          </div>
-        </div>
+      {/* BOTTOM */}
+      <div className="border-t border-white/10 py-5 text-center text-sm text-gray-500">
+        © 2026 Sara Central. All rights reserved.
       </div>
     </footer>
-  );
+  )
 }
