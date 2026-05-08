@@ -102,11 +102,11 @@ export default function Navbar() {
         }`}
       >
         {/* ── TOP BAR ── */}
-        <div className="w-full pr-4 sm:pr-6 md:pr-8 lg:pr-12 pl-0">
-          <div className="flex items-center justify-between h-[58px] sm:h-[64px] lg:h-[70px]">
+        <div className="w-full px-0">
+          <div className="flex items-center justify-between h-[58px] sm:h-[64px] lg:h-[70px] pr-4 sm:pr-6 lg:pr-12">
 
             {/* LEFT — Logo */}
-            <Link to="/" className="flex items-center flex-shrink-0 pl-2">
+            <Link to="/" className="flex items-center flex-shrink-0">
               <img
                 src={logo}
                 alt="Sara Central"
