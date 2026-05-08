@@ -54,7 +54,7 @@ export default function HeroSection() {
 
   return (
     /* mt accounts for fixed navbar top-bar height */
-    <section className="relative w-full overflow-hidden bg-[#0d0d0d] mt-[58px] sm:mt-[64px] lg:mt-[70px]">
+    <section className="relative w-full overflow-hidden bg-[#f8f3eb] mt-[58px] sm:mt-[64px] lg:mt-[70px]">
 
       {/* ── IMAGE CONTAINER ── */}
       <div className="relative w-full h-[52vh] sm:h-[62vh] md:h-[75vh] lg:h-[88vh] xl:h-[93vh]">
@@ -76,7 +76,7 @@ export default function HeroSection() {
         </AnimatePresence>
 
         {/* subtle gradient so text pops without hiding the women */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10" />
 
         {/* ── TEXT — sits at bottom-left ── */}
         <div className="absolute inset-0 z-20 flex flex-col justify-end items-start pb-10 sm:pb-14 md:pb-16 lg:pb-20 px-5 sm:px-10 md:px-14 lg:px-20">
