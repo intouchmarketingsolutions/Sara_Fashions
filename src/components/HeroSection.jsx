@@ -1,7 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 
 import heroImage1 from '../assets/images/banners/banner.png'
 import heroImage2 from '../assets/images/banners/banner1.png'
@@ -116,24 +115,6 @@ export default function HeroSection() {
             </motion.div>
           </AnimatePresence>
         </div>
-
-        {/* ── PREV arrow ── */}
-        <button
-          onClick={prev}
-          aria-label="Previous"
-          className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white transition-all duration-300 hover:scale-110"
-        >
-          <FiChevronLeft size={18} />
-        </button>
-
-        {/* ── NEXT arrow ── */}
-        <button
-          onClick={next}
-          aria-label="Next"
-          className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-30 w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-sm border border-white/30 flex items-center justify-center text-white transition-all duration-300 hover:scale-110"
-        >
-          <FiChevronRight size={18} />
-        </button>
 
         {/* ── DOTS ── */}
         <div className="absolute bottom-4 sm:bottom-5 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2.5">
