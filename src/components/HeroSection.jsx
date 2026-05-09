@@ -12,7 +12,7 @@ const slides = [
     sub:     '',
     cta:     'Explore Collection',
     ctaLink: '/products',
-    pos:     'object-center object-top',
+    pos:     '50% 20%',
   },
   {
     image:   heroImage2,
@@ -20,7 +20,7 @@ const slides = [
     sub:     '',
     cta:     'Shop Now',
     ctaLink: '/products',
-    pos:     'object-center',
+    pos:     '50% 0%',
   },
 ]
 
@@ -56,7 +56,7 @@ export default function HeroSection() {
     <section className="relative w-full overflow-hidden bg-[#f8f3eb] mt-[58px] sm:mt-[64px] lg:mt-[70px] mb-0">
 
       {/* ── IMAGE CONTAINER ── */}
-      <div className="relative w-full h-[55vh] sm:h-[68vh] md:h-[75vh] lg:h-[82vh] xl:h-[88vh]">
+      <div className="relative w-full h-[70vh] sm:h-[72vh] md:h-[78vh] lg:h-[85vh] xl:h-[90vh]">
 
         {/* sliding image */}
         <AnimatePresence custom={dir} mode="sync">
@@ -70,7 +70,8 @@ export default function HeroSection() {
             animate="center"
             exit="exit"
             transition={{ duration: 0.75, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className={`absolute inset-0 w-full h-full object-cover ${slide.pos} select-none`}
+            className="absolute inset-0 w-full h-full object-cover select-none"
+            style={{ objectPosition: slide.pos }}
           />
         </AnimatePresence>
 
