@@ -15,18 +15,22 @@ import kurtiImg   from '../assets/images/categories/kurti.jpg'
 import gownImg    from '../assets/images/categories/gown.jpg'
 import westernImg from '../assets/images/categories/western.jpg'
 import shararaImg from '../assets/images/categories/Sharara.jpg'
-import p1Img        from '../assets/images/products/p1.jpg'
-import p2Img        from '../assets/images/products/p2.jpg'
+import p1Img         from '../assets/images/products/p1.jpg'
+import p2Img         from '../assets/images/products/p2.jpg'
+import partyWearImg  from '../assets/images/categories/party wear.jpg'
+import officeWearImg from '../assets/images/categories/Office wear.jpg'
 
 const categories = [
-  { name: 'Sarees',    image: sareeImg,   pos: 'object-top' },
-  { name: 'Lehengas',  image: lehengaImg, pos: 'object-top' },
-  { name: 'Kurtis',    image: kurtiImg,   pos: 'object-top' },
-  { name: 'Gowns',     image: gownImg,    pos: 'object-top' },
-  { name: 'Western',   image: westernImg, pos: 'object-top' },
-  { name: 'Sharara',   image: shararaImg, pos: 'object-top' },
-  { name: 'Bridal',    image: p1Img,      pos: 'object-top' },
-  { name: 'Ethnic',    image: p2Img,      pos: 'object-top' },
+  { name: 'Sarees',      image: sareeImg,      pos: 'object-top' },
+  { name: 'Lehengas',    image: lehengaImg,    pos: 'object-top' },
+  { name: 'Kurtis',      image: kurtiImg,      pos: 'object-top' },
+  { name: 'Gowns',       image: gownImg,       pos: 'object-top' },
+  { name: 'Western',     image: westernImg,    pos: 'object-top' },
+  { name: 'Sharara',     image: shararaImg,    pos: 'object-top' },
+  { name: 'Bridal',      image: p1Img,         pos: 'object-top' },
+  { name: 'Ethnic',      image: p2Img,         pos: 'object-top' },
+  { name: 'Party Wear',  image: partyWearImg,  pos: 'object-top' },
+  { name: 'Office Wear', image: officeWearImg, pos: 'object-top' },
 ]
 
 const navLinks = [
