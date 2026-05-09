@@ -56,7 +56,7 @@ export default function HeroSection() {
     <section className="relative w-full overflow-hidden bg-[#f8f3eb] mt-[58px] sm:mt-[64px] lg:mt-[70px]">
 
       {/* ── IMAGE CONTAINER ── */}
-      <div className="relative w-full h-[52vh] sm:h-[62vh] md:h-[75vh] lg:h-[88vh] xl:h-[93vh]">
+      <div className="relative w-full h-[52vh] sm:h-[62vh] md:h-[65vh] lg:h-[70vh] xl:h-[75vh]">
 
         {/* sliding image */}
         <AnimatePresence custom={dir} mode="sync">
@@ -70,7 +70,7 @@ export default function HeroSection() {
             animate="center"
             exit="exit"
             transition={{ duration: 0.75, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="absolute inset-0 w-full h-full object-contain lg:object-cover lg:object-top select-none"
+            className="absolute inset-0 w-full h-full object-contain object-center select-none"
           />
         </AnimatePresence>
 
