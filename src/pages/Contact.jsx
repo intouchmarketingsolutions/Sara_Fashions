@@ -1,12 +1,22 @@
 import { motion } from 'framer-motion'
-import { FiMapPin, FiPhone, FiClock, FiMail, FiInstagram, FiFacebook } from 'react-icons/fi'
+import { FiMapPin, FiPhone, FiClock, FiMail, FiInstagram, FiFacebook, FiArrowLeft } from 'react-icons/fi'
+import { useNavigate } from 'react-router-dom'
 
 export default function Contact() {
+  const navigate = useNavigate()
   return (
     <div className="bg-[#f8f3eb] overflow-hidden min-h-screen">
 
       <section className="pt-[70px] sm:pt-[76px] lg:pt-[82px] pb-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+
+          {/* BACK BUTTON */}
+          <button
+            onClick={() => navigate(-1)}
+            className="flex items-center gap-2 text-[#666] hover:text-[#c8a96b] transition-colors mb-5 mt-4 text-[14px] font-medium"
+          >
+            <FiArrowLeft size={16} /> Back to Home
+          </button>
 
           {/* HEADER */}
           <motion.div

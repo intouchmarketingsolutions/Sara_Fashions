@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
-import { FiCheck, FiScissors, FiClock, FiAward } from 'react-icons/fi'
-import { Link } from 'react-router-dom'
+import { FiCheck, FiScissors, FiClock, FiAward, FiArrowLeft } from 'react-icons/fi'
+import { Link, useNavigate } from 'react-router-dom'
 import tailoringImage from '../assets/images/categories/tailoring.jpg'
 
 const services = [
@@ -16,11 +16,22 @@ const process = [
 ]
 
 export default function Tailoring() {
+  const navigate = useNavigate()
   return (
     <div className="bg-[#f8f3eb] overflow-hidden">
 
+      {/* BACK BUTTON */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-[78px] sm:pt-[84px] lg:pt-[90px]">
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-2 text-[#666] hover:text-[#c8a96b] transition-colors text-[14px] font-medium"
+        >
+          <FiArrowLeft size={16} /> Back to Home
+        </button>
+      </div>
+
       {/* HERO */}
-      <section className="pt-[70px] sm:pt-[76px] lg:pt-[82px] pb-10 sm:pb-12">
+      <section className="pt-4 pb-10 sm:pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-14 items-center">
 

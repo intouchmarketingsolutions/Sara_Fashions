@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { FiStar, FiShoppingBag, FiHeart, FiMinus, FiPlus, FiCheck } from 'react-icons/fi'
+import { FiStar, FiShoppingBag, FiHeart, FiMinus, FiPlus, FiCheck, FiArrowLeft } from 'react-icons/fi'
 
 import { allProducts } from '../data/products'
 import { useCart } from '../context/CartContext'
@@ -16,6 +16,7 @@ const reviews = [
 export default function ProductDetail() {
   const { id } = useParams()
   const { addItem } = useCart()
+  const navigate = useNavigate()
 
   const product = allProducts.find((p) => p.id === id)
 
@@ -61,6 +62,14 @@ export default function ProductDetail() {
 
       <section className="pt-[70px] sm:pt-[76px] lg:pt-[82px] pb-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+
+          {/* BACK BUTTON */}
+          <button
+            onClick={() => navigate(-1)}
+            className="flex items-center gap-2 text-[#666] hover:text-[#c8a96b] transition-colors mb-5 mt-4 text-[14px] font-medium"
+          >
+            <FiArrowLeft size={16} /> Back to Collection
+          </button>
 
           {/* PRODUCT GRID */}
           <div className="grid lg:grid-cols-2 gap-6 lg:gap-12">

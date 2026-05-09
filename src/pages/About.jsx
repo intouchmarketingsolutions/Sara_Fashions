@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
-import { FiAward, FiHeart, FiScissors, FiUsers } from 'react-icons/fi'
+import { FiAward, FiHeart, FiScissors, FiUsers, FiArrowLeft } from 'react-icons/fi'
+import { useNavigate } from 'react-router-dom'
 
 import heroImage    from '../assets/images/categories/saree.jpg'
 import boutiqueImage from '../assets/images/categories/lehenga.jpg'
@@ -12,11 +13,22 @@ const values = [
 ]
 
 export default function About() {
+  const navigate = useNavigate()
   return (
     <div className="bg-[#f8f3eb] overflow-hidden min-h-screen">
 
+      {/* BACK BUTTON */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-[78px] sm:pt-[84px] lg:pt-[90px]">
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-2 text-[#666] hover:text-[#c8a96b] transition-colors text-[14px] font-medium"
+        >
+          <FiArrowLeft size={16} /> Back to Home
+        </button>
+      </div>
+
       {/* HERO */}
-      <section className="relative pt-[70px] sm:pt-[76px] lg:pt-[82px] pb-10 sm:pb-14">
+      <section className="relative pt-4 pb-10 sm:pb-14">
         <div className="absolute inset-0 bg-gradient-to-br from-[#f8f3eb] via-[#fdfaf6] to-[#efe5d6]" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
