@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import consultationImage from '../assets/images/categories/western.jpg'
+import consultationImage from '../assets/images/categories/consultation.jpg'
 
 const features = [
   'Occasion Styling',

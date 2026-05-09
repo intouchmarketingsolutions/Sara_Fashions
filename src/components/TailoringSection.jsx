@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import tailoringImage from '../assets/images/categories/kurti.jpg'
+import tailoringImage from '../assets/images/categories/tailoring.jpg'
 
 const features = [
   'Custom Measurements',
