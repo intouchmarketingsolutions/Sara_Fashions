@@ -2,13 +2,6 @@ import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import tailoringImage from '../assets/images/categories/tailoring.jpg'
 
-const features = [
-  'Custom Measurements',
-  'Bridal Alterations',
-  'Boutique Finishing',
-  'Timely Delivery',
-]
-
 export default function TailoringSection() {
   return (
     <section className="bg-[#f8f3eb] py-10 md:py-16 overflow-hidden">
@@ -44,18 +37,13 @@ export default function TailoringSection() {
               Custom Tailoring<br />With Perfect Fit
             </h2>
 
-            <p className="text-[#666] text-[15px] leading-relaxed mb-7">
-              From bridal elegance to everyday sophistication, our tailoring ensures every outfit is crafted to complement your style and comfort.
+            <p className="text-[#666] text-[15px] leading-relaxed mb-4">
+              At Sara, tailoring is more than stitching — it is the art of making you feel beautiful. Our boutique studio specialises in crafting garments that honour your measurements, your taste, and your occasion.
             </p>
 
-            <div className="grid grid-cols-2 gap-3 mb-7">
-              {features.map((item, i) => (
-                <div key={i} className="flex items-center gap-2.5 bg-white px-4 py-3 rounded-xl border border-[#eee]">
-                  <div className="w-2 h-2 rounded-full bg-[#c8a96b] flex-shrink-0" />
-                  <span className="text-[#222] text-[13px] font-medium">{item}</span>
-                </div>
-              ))}
-            </div>
+            <p className="text-[#666] text-[15px] leading-relaxed mb-7">
+              From custom measurements and designer blouse stitching to bridal alterations and premium finishing, every piece is handled with care and delivered with elegance — exactly when you need it.
+            </p>
 
             <Link to="/tailoring">
               <button className="bg-[#111] hover:bg-[#c8a96b] text-white px-7 py-3 rounded-full text-[14px] font-semibold transition-all duration-300">
