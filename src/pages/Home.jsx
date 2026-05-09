@@ -61,7 +61,7 @@ export default function Home() {
 
           <div className="text-center mb-8 sm:mb-10">
             <h2 className="text-[26px] sm:text-[32px] md:text-[38px] font-semibold text-[#1a1a1a]">
-              Why Women Choose Us
+              The Sara Central <span className="text-[#b68b45]">Experience</span>
             </h2>
           </div>
 
