@@ -1,6 +1,8 @@
 // src/data/products.js
 import kanjImg1 from '../assets/images/categories/Kanjeevaram Wedding Saree.jpg'
 import kanjImg2 from '../assets/images/categories/Kanjeevaram Wedding Saree1.jpg'
+import softSilkImg from '../assets/images/categories/Soft Silk Festive Saree.jpg'
+import designerPartImg from '../assets/images/categories/Designer part images.jpg'
 
 export const womenProducts = [
 
@@ -63,7 +65,7 @@ export const womenProducts = [
     subcategory: 'Sarees',
     price: 8999,
     rating: 4.7,
-    image: 'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=800&q=80',
+    image: designerPartImg,
     description: 'Modern designer saree with elegant styling and premium finishing.',
     tags: ['saree', 'party', 'designer', 'modern', 'elegant'],
     details: {
@@ -87,7 +89,7 @@ export const womenProducts = [
     subcategory: 'Sarees',
     price: 7499,
     rating: 4.6,
-    image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&q=80',
+    image: softSilkImg,
     description: 'Soft silk saree crafted for festive elegance and comfortable wear.',
     tags: ['saree', 'silk', 'festive', 'soft', 'comfortable'],
     details: {
