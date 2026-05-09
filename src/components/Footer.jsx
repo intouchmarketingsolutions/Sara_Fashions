@@ -107,24 +107,25 @@ export default function Footer() {
 
           <div className="space-y-5 text-gray-400 text-sm">
 
-            <div className="flex gap-3">
-              <FiMapPin className="mt-1 text-[#d4af7a]" />
-              <p>
-                Opp. KIA Showroom,
-                Near SBI Bank,
-                Udyavara, Udupi
-              </p>
-            </div>
+            <a
+              href="https://maps.google.com/?q=Opp+KIA+Showroom+Near+SBI+Bank+Udyavara+Udupi"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex gap-3 hover:text-[#d4af7a] transition-colors"
+            >
+              <FiMapPin className="mt-1 text-[#d4af7a] flex-shrink-0" />
+              <p>Opp. KIA Showroom,<br />Near SBI Bank,<br />Udyavara, Udupi</p>
+            </a>
 
-            <div className="flex gap-3">
-              <FiPhone className="text-[#d4af7a]" />
+            <a href="tel:+919663098124" className="flex gap-3 hover:text-[#d4af7a] transition-colors">
+              <FiPhone className="text-[#d4af7a] flex-shrink-0" />
               <p>+91 9663098124</p>
-            </div>
+            </a>
 
-            <div className="flex gap-3">
-              <FiMail className="text-[#d4af7a]" />
+            <a href="mailto:hello@saracentral.com" className="flex gap-3 hover:text-[#d4af7a] transition-colors">
+              <FiMail className="text-[#d4af7a] flex-shrink-0" />
               <p>hello@saracentral.com</p>
-            </div>
+            </a>
           </div>
         </div>
       </div>
