@@ -297,7 +297,7 @@ export default function ProductDetail() {
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: showSticky ? 0 : 100, opacity: showSticky ? 1 : 0 }}
         transition={{ duration: 0.3 }}
-        className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-[#eee] shadow-2xl px-4 py-3 flex items-center gap-3"
+        className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-[#eee] shadow-2xl px-4 py-3 pr-20 flex items-center gap-3"
       >
         <img src={product.image} alt={product.name} className="w-12 h-12 rounded-xl object-cover object-top flex-shrink-0" />
         <div className="flex-1 min-w-0">
