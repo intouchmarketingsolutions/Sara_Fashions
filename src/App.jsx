@@ -33,6 +33,7 @@ import Women from './pages/Women'
 import ProductDetail from './pages/ProductDetail'
 import Cart from './pages/Cart'
 import Login from './pages/Login'
+import MyOrders from './pages/MyOrders'
 import Tailoring from './pages/Tailoring'
 import Consultation from './pages/Consultation'
 import Contact from './pages/Contact'
@@ -108,6 +109,9 @@ function AppRoutes() {
 
         {/* LOGIN */}
         <Route path="/login" element={<Login />} />
+
+        {/* MY ORDERS */}
+        <Route path="/my-orders" element={<MyOrders />} />
 
         {/* FALLBACK ROUTE */}
         <Route path="*" element={<Home />} />

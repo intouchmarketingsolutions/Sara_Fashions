@@ -37,7 +37,14 @@ export default function Cart() {
       tax,
       finalTotal,
       user,
+      status: 'Confirmed',
     }
+
+    // Save to user's order history
+    const key = `sara_orders_${user?.phone || 'guest'}`
+    const existing = JSON.parse(localStorage.getItem(key) || '[]')
+    localStorage.setItem(key, JSON.stringify([receipt, ...existing]))
+
     setOrderData(receipt)
     setStep('success')
     clearCart()

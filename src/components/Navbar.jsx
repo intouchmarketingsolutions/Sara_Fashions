@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   FiSearch, FiX, FiShoppingCart, FiMenu,
-  FiChevronDown, FiChevronRight, FiUser, FiLogOut,
+  FiChevronDown, FiChevronRight, FiUser, FiLogOut, FiPackage,
 } from 'react-icons/fi'
 import { useCart } from '../context/CartContext'
 import { useAuth } from '../context/AuthContext'
@@ -227,11 +227,18 @@ export default function Navbar() {
                   </Link>
                 )}
                 {userMenu && user && (
-                  <div className="absolute right-0 top-full mt-2 bg-white rounded-2xl shadow-xl border border-[#eee] py-2 min-w-[160px] z-50">
+                  <div className="absolute right-0 top-full mt-2 bg-white rounded-2xl shadow-xl border border-[#eee] py-2 min-w-[180px] z-50">
                     <div className="px-4 py-2 border-b border-[#eee]">
                       <p className="text-[13px] font-semibold text-[#1a1a1a]">{user.name}</p>
                       <p className="text-[11px] text-[#888]">+91 {user.phone}</p>
                     </div>
+                    <Link
+                      to="/my-orders"
+                      onClick={() => setUserMenu(false)}
+                      className="w-full flex items-center gap-2 px-4 py-2.5 text-[13px] text-[#333] hover:bg-[#f8f3eb] hover:text-[#c8a96b] transition-colors"
+                    >
+                      <FiPackage size={14} /> My Orders
+                    </Link>
                     <button
                       onClick={() => { logout(); setUserMenu(false) }}
                       className="w-full flex items-center gap-2 px-4 py-2.5 text-[13px] text-red-500 hover:bg-red-50 transition-colors"
@@ -489,6 +496,19 @@ export default function Navbar() {
                   </span>
                   <FiChevronRight size={16} className="text-[#ccc]" />
                 </Link>
+
+                {user && (
+                  <Link
+                    to="/my-orders"
+                    onClick={() => setMobileOpen(false)}
+                    className="flex items-center justify-between px-4 py-3 rounded-xl text-[15px] font-semibold text-[#222] hover:bg-[#f8f3eb] hover:text-[#c8a96b] transition-all"
+                  >
+                    <span className="flex items-center gap-2">
+                      <FiPackage size={16} /> My Orders
+                    </span>
+                    <FiChevronRight size={16} className="text-[#ccc]" />
+                  </Link>
+                )}
               </nav>
 
               {/* drawer categories */}

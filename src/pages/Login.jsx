@@ -11,14 +11,13 @@ export default function Login() {
   const [params]        = useSearchParams()
   const redirect        = params.get('redirect') || '/'
 
-  const [step,    setStep]    = useState('phone') // phone | otp | name
+  const [step,    setStep]    = useState('phone')
   const [phone,   setPhone]   = useState('')
   const [otp,     setOtp]     = useState(['', '', '', ''])
   const [genOtp,  setGenOtp]  = useState('')
   const [name,    setName]    = useState('')
   const [error,   setError]   = useState('')
   const [loading, setLoading] = useState(false)
-  const [otpSent, setOtpSent] = useState(false)
 
   const otpRefs = [useRef(), useRef(), useRef(), useRef()]
 
@@ -32,11 +31,7 @@ export default function Login() {
     setLoading(true)
     const code = String(Math.floor(1000 + Math.random() * 9000))
     setGenOtp(code)
-    setTimeout(() => {
-      setLoading(false)
-      setOtpSent(true)
-      setStep('otp')
-    }, 1000)
+    setTimeout(() => { setLoading(false); setStep('otp') }, 1000)
   }
 
   const handleOtpChange = (val, idx) => {
@@ -54,7 +49,6 @@ export default function Login() {
     const entered = otp.join('')
     if (entered.length !== 4) { setError('Enter the 4-digit OTP'); return }
     if (entered !== genOtp)   { setError('Incorrect OTP. Please try again.'); return }
-    // check if returning user
     const existing = JSON.parse(localStorage.getItem(`sara_user_${phone}`) || 'null')
     if (existing) { login(existing); return }
     setStep('name')
@@ -74,27 +68,36 @@ export default function Login() {
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-sm bg-white rounded-2xl shadow-xl border border-[#eee] overflow-hidden"
+        className="w-full max-w-[400px] bg-white rounded-3xl shadow-2xl border border-[#e8e0d4] overflow-hidden"
       >
-        {/* Header */}
-        <div className="bg-[#111] px-6 py-6 text-center">
-          <img src={logo} alt="Sara Central" className="h-10 w-auto object-contain mx-auto mb-2 brightness-0 invert" />
-          <p className="text-white/70 text-[13px]">Sign in to your account</p>
+
+        {/* ── Header ── */}
+        <div className="bg-[#111] px-6 pt-8 pb-7 flex flex-col items-center justify-center gap-3">
+          <img
+            src={logo}
+            alt="Sara Central"
+            className="h-14 w-auto object-contain mx-auto block"
+          />
+          <div className="w-10 h-px bg-[#c8a96b]/50" />
+          <p className="text-[#c8a96b] text-[13px] font-semibold tracking-wide">Sign in to your account</p>
         </div>
 
-        <div className="px-6 py-7">
+        {/* ── Form Area ── */}
+        <div className="px-7 py-8">
           <AnimatePresence mode="wait">
 
             {/* STEP 1 — Phone */}
             {step === 'phone' && (
               <motion.div key="phone" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                <h2 className="text-[18px] font-semibold text-[#1a1a1a] mb-1">Enter Phone Number</h2>
-                <p className="text-[#888] text-[13px] mb-5">We'll send an OTP to verify your number</p>
+                <div className="text-center mb-6">
+                  <h2 className="text-[20px] font-bold text-[#1a1a1a] mb-1">Enter Phone Number</h2>
+                  <p className="text-[#888] text-[13px]">We'll send an OTP to verify your number</p>
+                </div>
                 <form onSubmit={sendOtp} className="space-y-4">
                   <div className="flex items-center border border-[#ddd] rounded-xl overflow-hidden focus-within:border-[#c8a96b] transition-colors">
-                    <div className="px-3 py-3 bg-[#f8f3eb] border-r border-[#ddd] flex items-center gap-1.5">
+                    <div className="px-3 py-3.5 bg-[#f8f3eb] border-r border-[#ddd] flex items-center gap-2">
                       <FiPhone size={15} className="text-[#888]" />
-                      <span className="text-[13px] text-[#555] font-medium">+91</span>
+                      <span className="text-[13px] text-[#555] font-semibold">+91</span>
                     </div>
                     <input
                       type="tel"
@@ -103,14 +106,14 @@ export default function Login() {
                       placeholder="10-digit mobile number"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
-                      className="flex-1 px-3 py-3 text-[14px] outline-none bg-white"
+                      className="flex-1 px-3 py-3.5 text-[14px] outline-none bg-white placeholder-[#bbb]"
                     />
                   </div>
-                  {error && <p className="text-red-500 text-[12px]">{error}</p>}
+                  {error && <p className="text-red-500 text-[12px] text-center">{error}</p>}
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-[#111] hover:bg-[#c8a96b] text-white py-3 rounded-full text-[14px] font-semibold transition-all duration-300 flex items-center justify-center gap-2"
+                    className="w-full bg-[#c8a96b] hover:bg-[#b8944f] text-white py-3.5 rounded-full text-[14px] font-semibold transition-all duration-300 flex items-center justify-center gap-2"
                   >
                     {loading ? 'Sending OTP…' : <><span>Send OTP</span><FiArrowRight size={15} /></>}
                   </button>
@@ -121,10 +124,12 @@ export default function Login() {
             {/* STEP 2 — OTP */}
             {step === 'otp' && (
               <motion.div key="otp" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                <h2 className="text-[18px] font-semibold text-[#1a1a1a] mb-1">Enter OTP</h2>
-                <p className="text-[#888] text-[13px] mb-1">Sent to <span className="text-[#1a1a1a] font-medium">+91 {phone}</span></p>
-                <div className="bg-[#f8f3eb] border border-[#e8dfc9] rounded-xl px-4 py-2.5 mb-5">
-                  <p className="text-[12px] text-[#888]">Demo OTP: <span className="text-[#b68b45] font-bold tracking-widest text-[15px]">{genOtp}</span></p>
+                <div className="text-center mb-6">
+                  <h2 className="text-[20px] font-bold text-[#1a1a1a] mb-1">Enter OTP</h2>
+                  <p className="text-[#888] text-[13px]">Sent to <span className="text-[#1a1a1a] font-semibold">+91 {phone}</span></p>
+                </div>
+                <div className="bg-[#f8f3eb] border border-[#e8dfc9] rounded-xl px-4 py-2.5 mb-6 text-center">
+                  <p className="text-[12px] text-[#888]">Demo OTP: <span className="text-[#b68b45] font-bold tracking-[6px] text-[16px]">{genOtp}</span></p>
                 </div>
                 <form onSubmit={verifyOtp} className="space-y-5">
                   <div className="flex gap-3 justify-center">
@@ -138,19 +143,22 @@ export default function Login() {
                         value={digit}
                         onChange={(e) => handleOtpChange(e.target.value, i)}
                         onKeyDown={(e) => { if (e.key === 'Backspace' && !otp[i] && i > 0) otpRefs[i-1].current?.focus() }}
-                        className="w-13 h-13 w-[52px] h-[52px] border-2 border-[#ddd] focus:border-[#c8a96b] rounded-xl text-center text-[20px] font-semibold outline-none transition-colors"
+                        className="w-[56px] h-[56px] border-2 border-[#ddd] focus:border-[#c8a96b] rounded-xl text-center text-[22px] font-bold outline-none transition-colors bg-[#fafafa]"
                       />
                     ))}
                   </div>
                   {error && <p className="text-red-500 text-[12px] text-center">{error}</p>}
                   <button
                     type="submit"
-                    className="w-full bg-[#111] hover:bg-[#c8a96b] text-white py-3 rounded-full text-[14px] font-semibold transition-all duration-300"
+                    className="w-full bg-[#c8a96b] hover:bg-[#b8944f] text-white py-3.5 rounded-full text-[14px] font-semibold transition-all duration-300"
                   >
                     Verify OTP
                   </button>
-                  <button type="button" onClick={() => { setStep('phone'); setOtp(['','','','']); setError('') }}
-                    className="w-full text-[13px] text-[#888] hover:text-[#c8a96b] transition-colors">
+                  <button
+                    type="button"
+                    onClick={() => { setStep('phone'); setOtp(['','','','']); setError('') }}
+                    className="w-full text-[13px] text-[#888] hover:text-[#c8a96b] transition-colors text-center"
+                  >
                     ← Change Number
                   </button>
                 </form>
@@ -160,11 +168,13 @@ export default function Login() {
             {/* STEP 3 — Name */}
             {step === 'name' && (
               <motion.div key="name" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                <h2 className="text-[18px] font-semibold text-[#1a1a1a] mb-1">Create Account</h2>
-                <p className="text-[#888] text-[13px] mb-5">Almost there! Tell us your name</p>
+                <div className="text-center mb-6">
+                  <h2 className="text-[20px] font-bold text-[#1a1a1a] mb-1">Create Account</h2>
+                  <p className="text-[#888] text-[13px]">Almost there! Tell us your name</p>
+                </div>
                 <form onSubmit={register} className="space-y-4">
                   <div className="flex items-center border border-[#ddd] rounded-xl overflow-hidden focus-within:border-[#c8a96b] transition-colors">
-                    <div className="px-3 py-3 bg-[#f8f3eb] border-r border-[#ddd]">
+                    <div className="px-3 py-3.5 bg-[#f8f3eb] border-r border-[#ddd]">
                       <FiUser size={15} className="text-[#888]" />
                     </div>
                     <input
@@ -172,13 +182,13 @@ export default function Login() {
                       placeholder="Your full name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="flex-1 px-3 py-3 text-[14px] outline-none bg-white"
+                      className="flex-1 px-3 py-3.5 text-[14px] outline-none bg-white placeholder-[#bbb]"
                     />
                   </div>
-                  {error && <p className="text-red-500 text-[12px]">{error}</p>}
+                  {error && <p className="text-red-500 text-[12px] text-center">{error}</p>}
                   <button
                     type="submit"
-                    className="w-full bg-[#c8a96b] hover:bg-[#111] text-white py-3 rounded-full text-[14px] font-semibold transition-all duration-300 flex items-center justify-center gap-2"
+                    className="w-full bg-[#c8a96b] hover:bg-[#b8944f] text-white py-3.5 rounded-full text-[14px] font-semibold transition-all duration-300 flex items-center justify-center gap-2"
                   >
                     <FiCheck size={15} /> Create Account
                   </button>
@@ -188,6 +198,7 @@ export default function Login() {
 
           </AnimatePresence>
         </div>
+
       </motion.div>
     </div>
   )
