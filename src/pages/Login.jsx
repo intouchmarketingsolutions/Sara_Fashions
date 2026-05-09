@@ -72,13 +72,13 @@ export default function Login() {
       >
 
         {/* ── Header ── */}
-        <div className="bg-[#111] px-6 pt-8 pb-7 flex flex-col items-center justify-center gap-3">
+        <div className="bg-[#111] py-8 text-center w-full">
           <img
             src={logo}
             alt="Sara Central"
-            className="h-14 w-auto object-contain mx-auto block"
+            className="h-14 object-contain mx-auto"
           />
-          <div className="w-10 h-px bg-[#c8a96b]/50" />
+          <div className="w-10 h-px bg-[#c8a96b]/50 mx-auto mt-4 mb-3" />
           <p className="text-[#c8a96b] text-[13px] font-semibold tracking-wide">Sign in to your account</p>
         </div>
 
