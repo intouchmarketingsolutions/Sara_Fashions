@@ -16,34 +16,52 @@ function matchScore(product, q) {
   return score
 }
 
+function filterByCategory(category) {
+  const cat = category.toLowerCase().trim()
+  return allProducts.filter(p =>
+    p.subcategory.toLowerCase() === cat ||
+    (p.tags || []).some(t => t.toLowerCase().includes(cat))
+  )
+}
+
 export default function Products({ embedded = false }) {
   const location = useLocation()
   const params   = new URLSearchParams(location.search)
   const query    = params.get('search') || ''
+  const category = params.get('category') || ''
 
   const { exact, related } = useMemo(() => {
-    if (!query.trim()) return { exact: allProducts, related: [] }
+    // Category filter
+    if (category.trim() && !query.trim()) {
+      const filtered = filterByCategory(category)
+      return { exact: filtered, related: [] }
+    }
 
-    const scored = allProducts
-      .map(p => ({ ...p, _score: matchScore(p, query) }))
-      .filter(p => p._score > 0)
-      .sort((a, b) => b._score - a._score)
+    // Search filter
+    if (query.trim()) {
+      const scored = allProducts
+        .map(p => ({ ...p, _score: matchScore(p, query) }))
+        .filter(p => p._score > 0)
+        .sort((a, b) => b._score - a._score)
 
-    const exactMatches = scored.filter(p => p._score >= 5)
-    const exactIds     = new Set(exactMatches.map(p => p.id))
+      const exactMatches = scored.filter(p => p._score >= 5)
+      const exactIds     = new Set(exactMatches.map(p => p.id))
+      const relatedSubcats = new Set(exactMatches.map(p => p.subcategory))
+      const relatedItems = allProducts.filter(
+        p => !exactIds.has(p.id) && relatedSubcats.has(p.subcategory)
+      )
+      return { exact: exactMatches, related: relatedItems }
+    }
 
-    // related = same subcategory as exact matches but not already shown
-    const relatedSubcats = new Set(exactMatches.map(p => p.subcategory))
-    const relatedItems = allProducts.filter(
-      p => !exactIds.has(p.id) && relatedSubcats.has(p.subcategory)
-    )
+    return { exact: allProducts, related: [] }
+  }, [query, category])
 
-    return { exact: exactMatches, related: relatedItems }
-  }, [query])
+  const topPadding = !embedded ? 'pt-[64px] sm:pt-[70px] lg:pt-[76px]' : ''
 
-  if (!query.trim()) {
+  // All products (no filter)
+  if (!query.trim() && !category.trim()) {
     return (
-      <div className={`bg-[#f8f3eb] min-h-screen ${!embedded ? 'pt-[64px] sm:pt-[70px] lg:pt-[76px]' : ''}`}>
+      <div className={`bg-[#f8f3eb] min-h-screen ${topPadding}`}>
         <section className="px-4 sm:px-6 lg:px-10 py-8 md:py-12 max-w-7xl mx-auto">
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
             {allProducts.map((product, i) => (
@@ -56,20 +74,30 @@ export default function Products({ embedded = false }) {
   }
 
   return (
-    <div className={`bg-[#f8f3eb] min-h-screen ${!embedded ? 'pt-[64px] sm:pt-[70px] lg:pt-[76px]' : ''}`}>
+    <div className={`bg-[#f8f3eb] min-h-screen ${topPadding}`}>
       <section className="px-4 sm:px-6 lg:px-10 py-8 md:py-12 max-w-7xl mx-auto">
 
-        {/* Search result label */}
+        {/* Header label */}
         <div className="mb-6 flex items-center justify-between flex-wrap gap-2">
-          <p className="text-[#666] text-[14px]">
-            Showing results for{' '}
-            <span className="text-[#b68b45] font-semibold">"{query}"</span>
-            {exact.length > 0 && (
-              <span className="ml-2 text-[#999]">({exact.length} found)</span>
-            )}
-          </p>
+          {category && !query ? (
+            <p className="text-[#666] text-[14px]">
+              Showing{' '}
+              <span className="text-[#b68b45] font-semibold">{category}</span>
+              {exact.length > 0 && (
+                <span className="ml-2 text-[#999]">({exact.length} products)</span>
+              )}
+            </p>
+          ) : (
+            <p className="text-[#666] text-[14px]">
+              Showing results for{' '}
+              <span className="text-[#b68b45] font-semibold">"{query}"</span>
+              {exact.length > 0 && (
+                <span className="ml-2 text-[#999]">({exact.length} found)</span>
+              )}
+            </p>
+          )}
           <Link to="/products" className="text-[13px] text-[#b68b45] underline underline-offset-2">
-            Clear search
+            View All
           </Link>
         </div>
 
@@ -84,7 +112,7 @@ export default function Products({ embedded = false }) {
             {related.length > 0 && (
               <div className="mt-10">
                 <h2 className="text-[16px] sm:text-[18px] font-semibold text-[#1a1a1a] mb-5">
-                  You may also like
+                  You May Also Like
                 </h2>
                 <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
                   {related.map((product, i) => (
@@ -100,10 +128,10 @@ export default function Products({ embedded = false }) {
             animate={{ opacity: 1 }}
             className="text-center py-20"
           >
-            <p className="text-4xl mb-4">🔍</p>
-            <h2 className="text-[20px] font-semibold text-[#1a1a1a] mb-3">No results found</h2>
+            <p className="text-4xl mb-4">👗</p>
+            <h2 className="text-[20px] font-semibold text-[#1a1a1a] mb-3">No Products Found</h2>
             <p className="text-[#666] text-[14px] mb-6">
-              Try searching for <span className="text-[#b68b45]">saree, lehenga, kurti, gown</span> or bridal
+              Try browsing <span className="text-[#b68b45]">Sarees, Lehengas, Kurtis, Gowns</span> or Bridal
             </p>
             <Link
               to="/products"

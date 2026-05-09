@@ -328,7 +328,7 @@ export default function Navbar() {
                 {categories.map((item, i) => (
                   <Link
                     key={i}
-                    to="/products"
+                    to={`/products?category=${encodeURIComponent(item.name)}`}
                     className="flex flex-col items-center gap-1.5 sm:gap-2 min-w-[56px] sm:min-w-[64px] md:min-w-[72px] group flex-shrink-0"
                   >
                     <motion.div
@@ -498,7 +498,7 @@ export default function Navbar() {
                   {categories.map((cat, i) => (
                     <Link
                       key={i}
-                      to="/products"
+                      to={`/products?category=${encodeURIComponent(cat.name)}`}
                       onClick={() => setMobileOpen(false)}
                       className="flex items-center gap-1.5 bg-[#f8f3eb] hover:bg-[#f0e8d8] border border-[#e8dcc9] rounded-full px-3 py-1.5 transition-colors group"
                     >
