@@ -174,6 +174,68 @@ export default function ProductDetail() {
         </div>
       </section>
 
+      {/* DESCRIPTION / CARE / RETURNS */}
+      <section className="py-10 md:py-12 bg-[#f8f3eb]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+          <div className="grid md:grid-cols-3 gap-6">
+
+            {/* DESCRIPTION TABLE */}
+            {product.details && (
+              <div className="md:col-span-2 bg-white rounded-2xl border border-[#eee] overflow-hidden">
+                <div className="px-5 py-3 border-b border-[#eee]">
+                  <h3 className="text-[11px] uppercase tracking-widest font-semibold text-[#888]">Description</h3>
+                </div>
+                <table className="w-full text-[13px]">
+                  <tbody>
+                    {Object.entries(product.details).map(([key, val], i) => (
+                      <tr key={i} className="border-b border-[#f5f0ea] last:border-0">
+                        <td className="px-5 py-3 text-[#b68b45] w-[45%]">{key}</td>
+                        <td className="px-5 py-3 text-[#1a1a1a] font-semibold">{val}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            <div className="flex flex-col gap-5">
+              {/* CARE */}
+              {product.care && (
+                <div className="bg-white rounded-2xl border border-[#eee] overflow-hidden">
+                  <div className="px-5 py-3 border-b border-[#eee]">
+                    <h3 className="text-[11px] uppercase tracking-widest font-semibold text-[#888]">Care</h3>
+                  </div>
+                  <ul className="px-5 py-4 space-y-2">
+                    {product.care.map((item, i) => (
+                      <li key={i} className="flex items-start gap-2 text-[13px] text-[#444]">
+                        <span className="text-[#c8a96b] mt-0.5">•</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* RETURNS */}
+              <div className="bg-white rounded-2xl border border-[#eee] overflow-hidden">
+                <div className="px-5 py-3 border-b border-[#eee]">
+                  <h3 className="text-[11px] uppercase tracking-widest font-semibold text-[#888]">Returns</h3>
+                </div>
+                <ul className="px-5 py-4 space-y-2">
+                  {['Easy return within 24 hours of delivery', 'Item must be unused and with original tags', 'Contact boutique to initiate return', 'Exchange available on all products', 'Refund processed within 3–5 business days'].map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-[13px] text-[#444]">
+                      <span className="text-[#c8a96b] mt-0.5">•</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* REVIEWS */}
       <section className="py-10 md:py-12 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
