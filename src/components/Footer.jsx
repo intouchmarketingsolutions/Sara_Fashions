@@ -63,25 +63,22 @@ export default function Footer() {
 
           <ul className="space-y-4 text-gray-400">
             <li>
-              <Link to="/" className="hover:text-[#d4af7a]">
+              <Link to="/" onClick={() => window.scrollTo(0, 0)} className="hover:text-[#d4af7a] transition-colors">
                 Home
               </Link>
             </li>
-
             <li>
-              <Link to="/products" className="hover:text-[#d4af7a]">
+              <Link to="/products" onClick={() => window.scrollTo(0, 0)} className="hover:text-[#d4af7a] transition-colors">
                 Collections
               </Link>
             </li>
-
             <li>
-              <Link to="/tailoring" className="hover:text-[#d4af7a]">
+              <Link to="/tailoring" onClick={() => window.scrollTo(0, 0)} className="hover:text-[#d4af7a] transition-colors">
                 Tailoring
               </Link>
             </li>
-
             <li>
-              <Link to="/consultation" className="hover:text-[#d4af7a]">
+              <Link to="/consultation" onClick={() => window.scrollTo(0, 0)} className="hover:text-[#d4af7a] transition-colors">
                 Consultation
               </Link>
             </li>
@@ -95,10 +92,10 @@ export default function Footer() {
           </h3>
 
           <ul className="space-y-4 text-gray-400">
-            <li>Sarees</li>
-            <li>Bridal Wear</li>
-            <li>Lehengas</li>
-            <li>Kurtis</li>
+            <li><Link to="/products" onClick={() => window.scrollTo(0, 0)} className="hover:text-[#d4af7a] transition-colors">Sarees</Link></li>
+            <li><Link to="/products" onClick={() => window.scrollTo(0, 0)} className="hover:text-[#d4af7a] transition-colors">Bridal Wear</Link></li>
+            <li><Link to="/products" onClick={() => window.scrollTo(0, 0)} className="hover:text-[#d4af7a] transition-colors">Lehengas</Link></li>
+            <li><Link to="/products" onClick={() => window.scrollTo(0, 0)} className="hover:text-[#d4af7a] transition-colors">Kurtis</Link></li>
           </ul>
         </div>
 
