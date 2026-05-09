@@ -23,8 +23,15 @@ export default function ProductDetail() {
   const [quantity,     setQuantity]     = useState(1)
   const [added,        setAdded]        = useState(false)
   const [wishlist,     setWishlist]     = useState(false)
+  const [showSticky,   setShowSticky]   = useState(false)
 
   useEffect(() => { window.scrollTo(0, 0) }, [id])
+
+  useEffect(() => {
+    const handleScroll = () => setShowSticky(window.scrollY > 300)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   if (!product) {
     return (
@@ -284,6 +291,28 @@ export default function ProductDetail() {
           </div>
         </section>
       )}
+
+      {/* STICKY ADD TO CART BAR */}
+      <motion.div
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: showSticky ? 0 : 100, opacity: showSticky ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
+        className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-[#eee] shadow-2xl px-4 py-3 flex items-center gap-3"
+      >
+        <img src={product.image} alt={product.name} className="w-12 h-12 rounded-xl object-cover object-top flex-shrink-0" />
+        <div className="flex-1 min-w-0">
+          <p className="text-[13px] font-semibold text-[#1a1a1a] truncate">{product.name}</p>
+          <p className="text-[#b68b45] text-[13px] font-semibold">₹{product.price.toLocaleString()}</p>
+        </div>
+        <button
+          onClick={handleAddToCart}
+          className={`flex-shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-full text-[13px] font-semibold transition-all duration-300 ${
+            added ? 'bg-green-600 text-white' : 'bg-[#111] hover:bg-[#c8a96b] text-white'
+          }`}
+        >
+          {added ? <><FiCheck size={14} /> Added</> : <><FiShoppingBag size={14} /> Add to Cart</>}
+        </button>
+      </motion.div>
     </div>
   )
 }
