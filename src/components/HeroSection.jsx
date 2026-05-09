@@ -18,7 +18,7 @@ export default function HeroSection() {
   }, [])
 
   return (
-    <section className="relative w-full bg-[#111] mt-[148px] sm:mt-[164px] md:mt-[174px] lg:mt-[186px]">
+    <section className="relative w-full bg-[#111] mt-[158px] sm:mt-[172px] md:mt-[182px] lg:mt-[194px]">
 
       {/*
         Responsive height:
