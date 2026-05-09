@@ -11,6 +11,7 @@ import { AnimatePresence } from 'framer-motion'
 
 /* CONTEXT */
 import { CartProvider } from './context/CartContext'
+import { AuthProvider } from './context/AuthContext'
 
 /* COMPONENTS */
 import Navbar from './components/Navbar'
@@ -24,6 +25,7 @@ import Products from './pages/Products'
 import Women from './pages/Women'
 import ProductDetail from './pages/ProductDetail'
 import Cart from './pages/Cart'
+import Login from './pages/Login'
 import Tailoring from './pages/Tailoring'
 import Consultation from './pages/Consultation'
 import Contact from './pages/Contact'
@@ -97,11 +99,11 @@ function AppRoutes() {
           element={<Contact />}
         />
 
+        {/* LOGIN */}
+        <Route path="/login" element={<Login />} />
+
         {/* FALLBACK ROUTE */}
-        <Route
-          path="*"
-          element={<Home />}
-        />
+        <Route path="*" element={<Home />} />
 
       </Routes>
 
@@ -115,6 +117,7 @@ function AppRoutes() {
 
 export default function App() {
   return (
+    <AuthProvider>
     <CartProvider>
 
       <Router>
@@ -142,5 +145,6 @@ export default function App() {
       </Router>
 
     </CartProvider>
+    </AuthProvider>
   )
 }

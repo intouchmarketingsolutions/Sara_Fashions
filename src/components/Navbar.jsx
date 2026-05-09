@@ -3,9 +3,10 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   FiSearch, FiX, FiShoppingCart, FiMenu,
-  FiChevronDown, FiChevronRight,
+  FiChevronDown, FiChevronRight, FiUser, FiLogOut,
 } from 'react-icons/fi'
 import { useCart } from '../context/CartContext'
+import { useAuth } from '../context/AuthContext'
 
 import logo       from '../assets/images/logo/Sara-logo.png'
 import sareeImg   from '../assets/images/categories/saree.jpg'
@@ -55,6 +56,8 @@ export default function Navbar() {
   const navigate     = useNavigate()
   const location     = useLocation()
   const { totalItems } = useCart()
+  const { user, logout } = useAuth()
+  const [userMenu, setUserMenu] = useState(false)
 
   /* close mobile menu on route change */
   useEffect(() => { setMobileOpen(false); setSearchOpen(false) }, [location.pathname])
@@ -194,6 +197,39 @@ export default function Navbar() {
               >
                 <FiSearch size={20} />
               </button>
+
+              {/* User icon */}
+              <div className="relative">
+                {user ? (
+                  <button
+                    onClick={() => setUserMenu(!userMenu)}
+                    className="p-2 text-[#333] hover:text-[#c8a96b] transition-colors flex items-center gap-1"
+                    aria-label="Account"
+                  >
+                    <div className="w-7 h-7 rounded-full bg-[#c8a96b] text-white flex items-center justify-center text-[11px] font-bold">
+                      {user.name.charAt(0).toUpperCase()}
+                    </div>
+                  </button>
+                ) : (
+                  <Link to="/login" onClick={() => window.scrollTo(0,0)} className="p-2 text-[#333] hover:text-[#c8a96b] transition-colors block" aria-label="Login">
+                    <FiUser size={20} />
+                  </Link>
+                )}
+                {userMenu && user && (
+                  <div className="absolute right-0 top-full mt-2 bg-white rounded-2xl shadow-xl border border-[#eee] py-2 min-w-[160px] z-50">
+                    <div className="px-4 py-2 border-b border-[#eee]">
+                      <p className="text-[13px] font-semibold text-[#1a1a1a]">{user.name}</p>
+                      <p className="text-[11px] text-[#888]">+91 {user.phone}</p>
+                    </div>
+                    <button
+                      onClick={() => { logout(); setUserMenu(false) }}
+                      className="w-full flex items-center gap-2 px-4 py-2.5 text-[13px] text-red-500 hover:bg-red-50 transition-colors"
+                    >
+                      <FiLogOut size={14} /> Sign Out
+                    </button>
+                  </div>
+                )}
+              </div>
 
               {/* Cart icon */}
               <Link

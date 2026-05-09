@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiMinus, FiPlus, FiTrash2, FiCheck, FiShoppingBag, FiCreditCard, FiSmartphone, FiPackage } from 'react-icons/fi'
 import { useCart } from '../context/CartContext'
+import { useAuth } from '../context/AuthContext'
 
 export default function Cart() {
   const { items, removeItem, updateQty, totalPrice, clearCart } = useCart()
+  const { user } = useAuth()
+  const navigate = useNavigate()
 
   const [step,          setStep]          = useState('cart')
   const [paymentMethod, setPaymentMethod] = useState('upi')
@@ -142,7 +145,7 @@ export default function Cart() {
               )}
 
               <button
-                onClick={() => setStep('checkout')}
+                onClick={() => { if (!user) { navigate('/login?redirect=/cart') } else { setStep('checkout') } }}
                 className="w-full bg-[#111] hover:bg-[#c8a96b] text-white py-3.5 rounded-full text-[14px] font-semibold transition-all duration-300"
               >
                 Buy
