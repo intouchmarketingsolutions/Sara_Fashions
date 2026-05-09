@@ -198,6 +198,7 @@ export default function Navbar() {
               {/* Cart icon */}
               <Link
                 to="/cart"
+                onClick={() => window.scrollTo(0, 0)}
                 className="relative p-2 text-[#333] hover:text-[#c8a96b] transition-colors"
                 aria-label="Cart"
               >

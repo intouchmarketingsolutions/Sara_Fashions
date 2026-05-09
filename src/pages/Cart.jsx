@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiMinus, FiPlus, FiTrash2, FiCheck, FiShoppingBag, FiCreditCard, FiSmartphone, FiPackage } from 'react-icons/fi'
@@ -10,6 +10,9 @@ export default function Cart() {
   const [step,          setStep]          = useState('cart')
   const [paymentMethod, setPaymentMethod] = useState('upi')
   const [form, setForm] = useState({ name: '', phone: '', email: '', address: '', city: '', postal: '' })
+
+  useEffect(() => { window.scrollTo(0, 0) }, [])
+  useEffect(() => { window.scrollTo(0, 0) }, [step])
 
   const handleForm = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
@@ -142,7 +145,7 @@ export default function Cart() {
                 onClick={() => setStep('checkout')}
                 className="w-full bg-[#111] hover:bg-[#c8a96b] text-white py-3.5 rounded-full text-[14px] font-semibold transition-all duration-300"
               >
-                Proceed To Checkout
+                Buy
               </button>
               <Link to="/products" className="block text-center mt-4 text-[13px] text-[#666] hover:text-[#c8a96b] transition">
                 ← Continue Shopping
