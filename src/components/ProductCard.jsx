@@ -1,26 +1,23 @@
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { FiShoppingBag, FiStar } from 'react-icons/fi'
-import { useCart } from '../context/CartContext'
+import { FiStar } from 'react-icons/fi'
+import QuickView from './QuickView'
 
 export default function ProductCard({ product, index = 0 }) {
-  const { addItem } = useCart()
-
-  const handleAddToCart = (e) => {
-    e.preventDefault()
-    addItem({ ...product, quantity: 1 })
-  }
+  const [showQuick, setShowQuick] = useState(false)
 
   const stars = Array.from({ length: 5 }, (_, i) => i < Math.floor(product.rating || 5))
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.45, delay: index * 0.07 }}
-      viewport={{ once: true }}
-    >
-      <Link to={`/product/${product.id}`} className="group block" onClick={() => window.scrollTo(0, 0)}>
+    <>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45, delay: index * 0.07 }}
+        viewport={{ once: true }}
+        onClick={() => setShowQuick(true)}
+        className="cursor-pointer group"
+      >
         <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-400 border border-[#f1ebe3]">
 
           {/* IMAGE */}
@@ -42,26 +39,18 @@ export default function ProductCard({ product, index = 0 }) {
               <span className="text-[12px] text-[#c8a96b] font-medium uppercase tracking-widest">{product.subcategory}</span>
             </div>
 
-            {/* Add to Cart — always visible on mobile, hover on desktop */}
-            <button
-              onClick={handleAddToCart}
-              className="absolute bottom-3 left-3 right-3 bg-[#111] hover:bg-[#c8a96b] text-white py-2.5 rounded-full flex items-center justify-center gap-2 text-[13px] font-medium transition-all duration-300
-                sm:opacity-0 sm:group-hover:opacity-100 sm:translate-y-2 sm:group-hover:translate-y-0"
-            >
-              <FiShoppingBag size={14} />
-              Add to Cart
-            </button>
+            {/* Tap hint on mobile */}
+            <div className="absolute bottom-3 left-3 right-3 bg-[#111]/80 text-white py-2 rounded-full flex items-center justify-center text-[12px] font-medium
+              sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300">
+              Tap to Add to Cart
+            </div>
           </div>
 
           {/* CONTENT */}
           <div className="px-4 py-3">
             <div className="flex items-center gap-0.5 mb-1.5">
               {stars.map((filled, i) => (
-                <FiStar
-                  key={i}
-                  size={12}
-                  className={filled ? 'text-[#d4af7a] fill-[#d4af7a]' : 'text-gray-300'}
-                />
+                <FiStar key={i} size={12} className={filled ? 'text-[#d4af7a] fill-[#d4af7a]' : 'text-gray-300'} />
               ))}
             </div>
             <h3 className="text-[14px] sm:text-[15px] font-medium text-[#1a1a1a] group-hover:text-[#b68b45] transition-colors leading-snug">
@@ -72,7 +61,11 @@ export default function ProductCard({ product, index = 0 }) {
             </p>
           </div>
         </div>
-      </Link>
-    </motion.div>
+      </motion.div>
+
+      {showQuick && (
+        <QuickView product={product} onClose={() => setShowQuick(false)} />
+      )}
+    </>
   )
 }
