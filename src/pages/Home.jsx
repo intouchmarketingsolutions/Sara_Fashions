@@ -38,8 +38,8 @@ export default function Home() {
             className="text-center mb-8 sm:mb-10"
           >
             <h2 className="text-[26px] sm:text-[32px] md:text-[40px] font-semibold text-[#1a1a1a] leading-tight">
-              Featured Women's{' '}
-              <span className="text-[#b68b45]">Collection</span>
+              Shop Your{' '}
+              <span className="text-[#b68b45]">Style</span>
             </h2>
           </motion.div>
 
