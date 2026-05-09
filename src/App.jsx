@@ -7,7 +7,14 @@ import {
   useLocation,
 } from 'react-router-dom'
 
+import { useEffect } from 'react'
 import { AnimatePresence } from 'framer-motion'
+
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  useEffect(() => { window.scrollTo(0, 0) }, [pathname])
+  return null
+}
 
 /* CONTEXT */
 import { CartProvider } from './context/CartContext'
@@ -121,6 +128,7 @@ export default function App() {
     <CartProvider>
 
       <Router>
+        <ScrollToTop />
 
         <div className="min-h-screen bg-[#f8f3eb] text-[#111111] flex flex-col overflow-x-hidden">
 
