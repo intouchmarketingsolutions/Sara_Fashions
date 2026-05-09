@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FiMinus, FiPlus, FiTrash2, FiCheck, FiShoppingBag, FiCreditCard, FiSmartphone, FiPackage } from 'react-icons/fi'
+import { FiMinus, FiPlus, FiTrash2, FiCheck, FiShoppingBag, FiCreditCard, FiSmartphone, FiPackage, FiPhone } from 'react-icons/fi'
 import { useCart } from '../context/CartContext'
 import { useAuth } from '../context/AuthContext'
 
@@ -13,6 +13,7 @@ export default function Cart() {
   const [step,          setStep]          = useState('cart')
   const [paymentMethod, setPaymentMethod] = useState('upi')
   const [form, setForm] = useState({ name: '', phone: '', email: '', address: '', city: '', postal: '' })
+  const [orderData,     setOrderData]     = useState(null)
 
   useEffect(() => { window.scrollTo(0, 0) }, [])
   useEffect(() => { window.scrollTo(0, 0) }, [step])
@@ -25,32 +26,146 @@ export default function Cart() {
 
   const handleOrder = (e) => {
     e.preventDefault()
+    const orderId = 'SC' + Date.now().toString().slice(-8)
+    const receipt = {
+      orderId,
+      date: new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }),
+      items: [...items],
+      form: { ...form },
+      paymentMethod,
+      shipping,
+      tax,
+      finalTotal,
+      user,
+    }
+    setOrderData(receipt)
     setStep('success')
     clearCart()
   }
 
-  if (step === 'success') {
+  if (step === 'success' && orderData) {
     return (
-      <div className="min-h-screen bg-[#f8f3eb] flex items-center justify-center px-4 pt-[70px]">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.88 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="bg-white rounded-3xl shadow-2xl border border-[#eee] p-8 sm:p-12 text-center max-w-md w-full"
-        >
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#c8a96b]/10 flex items-center justify-center mx-auto mb-6">
-            <FiCheck className="text-[#c8a96b]" size={32} />
-          </div>
-          <h1 className="text-[24px] sm:text-[30px] font-semibold text-[#1a1a1a] mb-3">Order Confirmed!</h1>
-          <p className="text-[#666] text-[14px] leading-relaxed mb-7">
-            Your order has been placed. Our team will contact you shortly for delivery details.
-          </p>
-          <Link
-            to="/products"
-            className="inline-flex items-center gap-2 bg-[#111] hover:bg-[#c8a96b] text-white px-7 py-3 rounded-full text-[14px] font-semibold transition-all duration-300"
+      <div className="min-h-screen bg-[#f8f3eb] px-4 pt-[80px] pb-12">
+        <div className="max-w-lg mx-auto">
+
+          {/* SUCCESS HEADER */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center mb-6"
           >
-            <FiShoppingBag size={15} /> Continue Shopping
-          </Link>
-        </motion.div>
+            <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-3">
+              <FiCheck className="text-green-600" size={28} />
+            </div>
+            <h1 className="text-[22px] sm:text-[26px] font-semibold text-[#1a1a1a]">Order Confirmed!</h1>
+            <p className="text-[#888] text-[13px] mt-1">Thank you for shopping with Sara Central</p>
+          </motion.div>
+
+          {/* RECEIPT CARD */}
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="bg-white rounded-2xl shadow-xl border border-[#eee] overflow-hidden"
+          >
+            {/* Receipt Header */}
+            <div className="bg-[#111] px-5 py-4 flex items-center justify-between">
+              <div>
+                <p className="text-white/60 text-[10px] uppercase tracking-widest">Payment Receipt</p>
+                <p className="text-white font-semibold text-[15px] mt-0.5">Sara Central Boutique</p>
+              </div>
+              <div className="text-right">
+                <p className="text-[#c8a96b] text-[10px] uppercase tracking-widest">Order ID</p>
+                <p className="text-white font-bold text-[14px] tracking-widest">#{orderData.orderId}</p>
+              </div>
+            </div>
+
+            <div className="px-5 py-4 space-y-4">
+
+              {/* Date & Payment */}
+              <div className="flex justify-between text-[13px] border-b border-[#f0ebe3] pb-3">
+                <div>
+                  <p className="text-[#888] text-[11px] uppercase tracking-wider">Date & Time</p>
+                  <p className="text-[#1a1a1a] font-medium mt-0.5">{orderData.date}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-[#888] text-[11px] uppercase tracking-wider">Payment</p>
+                  <p className="text-[#1a1a1a] font-medium mt-0.5 capitalize">
+                    {orderData.paymentMethod === 'upi' ? 'UPI / GPay' : orderData.paymentMethod === 'card' ? 'Card Payment' : 'Cash on Delivery'}
+                  </p>
+                </div>
+              </div>
+
+              {/* Products */}
+              <div>
+                <p className="text-[11px] uppercase tracking-wider text-[#888] mb-3">Products Ordered</p>
+                <div className="space-y-3">
+                  {orderData.items.map((item, i) => (
+                    <div key={i} className="flex gap-3 bg-[#f8f3eb] rounded-xl p-3">
+                      <img src={item.image} alt={item.name} className="w-14 h-16 rounded-lg object-cover object-top flex-shrink-0" />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[#b68b45] text-[10px] uppercase tracking-wider">{item.subcategory}</p>
+                        <p className="text-[#1a1a1a] text-[13px] font-semibold leading-snug">{item.name}</p>
+                        <p className="text-[#666] text-[11px] mt-0.5">Product ID: <span className="font-mono text-[#b68b45]">{item.id.toUpperCase()}</span> · Size: {item.size || 'M'} · Qty: {item.quantity}</p>
+                        <p className="text-[#1a1a1a] text-[13px] font-semibold mt-1">₹{(item.price * (item.quantity || 1)).toLocaleString()}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Price Breakdown */}
+              <div className="border-t border-[#f0ebe3] pt-3 space-y-1.5">
+                <div className="flex justify-between text-[13px] text-[#666]">
+                  <span>Subtotal</span>
+                  <span>₹{(orderData.finalTotal - orderData.shipping - orderData.tax).toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between text-[13px] text-[#666]">
+                  <span>Shipping</span>
+                  <span>{orderData.shipping === 0 ? <span className="text-green-600">Free</span> : `₹${orderData.shipping}`}</span>
+                </div>
+                <div className="flex justify-between text-[13px] text-[#666]">
+                  <span>Tax (5%)</span>
+                  <span>₹{orderData.tax}</span>
+                </div>
+                <div className="flex justify-between text-[15px] font-bold text-[#1a1a1a] border-t border-[#eee] pt-2 mt-2">
+                  <span>Total Paid</span>
+                  <span className="text-[#b68b45]">₹{orderData.finalTotal.toLocaleString()}</span>
+                </div>
+              </div>
+
+              {/* Customer Info */}
+              {orderData.user && (
+                <div className="border-t border-[#f0ebe3] pt-3">
+                  <p className="text-[11px] uppercase tracking-wider text-[#888] mb-2">Customer</p>
+                  <p className="text-[13px] font-semibold text-[#1a1a1a]">{orderData.user.name}</p>
+                  <p className="text-[13px] text-[#666]">+91 {orderData.user.phone}</p>
+                </div>
+              )}
+
+              {/* Contact */}
+              <div className="bg-[#f8f3eb] rounded-xl p-4 border border-[#e8dfc9]">
+                <p className="text-[11px] uppercase tracking-wider text-[#888] mb-2">Need Help? Contact Us</p>
+                <a href="tel:+919663098124" className="flex items-center gap-2 text-[#b68b45] font-semibold text-[14px]">
+                  <FiPhone size={14} /> +91 9663098124
+                </a>
+                <p className="text-[#888] text-[12px] mt-1">Sara Central Boutique · Udyavara, Udupi</p>
+                <p className="text-[#888] text-[12px]">Mon–Sat · 10:00 AM – 8:00 PM</p>
+              </div>
+
+            </div>
+          </motion.div>
+
+          <div className="mt-6 text-center">
+            <Link
+              to="/products"
+              className="inline-flex items-center gap-2 bg-[#111] hover:bg-[#c8a96b] text-white px-7 py-3 rounded-full text-[14px] font-semibold transition-all duration-300"
+            >
+              <FiShoppingBag size={15} /> Continue Shopping
+            </Link>
+          </div>
+
+        </div>
       </div>
     )
   }
