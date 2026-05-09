@@ -3,7 +3,6 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiPhone, FiArrowRight, FiUser, FiCheck } from 'react-icons/fi'
 import { useAuth } from '../context/AuthContext'
-import logo from '../assets/images/logo/Sara-logo.png'
 
 export default function Login() {
   const { login, user } = useAuth()
@@ -72,14 +71,10 @@ export default function Login() {
       >
 
         {/* ── Header ── */}
-        <div className="bg-[#111] py-8 text-center w-full">
-          <img
-            src={logo}
-            alt="Sara Central"
-            className="h-14 object-contain mx-auto"
-          />
-          <div className="w-10 h-px bg-[#c8a96b]/50 mx-auto mt-4 mb-3" />
-          <p className="text-[#c8a96b] text-[13px] font-semibold tracking-wide">Sign in to your account</p>
+        <div className="bg-[#111] pt-8 pb-6 px-7 text-center">
+          <h1 className="text-[26px] font-bold tracking-widest text-[#c8a96b] uppercase">Sara</h1>
+          <div className="w-10 h-px bg-[#c8a96b]/50 mx-auto mt-3 mb-3" />
+          <p className="text-[#c8a96b]/80 text-[12px] font-semibold tracking-[3px] uppercase">Sign in to your account</p>
         </div>
 
         {/* ── Form Area ── */}
