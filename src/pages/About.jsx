@@ -12,6 +12,7 @@ const values = [
   { icon: <FiUsers size={22} />,    title: 'Modern Styling',     desc: 'Blending tradition with modern trends for today\'s women.' },
 ]
 
+
 export default function About() {
   const navigate = useNavigate()
   return (
