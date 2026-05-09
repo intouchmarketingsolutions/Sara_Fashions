@@ -51,7 +51,7 @@ export const womenProducts = [
   },
   {
     id: 'w2',
-    name: 'Kanjeevaram Wedding Saree',
+    name: 'Kanjeevaram Saree',
     category: 'women',
     subcategory: 'Sarees',
     price: 17099,
