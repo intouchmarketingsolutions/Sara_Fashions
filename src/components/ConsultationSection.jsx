@@ -2,13 +2,6 @@ import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import consultationImage from '../assets/images/categories/consultation.jpg'
 
-const features = [
-  'Occasion Styling',
-  'Colour Coordination',
-  'Outfit Recommendations',
-  'Fashion Guidance',
-]
-
 export default function ConsultationSection() {
   return (
     <section className="bg-white py-10 md:py-16 overflow-hidden">
@@ -34,18 +27,13 @@ export default function ConsultationSection() {
               Expert Fashion<br />Consultation
             </h2>
 
-            <p className="text-[#666] text-[15px] leading-relaxed mb-7">
-              Personalised styling guidance for weddings, festive occasions, parties, and everyday fashion.
+            <p className="text-[#666] text-[15px] leading-relaxed mb-4">
+              Looking your best is not just about the outfit — it is about how it makes you feel. Our expert stylists offer one-on-one consultation to help you discover looks that truly reflect your personality, occasion, and confidence.
             </p>
 
-            <div className="grid grid-cols-2 gap-3 mb-7">
-              {features.map((item, i) => (
-                <div key={i} className="flex items-center gap-2.5 bg-[#f8f3eb] px-4 py-3 rounded-xl border border-[#eee]">
-                  <div className="w-2 h-2 rounded-full bg-[#c8a96b] flex-shrink-0" />
-                  <span className="text-[#222] text-[13px] font-medium">{item}</span>
-                </div>
-              ))}
-            </div>
+            <p className="text-[#666] text-[15px] leading-relaxed mb-7">
+              Whether you are dressing for a wedding, a festive celebration, a corporate event, or simply elevating your everyday wardrobe, we guide you through colour coordination, outfit pairings, and styling choices tailored entirely to you.
+            </p>
 
             <Link to="/consultation">
               <button className="bg-[#111] hover:bg-[#c8a96b] text-white px-7 py-3 rounded-full text-[14px] font-semibold transition-all duration-300">
