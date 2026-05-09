@@ -3,6 +3,15 @@ import kanjImg1 from '../assets/images/categories/Kanjeevaram Wedding Saree.jpg'
 import kanjImg2 from '../assets/images/categories/Kanjeevaram Wedding Saree1.jpg'
 import softSilkImg from '../assets/images/categories/Soft Silk Festive Saree.jpg'
 import designerPartImg from '../assets/images/categories/Designer part images.jpg'
+import sareeImg from '../assets/images/categories/saree.jpg'
+import bridalSilkImg from '../assets/images/categories/Bridal Silk Collection.jpg'
+import weddingGownImg from '../assets/images/categories/Wedding Reception Gown.jpg'
+import anarkaliImg from '../assets/images/categories/Embroidered Anarkali Kurti.jpg'
+import kurtiImg from '../assets/images/categories/kurti.jpg'
+import lehengaImg from '../assets/images/categories/lehenga.jpg'
+import designerLehengaImg from '../assets/images/categories/disgner lehenga.jpg'
+import gownImg from '../assets/images/categories/gown.jpg'
+import westernImg from '../assets/images/categories/western.jpg'
 
 export const womenProducts = [
 
@@ -14,7 +23,7 @@ export const womenProducts = [
     subcategory: 'Sarees',
     price: 12999,
     rating: 4.8,
-    image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&q=80',
+    image: sareeImg,
     description: 'Elegant Banarasi silk saree crafted with rich detailing and timeless traditional elegance.',
     tags: ['saree', 'silk', 'banarasi', 'traditional', 'festive', 'wedding'],
     details: {
@@ -115,7 +124,7 @@ export const womenProducts = [
     subcategory: 'Bridal',
     price: 45999,
     rating: 5.0,
-    image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e1?w=800&q=80',
+    image: lehengaImg,
     description: 'Luxury bridal lehenga featuring detailed embroidery and premium craftsmanship.',
     tags: ['bridal', 'lehenga', 'wedding', 'luxury', 'embroidery', 'bride'],
     details: {
@@ -140,7 +149,7 @@ export const womenProducts = [
     subcategory: 'Bridal',
     price: 24999,
     rating: 4.9,
-    image: 'https://images.unsplash.com/photo-1566479179817-f9e6a28b4b2c?w=800&q=80',
+    image: weddingGownImg,
     description: 'Elegant bridal reception gown designed for modern wedding celebrations.',
     tags: ['bridal', 'gown', 'wedding', 'reception', 'elegant', 'bride'],
     details: {
@@ -166,7 +175,7 @@ export const womenProducts = [
     subcategory: 'Bridal',
     price: 32999,
     rating: 4.8,
-    image: 'https://images.unsplash.com/photo-1631233859262-0d5a58c2e5c4?w=800&q=80',
+    image: bridalSilkImg,
     description: 'Exclusive bridal silk outfit with timeless elegance and luxury detailing.',
     tags: ['bridal', 'silk', 'wedding', 'luxury', 'exclusive', 'bride'],
     details: {
@@ -193,7 +202,7 @@ export const womenProducts = [
     subcategory: 'Kurtis',
     price: 5999,
     rating: 4.8,
-    image: 'https://images.unsplash.com/photo-1631233859262-0d5a58c2e5c4?w=800&q=80',
+    image: anarkaliImg,
     description: 'Elegant Anarkali kurti featuring detailed embroidery and graceful styling.',
     tags: ['kurti', 'anarkali', 'embroidery', 'ethnic', 'festive', 'traditional'],
     details: {
@@ -219,7 +228,7 @@ export const womenProducts = [
     subcategory: 'Kurtis',
     price: 2499,
     rating: 4.5,
-    image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e1?w=800&q=80',
+    image: kurtiImg,
     description: 'Comfortable cotton kurti designed for elegant everyday fashion.',
     tags: ['kurti', 'cotton', 'daily wear', 'casual', 'comfortable', 'everyday'],
     details: {
@@ -245,7 +254,7 @@ export const womenProducts = [
     subcategory: 'Kurtis',
     price: 4499,
     rating: 4.7,
-    image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&q=80',
+    image: kurtiImg,
     description: 'Designer festive kurti crafted with premium fabric and boutique finishing.',
     tags: ['kurti', 'festive', 'designer', 'premium', 'ethnic'],
     details: {
@@ -273,7 +282,7 @@ export const womenProducts = [
     subcategory: 'Lehengas',
     price: 21999,
     rating: 4.9,
-    image: 'https://images.unsplash.com/photo-1631233859262-0d5a58c2e5c4?w=800&q=80',
+    image: lehengaImg,
     description: 'Premium pastel lehenga crafted beautifully for festive and wedding occasions.',
     tags: ['lehenga', 'wedding', 'pastel', 'festive', 'bridal', 'premium'],
     details: {
@@ -298,7 +307,7 @@ export const womenProducts = [
     subcategory: 'Lehengas',
     price: 17999,
     rating: 4.7,
-    image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e1?w=800&q=80',
+    image: designerLehengaImg,
     description: 'Elegant festive lehenga featuring stylish embroidery and modern elegance.',
     tags: ['lehenga', 'festive', 'designer', 'embroidery', 'elegant'],
     details: {
@@ -323,7 +332,7 @@ export const womenProducts = [
     subcategory: 'Lehengas',
     price: 26999,
     rating: 4.8,
-    image: 'https://images.unsplash.com/photo-1566479179817-f9e6a28b4b2c?w=800&q=80',
+    image: designerLehengaImg,
     description: 'Luxury lehenga designed for grand celebrations and premium styling.',
     tags: ['lehenga', 'party', 'luxury', 'celebration', 'premium'],
     details: {
@@ -350,7 +359,7 @@ export const womenProducts = [
     subcategory: 'Gowns',
     price: 14999,
     rating: 4.8,
-    image: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=800&q=80',
+    image: gownImg,
     description: 'Premium evening gown crafted for elegant parties and special occasions.',
     tags: ['gown', 'evening', 'party', 'elegant', 'special occasion', 'western'],
     details: {
@@ -376,7 +385,7 @@ export const womenProducts = [
     subcategory: 'Gowns',
     price: 16999,
     rating: 4.9,
-    image: 'https://images.unsplash.com/photo-1551163943-3f6a855d1153?w=800&q=80',
+    image: westernImg,
     description: 'Modern designer gown with elegant silhouette and boutique finishing.',
     tags: ['gown', 'designer', 'modern', 'western', 'party', 'boutique'],
     details: {
@@ -402,7 +411,7 @@ export const womenProducts = [
     subcategory: 'Gowns',
     price: 11999,
     rating: 4.7,
-    image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&q=80',
+    image: gownImg,
     description: 'Stylish festive gown crafted for elegant fashion and modern celebrations.',
     tags: ['gown', 'festive', 'party wear', 'western', 'celebration'],
     details: {
