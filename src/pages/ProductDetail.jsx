@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FiStar, FiShoppingBag, FiHeart, FiMinus, FiPlus, FiCheck } from 'react-icons/fi'
@@ -23,6 +23,8 @@ export default function ProductDetail() {
   const [quantity,     setQuantity]     = useState(1)
   const [added,        setAdded]        = useState(false)
   const [wishlist,     setWishlist]     = useState(false)
+
+  useEffect(() => { window.scrollTo(0, 0) }, [id])
 
   if (!product) {
     return (
@@ -51,15 +53,6 @@ export default function ProductDetail() {
 
       <section className="pt-[70px] sm:pt-[76px] lg:pt-[82px] pb-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
-
-          {/* BREADCRUMB */}
-          <div className="flex items-center gap-2 text-[12px] text-[#888] mb-6 flex-wrap">
-            <Link to="/" className="hover:text-[#c8a96b] transition">Home</Link>
-            <span>/</span>
-            <Link to="/products" className="hover:text-[#c8a96b] transition">Collection</Link>
-            <span>/</span>
-            <span className="text-[#1a1a1a]">{product.name}</span>
-          </div>
 
           {/* PRODUCT GRID */}
           <div className="grid lg:grid-cols-2 gap-6 lg:gap-12">

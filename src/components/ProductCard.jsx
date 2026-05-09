@@ -20,7 +20,7 @@ export default function ProductCard({ product, index = 0 }) {
       transition={{ duration: 0.45, delay: index * 0.07 }}
       viewport={{ once: true }}
     >
-      <Link to={`/product/${product.id}`} className="group block">
+      <Link to={`/product/${product.id}`} className="group block" onClick={() => window.scrollTo(0, 0)}>
         <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-400 border border-[#f1ebe3]">
 
           {/* IMAGE */}
