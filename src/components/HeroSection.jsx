@@ -53,7 +53,7 @@ export default function HeroSection() {
 
   return (
     /* mt accounts for fixed navbar top-bar height */
-    <section className="relative w-full overflow-hidden bg-[#f8f3eb] mt-[58px] sm:mt-[64px] lg:mt-[70px] mb-0">
+    <section className="relative w-full overflow-hidden bg-[#f8f3eb] mt-[148px] sm:mt-[164px] md:mt-[174px] lg:mt-[186px] mb-0">
 
       {/* ── IMAGE CONTAINER ── */}
       <div className="relative w-full">
