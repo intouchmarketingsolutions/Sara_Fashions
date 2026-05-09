@@ -39,11 +39,6 @@ export default function ProductCard({ product, index = 0 }) {
               <span className="text-[12px] text-[#c8a96b] font-medium uppercase tracking-widest">{product.subcategory}</span>
             </div>
 
-            {/* Tap hint on mobile */}
-            <div className="absolute bottom-3 left-3 right-3 bg-[#111]/80 text-white py-2 rounded-full flex items-center justify-center text-[12px] font-medium
-              sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300">
-              Tap to Add to Cart
-            </div>
           </div>
 
           {/* CONTENT */}
