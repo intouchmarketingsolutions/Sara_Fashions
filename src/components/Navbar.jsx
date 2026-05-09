@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -57,18 +57,6 @@ export default function Navbar() {
   const location     = useLocation()
   const { totalItems } = useCart()
   const { user, logout } = useAuth()
-  const [userMenu, setUserMenu] = useState(false)
-  const userMenuRef = useRef(null)
-
-  useEffect(() => {
-    const handler = (e) => {
-      if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
-        setUserMenu(false)
-      }
-    }
-    document.addEventListener('mousedown', handler)
-    return () => document.removeEventListener('mousedown', handler)
-  }, [])
 
   /* close mobile menu on route change */
   useEffect(() => { setMobileOpen(false); setSearchOpen(false) }, [location.pathname])
@@ -208,46 +196,6 @@ export default function Navbar() {
               >
                 <FiSearch size={20} />
               </button>
-
-              {/* User icon */}
-              <div className="relative" ref={userMenuRef}>
-                {user ? (
-                  <button
-                    onClick={() => setUserMenu(!userMenu)}
-                    className="p-2 text-[#333] hover:text-[#c8a96b] transition-colors flex items-center gap-1"
-                    aria-label="Account"
-                  >
-                    <div className="w-7 h-7 rounded-full bg-[#c8a96b] text-white flex items-center justify-center text-[11px] font-bold">
-                      {user.name.charAt(0).toUpperCase()}
-                    </div>
-                  </button>
-                ) : (
-                  <Link to="/login" onClick={() => window.scrollTo(0,0)} className="p-2 text-[#333] hover:text-[#c8a96b] transition-colors block" aria-label="Login">
-                    <FiUser size={20} />
-                  </Link>
-                )}
-                {userMenu && user && (
-                  <div className="absolute right-0 top-full mt-2 bg-white rounded-2xl shadow-xl border border-[#eee] py-2 min-w-[180px] z-50">
-                    <div className="px-4 py-2 border-b border-[#eee]">
-                      <p className="text-[13px] font-semibold text-[#1a1a1a]">{user.name}</p>
-                      <p className="text-[11px] text-[#888]">+91 {user.phone}</p>
-                    </div>
-                    <Link
-                      to="/my-orders"
-                      onClick={() => setUserMenu(false)}
-                      className="w-full flex items-center gap-2 px-4 py-2.5 text-[13px] text-[#333] hover:bg-[#f8f3eb] hover:text-[#c8a96b] transition-colors"
-                    >
-                      <FiPackage size={14} /> My Orders
-                    </Link>
-                    <button
-                      onClick={() => { logout(); setUserMenu(false) }}
-                      className="w-full flex items-center gap-2 px-4 py-2.5 text-[13px] text-red-500 hover:bg-red-50 transition-colors"
-                    >
-                      <FiLogOut size={14} /> Sign Out
-                    </button>
-                  </div>
-                )}
-              </div>
 
               {/* Cart icon */}
               <Link
@@ -400,6 +348,46 @@ export default function Navbar() {
                 </button>
               </div>
 
+              {/* Account section */}
+              {user ? (
+                <div className="px-4 py-4 border-b border-[#f0ebe3] bg-[#faf7f2]">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-full bg-[#c8a96b] text-white flex items-center justify-center text-[15px] font-bold flex-shrink-0">
+                      {user.name.charAt(0).toUpperCase()}
+                    </div>
+                    <div>
+                      <p className="text-[14px] font-semibold text-[#1a1a1a]">{user.name}</p>
+                      <p className="text-[12px] text-[#888]">+91 {user.phone}</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Link
+                      to="/my-orders"
+                      onClick={() => setMobileOpen(false)}
+                      className="flex-1 flex items-center justify-center gap-1.5 bg-white border border-[#e8dcc9] rounded-xl py-2 text-[12px] font-semibold text-[#444] hover:text-[#c8a96b] hover:border-[#c8a96b] transition-all"
+                    >
+                      <FiPackage size={13} /> My Orders
+                    </Link>
+                    <button
+                      onClick={() => { logout(); setMobileOpen(false) }}
+                      className="flex-1 flex items-center justify-center gap-1.5 bg-white border border-[#eee] rounded-xl py-2 text-[12px] font-semibold text-red-500 hover:bg-red-50 hover:border-red-200 transition-all"
+                    >
+                      <FiLogOut size={13} /> Sign Out
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="px-4 py-4 border-b border-[#f0ebe3]">
+                  <Link
+                    to="/login"
+                    onClick={() => setMobileOpen(false)}
+                    className="w-full flex items-center justify-center gap-2 bg-[#c8a96b] hover:bg-[#b8944f] text-white rounded-xl py-2.5 text-[13px] font-semibold transition-all"
+                  >
+                    <FiUser size={14} /> Sign In to Your Account
+                  </Link>
+                </div>
+              )}
+
               {/* drawer links */}
               <nav className="flex-1 px-4 py-4 space-y-1">
 
@@ -497,18 +485,6 @@ export default function Navbar() {
                   <FiChevronRight size={16} className="text-[#ccc]" />
                 </Link>
 
-                {user && (
-                  <Link
-                    to="/my-orders"
-                    onClick={() => setMobileOpen(false)}
-                    className="flex items-center justify-between px-4 py-3 rounded-xl text-[15px] font-semibold text-[#222] hover:bg-[#f8f3eb] hover:text-[#c8a96b] transition-all"
-                  >
-                    <span className="flex items-center gap-2">
-                      <FiPackage size={16} /> My Orders
-                    </span>
-                    <FiChevronRight size={16} className="text-[#ccc]" />
-                  </Link>
-                )}
               </nav>
 
               {/* drawer categories */}
