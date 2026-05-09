@@ -68,7 +68,7 @@ export default function ProductDetail() {
             onClick={() => navigate(-1)}
             className="flex items-center gap-2 text-[#666] hover:text-[#c8a96b] transition-colors mb-5 mt-4 text-[14px] font-medium"
           >
-            <FiArrowLeft size={16} /> Back to Collection
+            <FiArrowLeft size={16} /> Back To Collection
           </button>
 
           {/* PRODUCT GRID */}
@@ -324,7 +324,7 @@ export default function ProductDetail() {
             added ? 'bg-green-600 text-white' : 'bg-[#111] hover:bg-[#c8a96b] text-white'
           }`}
         >
-          {added ? <><FiCheck size={14} /> Added</> : <><FiShoppingBag size={14} /> Add to Cart</>}
+          {added ? <><FiCheck size={14} /> Added</> : <><FiShoppingBag size={14} /> Add To Cart</>}
         </button>
       </motion.div>
     </div>

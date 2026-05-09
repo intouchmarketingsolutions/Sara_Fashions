@@ -89,7 +89,7 @@ export default function QuickView({ product, onClose }) {
                 added ? 'bg-green-600 text-white' : 'bg-[#111] hover:bg-[#c8a96b] text-white'
               }`}
             >
-              {added ? <><FiCheck size={15} /> Added!</> : <><FiShoppingBag size={15} /> Add to Cart</>}
+              {added ? <><FiCheck size={15} /> Added!</> : <><FiShoppingBag size={15} /> Add To Cart</>}
             </button>
             <Link
               to={`/product/${product.id}`}

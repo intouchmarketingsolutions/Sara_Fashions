@@ -23,7 +23,7 @@ export default function About() {
           onClick={() => navigate(-1)}
           className="flex items-center gap-2 text-[#666] hover:text-[#c8a96b] transition-colors text-[14px] font-medium"
         >
-          <FiArrowLeft size={16} /> Back to Home
+          <FiArrowLeft size={16} /> Back To Home
         </button>
       </div>
 
