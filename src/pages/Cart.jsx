@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FiMinus, FiPlus, FiTrash2, FiCheck, FiShoppingBag, FiCreditCard, FiSmartphone, FiPackage, FiPhone } from 'react-icons/fi'
+import { FiMinus, FiPlus, FiTrash2, FiCheck, FiShoppingBag, FiCreditCard, FiSmartphone, FiPhone } from 'react-icons/fi'
 import { useCart } from '../context/CartContext'
 import { useAuth } from '../context/AuthContext'
 
@@ -323,9 +323,8 @@ export default function Cart() {
 
               <div className="grid sm:grid-cols-3 gap-3">
                 {[
-                  { value: 'upi',    label: 'UPI / GPay',     icon: <FiSmartphone size={20} />,  sub: 'PhonePe, GPay, Paytm' },
-                  { value: 'card',   label: 'Card Payment',   icon: <FiCreditCard size={20} />,  sub: 'Debit / Credit card'  },
-                  { value: 'cod',    label: 'Cash on Delivery',icon: <FiPackage size={20} />,    sub: 'Pay on delivery'      },
+                  { value: 'upi',    label: 'UPI / GPay',   icon: <FiSmartphone size={20} />, sub: 'PhonePe, GPay, Paytm' },
+                  { value: 'card',   label: 'Card Payment', icon: <FiCreditCard size={20} />,  sub: 'Debit / Credit card'  },
                 ].map((m) => (
                   <button
                     key={m.value}
