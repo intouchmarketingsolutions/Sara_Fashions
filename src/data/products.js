@@ -13,6 +13,13 @@ import lehengaImg from '../assets/images/categories/lehenga.jpg'
 import designerLehengaImg from '../assets/images/categories/disgner lehenga.jpg'
 import gownImg from '../assets/images/categories/gown.jpg'
 import westernImg from '../assets/images/categories/western.jpg'
+import shararaImg1 from '../assets/images/products/shrara.jpg'
+import shararaImg2 from '../assets/images/products/shrara1.jpg'
+import shararaImg3 from '../assets/images/products/shrara2.jpg'
+import shararaImg4 from '../assets/images/products/shrara3.jpg'
+import officeWear1 from '../assets/images/products/office wear.jpg'
+import officeWear2 from '../assets/images/products/office wear1.jpg'
+import officeWear3 from '../assets/images/products/office wear2.jpg'
 
 export const womenProducts = [
 
@@ -432,8 +439,65 @@ export const womenProducts = [
     },
     care: ['Dry Clean Recommended', 'Do not bleach', 'Low iron on reverse side', 'Store flat or hang with care to preserve shape'],
   },
+
+  // SHARARA
+  {
+    id: 'w17',
+    name: 'Embroidered Sharara Set',
+    category: 'women',
+    subcategory: 'Sharara',
+    price: 8999,
+    rating: 4.8,
+    image: shararaImg1,
+    images: [shararaImg1, shararaImg2, shararaImg3, shararaImg4],
+    description: 'Elegant embroidered sharara set crafted with premium fabric and boutique finishing for festive occasions.',
+    tags: ['sharara', 'ethnic', 'festive', 'embroidery', 'traditional', 'set'],
+    details: {
+      Color: 'Pink / Gold',
+      Material: 'Georgette / Embroidery',
+      'Brand Name': 'Sara Central',
+      'Country of Origin': 'India',
+      Occasion: 'Festive, Eid, Party, Family Functions',
+      Type: 'Sharara Set',
+      'Set Includes': 'Sharara + Kurti + Dupatta',
+      'Fit Type': 'Flared',
+      Embroidery: 'Thread & Sequin Work',
+      Transparency: 'Non-Transparent',
+      Closure: 'Drawstring Waist',
+    },
+    care: ['Dry Clean Recommended', 'Do not bleach', 'Iron at low heat', 'Store in a garment bag'],
+  },
+
+  // OFFICE WEAR
+  {
+    id: 'w18',
+    name: 'Elegant Office Wear Kurta',
+    category: 'women',
+    subcategory: 'Office Wear',
+    price: 3499,
+    rating: 4.7,
+    image: officeWear1,
+    images: [officeWear1, officeWear2, officeWear3],
+    description: 'Sophisticated office wear kurta designed for the modern working woman with elegant style and comfort.',
+    tags: ['office wear', 'formal', 'kurta', 'professional', 'modern', 'ethnic'],
+    details: {
+      Color: 'Beige / Off White',
+      Material: 'Cotton Blend / Linen',
+      'Brand Name': 'Sara Central',
+      'Country of Origin': 'India',
+      Occasion: 'Office, Work, Formal, Daily Wear',
+      Type: 'Office Wear Kurta',
+      'Neck Type': 'V-Neck / Collar',
+      'Sleeve Type': 'Full Sleeve',
+      Length: 'Knee Length',
+      'Fit Type': 'Regular / Straight Fit',
+      Transparency: 'Non-Transparent',
+      Closure: 'Button',
+    },
+    care: ['Machine Wash Cold', 'Do not bleach', 'Iron at medium heat', 'Tumble dry low'],
+  },
 ]
 
 export const allProducts = [...womenProducts]
 
-export const womenCategories = ['All', 'Sarees', 'Bridal', 'Kurtis', 'Lehengas', 'Gowns']
+export const womenCategories = ['All', 'Sarees', 'Bridal', 'Kurtis', 'Lehengas', 'Gowns', 'Sharara', 'Office Wear']
