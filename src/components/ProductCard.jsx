@@ -42,13 +42,6 @@ export default function ProductCard({ product, index = 0 }) {
               <span className="text-[12px] text-[#c8a96b] font-medium uppercase tracking-widest">{product.subcategory}</span>
             </div>
 
-            {/* category badge */}
-            <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full">
-              <span className="text-[10px] uppercase tracking-widest text-[#b68b45] font-semibold">
-                {product.subcategory}
-              </span>
-            </div>
-
             {/* Add to Cart — always visible on mobile, hover on desktop */}
             <button
               onClick={handleAddToCart}
