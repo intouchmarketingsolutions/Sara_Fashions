@@ -75,10 +75,10 @@ export default function Products({ embedded = false }) {
 
   return (
     <div className={`bg-[#f8f3eb] min-h-screen ${topPadding}`}>
-      <section className="px-4 sm:px-6 lg:px-10 py-8 md:py-12 max-w-7xl mx-auto">
+      <section className="px-4 sm:px-6 lg:px-10 pt-3 pb-8 md:pb-12 max-w-7xl mx-auto">
 
         {/* Clear filter link */}
-        <div className="mb-6 flex justify-end">
+        <div className="mb-4 flex justify-end">
           <Link to="/products" className="text-[13px] text-[#b68b45] underline underline-offset-2">
             View All
           </Link>
