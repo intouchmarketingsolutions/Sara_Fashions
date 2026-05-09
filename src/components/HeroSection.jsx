@@ -1,6 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 
 import heroImage1 from '../assets/images/banners/banner.png'
 import heroImage2 from '../assets/images/banners/banner1.png'
@@ -9,116 +8,94 @@ const slides = [
   {
     image:   heroImage1,
     heading: 'Bridal & Festive\nCollection',
-    sub:     '',
-    cta:     'Explore Collection',
-    ctaLink: '/products',
-    pos:     '50% 20%',
   },
   {
     image:   heroImage2,
     heading: 'Modern Ethnic\nFashion',
-    sub:     '',
-    cta:     'Shop Now',
-    ctaLink: '/products',
-    pos:     '50% 0%',
   },
 ]
 
 export default function HeroSection() {
   const [current, setCurrent] = useState(0)
-  const [dir,     setDir]     = useState(1)
-
-  const go = (idx) => {
-    setDir(idx > current ? 1 : -1)
-    setCurrent(idx)
-  }
-  const prev = () => go(current === 0 ? slides.length - 1 : current - 1)
-  const next = () => go(current === slides.length - 1 ? 0 : current + 1)
 
   useEffect(() => {
     const t = setInterval(() => {
-      setDir(1)
       setCurrent((p) => (p + 1) % slides.length)
     }, 5000)
     return () => clearInterval(t)
   }, [])
 
-  const slide = slides[current]
-
-  const imgVariants = {
-    enter:  { opacity: 0 },
-    center: { opacity: 1 },
-    exit:   { opacity: 0 },
-  }
-
   return (
-    /* mt accounts for fixed navbar top-bar height */
-    <section className="relative w-full overflow-hidden bg-[#f8f3eb] mt-[148px] sm:mt-[164px] md:mt-[174px] lg:mt-[186px] mb-0">
+    <section className="relative w-full overflow-hidden bg-[#f8f3eb] mt-[148px] sm:mt-[164px] md:mt-[174px] lg:mt-[186px]">
 
-      {/* ── IMAGE CONTAINER ── */}
-      <div className="relative w-full">
+      {/* ── CSS GRID STACK — all images occupy the same cell, no layout shift ── */}
+      <div style={{ display: 'grid' }}>
 
-        {/* sliding image — full image visible, no left/right cropping */}
-        <AnimatePresence mode="wait">
+        {slides.map((s, i) => (
           <motion.img
-            key={current}
-            src={slide.image}
+            key={i}
+            src={s.image}
             alt="Sara Central"
-            variants={imgVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ duration: 0.5, ease: 'easeInOut' }}
+            animate={{ opacity: i === current ? 1 : 0 }}
+            transition={{ duration: 0.8, ease: 'easeInOut' }}
+            style={{ gridArea: '1 / 1' }}
             className="w-full h-auto block select-none"
           />
-        </AnimatePresence>
+        ))}
 
-        {/* subtle gradient so text pops without hiding the women */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10" />
+        {/* gradient overlay */}
+        <div
+          style={{ gridArea: '1 / 1' }}
+          className="bg-gradient-to-t from-black/55 via-transparent to-transparent z-10 pointer-events-none"
+        />
 
-        {/* ── TEXT — sits at bottom-left ── */}
-        <div className="absolute inset-0 z-20 flex flex-col justify-end items-start pb-8 sm:pb-14 md:pb-16 lg:pb-20 px-5 sm:px-10 md:px-14 lg:px-20">
+        {/* ── TEXT ── */}
+        <div
+          style={{ gridArea: '1 / 1' }}
+          className="z-20 flex flex-col justify-end items-start pb-8 sm:pb-14 md:pb-16 lg:pb-20 px-5 sm:px-10 md:px-14 lg:px-20"
+        >
           <AnimatePresence mode="wait">
             <motion.div
               key={current}
-              initial={{ opacity: 0, y: 28 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
-              transition={{ duration: 0.55, delay: 0.15 }}
-              className="flex flex-col gap-3 sm:gap-4 max-w-[90%] sm:max-w-[520px] md:max-w-[580px]"
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.45, delay: 0.2 }}
+              className="flex flex-col gap-2 max-w-[90%] sm:max-w-[520px]"
             >
               <h1
-                className="text-[24px] sm:text-[36px] md:text-[50px] lg:text-[62px] xl:text-[70px] font-bold text-white leading-[1.08] tracking-tight drop-shadow-lg"
+                className="text-[24px] sm:text-[36px] md:text-[50px] lg:text-[62px] font-bold text-white leading-[1.1] tracking-tight drop-shadow-lg"
                 style={{ fontFamily: 'Playfair Display, serif' }}
               >
-                {slide.heading.split('\n').map((line, i) => (
+                {slides[current].heading.split('\n').map((line, i) => (
                   <span key={i} className="block">{line}</span>
                 ))}
               </h1>
-              {slide.sub && (
-                <p className="text-[13px] sm:text-[15px] md:text-[16px] text-white/80 leading-relaxed drop-shadow">
-                  {slide.sub}
-                </p>
-              )}
             </motion.div>
           </AnimatePresence>
         </div>
 
         {/* ── DOTS ── */}
-        <div className="absolute bottom-4 sm:bottom-5 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2.5">
-          {slides.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => go(i)}
-              aria-label={`Slide ${i + 1}`}
-              className={`rounded-full transition-all duration-300 ${
-                i === current
-                  ? 'w-7 sm:w-8 h-2 bg-[#c8a96b]'
-                  : 'w-2 h-2 bg-white/50 hover:bg-white/80'
-              }`}
-            />
-          ))}
+        <div
+          style={{ gridArea: '1 / 1' }}
+          className="z-30 flex items-end justify-center pb-4 sm:pb-5 pointer-events-none"
+        >
+          <div className="flex items-center gap-2.5 pointer-events-auto">
+            {slides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                aria-label={`Slide ${i + 1}`}
+                className={`rounded-full transition-all duration-300 ${
+                  i === current
+                    ? 'w-7 sm:w-8 h-2 bg-[#c8a96b]'
+                    : 'w-2 h-2 bg-white/50 hover:bg-white/80'
+                }`}
+              />
+            ))}
+          </div>
         </div>
+
       </div>
     </section>
   )
