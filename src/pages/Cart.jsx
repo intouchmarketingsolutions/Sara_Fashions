@@ -356,18 +356,19 @@ export default function Cart() {
                       <input
                         type="text"
                         placeholder="yourname@upi"
+                        required
                         className="w-full border border-[#ddd] px-4 py-2.5 rounded-xl outline-none focus:border-[#c8a96b] text-[14px]"
                       />
                     </div>
                   ) : (
                     <div className="space-y-3">
                       <p className="text-[12px] text-[#888] uppercase tracking-wider font-semibold">Card Details</p>
-                      <input type="text" placeholder="Card Number" maxLength="19"
+                      <input type="text" placeholder="Card Number" maxLength="19" required
                         className="w-full border border-[#ddd] px-4 py-2.5 rounded-xl outline-none focus:border-[#c8a96b] text-[14px]" />
                       <div className="grid grid-cols-2 gap-3">
-                        <input type="text" placeholder="MM / YY"
+                        <input type="text" placeholder="MM / YY" required
                           className="border border-[#ddd] px-4 py-2.5 rounded-xl outline-none focus:border-[#c8a96b] text-[14px]" />
-                        <input type="text" placeholder="CVV" maxLength="3"
+                        <input type="text" placeholder="CVV" maxLength="3" required
                           className="border border-[#ddd] px-4 py-2.5 rounded-xl outline-none focus:border-[#c8a96b] text-[14px]" />
                       </div>
                     </div>

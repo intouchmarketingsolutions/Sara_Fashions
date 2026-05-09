@@ -64,7 +64,7 @@ export default function Footer() {
             </li>
 
             <li>
-              <Link to="/women" className="hover:text-[#d4af7a]">
+              <Link to="/products" className="hover:text-[#d4af7a]">
                 Collections
               </Link>
             </li>

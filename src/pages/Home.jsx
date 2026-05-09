@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 
@@ -9,6 +10,16 @@ import { allProducts } from '../data/products'
 
 export default function Home() {
   const featured = allProducts.slice(0, 4)
+  const [email, setEmail] = useState('')
+  const [subscribed, setSubscribed] = useState(false)
+
+  const handleSubscribe = (e) => {
+    e.preventDefault()
+    if (!email.trim()) return
+    setSubscribed(true)
+    setEmail('')
+    setTimeout(() => setSubscribed(false), 3000)
+  }
 
   return (
     <div className="bg-[#f8f3eb] overflow-hidden">
@@ -99,16 +110,19 @@ export default function Home() {
           <h2 className="text-[22px] sm:text-[28px] font-semibold mb-6">
             Stay Updated with New Arrivals
           </h2>
-          <div className="flex flex-col sm:flex-row gap-2">
+          <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2">
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
+              required
               className="flex-1 bg-white/10 border border-white/15 text-white placeholder-white/40 px-5 py-3 rounded-full outline-none text-[14px]"
             />
-            <button className="bg-[#c8a96b] hover:bg-[#b68b45] text-black px-6 py-3 rounded-full font-semibold text-[14px] transition-all duration-300 flex-shrink-0">
-              Subscribe
+            <button type="submit" className="bg-[#c8a96b] hover:bg-[#b68b45] text-black px-6 py-3 rounded-full font-semibold text-[14px] transition-all duration-300 flex-shrink-0">
+              {subscribed ? '✓ Subscribed!' : 'Subscribe'}
             </button>
-          </div>
+          </form>
         </div>
       </section>
     </div>

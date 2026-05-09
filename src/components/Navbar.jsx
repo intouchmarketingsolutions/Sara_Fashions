@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -58,6 +58,17 @@ export default function Navbar() {
   const { totalItems } = useCart()
   const { user, logout } = useAuth()
   const [userMenu, setUserMenu] = useState(false)
+  const userMenuRef = useRef(null)
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
+        setUserMenu(false)
+      }
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [])
 
   /* close mobile menu on route change */
   useEffect(() => { setMobileOpen(false); setSearchOpen(false) }, [location.pathname])
@@ -199,7 +210,7 @@ export default function Navbar() {
               </button>
 
               {/* User icon */}
-              <div className="relative">
+              <div className="relative" ref={userMenuRef}>
                 {user ? (
                   <button
                     onClick={() => setUserMenu(!userMenu)}

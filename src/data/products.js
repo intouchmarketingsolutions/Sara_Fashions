@@ -5,6 +5,7 @@ import softSilkImg from '../assets/images/categories/Soft Silk Festive Saree.jpg
 import designerPartImg from '../assets/images/categories/Designer part images.jpg'
 import sareeImg from '../assets/images/categories/saree.jpg'
 import bridalSilkImg from '../assets/images/categories/Bridal Silk Collection.jpg'
+import bridalSilkImg2 from '../assets/images/categories/Bridal Silk Collection1.jpg'
 import weddingGownImg from '../assets/images/categories/Wedding Reception Gown.jpg'
 import anarkaliImg from '../assets/images/categories/Embroidered Anarkali Kurti.jpg'
 import kurtiImg from '../assets/images/categories/kurti.jpg'
@@ -176,6 +177,7 @@ export const womenProducts = [
     price: 32999,
     rating: 4.8,
     image: bridalSilkImg,
+    images: [bridalSilkImg, bridalSilkImg2],
     description: 'Exclusive bridal silk outfit with timeless elegance and luxury detailing.',
     tags: ['bridal', 'silk', 'wedding', 'luxury', 'exclusive', 'bride'],
     details: {
