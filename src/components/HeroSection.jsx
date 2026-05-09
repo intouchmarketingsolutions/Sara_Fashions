@@ -56,9 +56,9 @@ export default function HeroSection() {
     <section className="relative w-full overflow-hidden bg-[#f8f3eb] mt-[58px] sm:mt-[64px] lg:mt-[70px] mb-0">
 
       {/* ── IMAGE CONTAINER ── */}
-      <div className="relative w-full h-[70vh] sm:h-[72vh] md:h-[78vh] lg:h-[85vh] xl:h-[90vh]">
+      <div className="relative w-full">
 
-        {/* sliding image */}
+        {/* sliding image — full natural size, no cropping */}
         <AnimatePresence custom={dir} mode="sync">
           <motion.img
             key={current}
@@ -70,8 +70,7 @@ export default function HeroSection() {
             animate="center"
             exit="exit"
             transition={{ duration: 0.75, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="absolute inset-0 w-full h-full object-cover select-none"
-            style={{ objectPosition: slide.pos }}
+            className="w-full h-auto block select-none"
           />
         </AnimatePresence>
 
@@ -79,7 +78,7 @@ export default function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-10" />
 
         {/* ── TEXT — sits at bottom-left ── */}
-        <div className="absolute inset-0 z-20 flex flex-col justify-end items-start pb-10 sm:pb-14 md:pb-16 lg:pb-20 px-5 sm:px-10 md:px-14 lg:px-20">
+        <div className="absolute inset-0 z-20 flex flex-col justify-end items-start pb-8 sm:pb-14 md:pb-16 lg:pb-20 px-5 sm:px-10 md:px-14 lg:px-20">
           <AnimatePresence mode="wait">
             <motion.div
               key={current}
@@ -89,23 +88,19 @@ export default function HeroSection() {
               transition={{ duration: 0.55, delay: 0.15 }}
               className="flex flex-col gap-3 sm:gap-4 max-w-[90%] sm:max-w-[520px] md:max-w-[580px]"
             >
-              {/* heading */}
               <h1
-                className="text-[26px] sm:text-[36px] md:text-[50px] lg:text-[62px] xl:text-[70px] font-bold text-white leading-[1.08] tracking-tight drop-shadow-lg"
+                className="text-[24px] sm:text-[36px] md:text-[50px] lg:text-[62px] xl:text-[70px] font-bold text-white leading-[1.08] tracking-tight drop-shadow-lg"
                 style={{ fontFamily: 'Playfair Display, serif' }}
               >
                 {slide.heading.split('\n').map((line, i) => (
                   <span key={i} className="block">{line}</span>
                 ))}
               </h1>
-
-              {/* subtitle */}
               {slide.sub && (
                 <p className="text-[13px] sm:text-[15px] md:text-[16px] text-white/80 leading-relaxed drop-shadow">
                   {slide.sub}
                 </p>
               )}
-
             </motion.div>
           </AnimatePresence>
         </div>
