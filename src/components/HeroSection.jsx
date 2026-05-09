@@ -46,9 +46,9 @@ export default function HeroSection() {
   const slide = slides[current]
 
   const imgVariants = {
-    enter:  (d) => ({ opacity: 0, scale: 1.04, x: d > 0 ? 40 : -40 }),
-    center: { opacity: 1, scale: 1, x: 0 },
-    exit:   (d) => ({ opacity: 0, scale: 0.98, x: d > 0 ? -40 : 40 }),
+    enter:  { opacity: 0 },
+    center: { opacity: 1 },
+    exit:   { opacity: 0 },
   }
 
   return (
@@ -59,17 +59,16 @@ export default function HeroSection() {
       <div className="relative w-full">
 
         {/* sliding image — full image visible, no left/right cropping */}
-        <AnimatePresence custom={dir} mode="sync">
+        <AnimatePresence mode="wait">
           <motion.img
             key={current}
             src={slide.image}
             alt="Sara Central"
-            custom={dir}
             variants={imgVariants}
             initial="enter"
             animate="center"
             exit="exit"
-            transition={{ duration: 0.75, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 0.5, ease: 'easeInOut' }}
             className="w-full h-auto block select-none"
           />
         </AnimatePresence>
