@@ -1,13 +1,7 @@
 import { motion } from 'framer-motion'
-import { FiCheck, FiScissors, FiClock, FiAward, FiArrowLeft } from 'react-icons/fi'
+import { FiScissors, FiClock, FiAward, FiArrowLeft } from 'react-icons/fi'
 import { Link, useNavigate } from 'react-router-dom'
 import tailoringImage from '../assets/images/categories/tailoring.jpg'
-
-const services = [
-  'Custom Measurements', 'Bridal Alterations',
-  'Designer Blouse Stitching', 'Boutique Finishing',
-  'Premium Fabric Handling', 'Timely Delivery',
-]
 
 const process = [
   { icon: <FiScissors size={20} />, title: 'Measurement & Design',  desc: 'Professional measurements with personalised styling guidance.' },
@@ -46,18 +40,12 @@ export default function Tailoring() {
                 <span className="text-[#b68b45]">With Perfect Fit</span>
               </h1>
 
-              <p className="text-[#666] text-[14px] sm:text-[15px] leading-relaxed max-w-xl mb-6">
-                From bridal elegance to everyday sophistication, our tailoring ensures every outfit is crafted to complement your style and comfort.
+              <p className="text-[#666] text-[14px] sm:text-[15px] leading-relaxed max-w-xl mb-4">
+                At Sara, every stitch tells a story. Our in-house tailoring studio brings together decades of craftsmanship with a refined eye for detail — delivering garments that fit you perfectly, feel luxurious, and reflect your individuality.
               </p>
-
-              <div className="grid grid-cols-2 gap-3 mb-7">
-                {services.map((item, i) => (
-                  <div key={i} className="flex items-center gap-2.5 bg-white px-4 py-3 rounded-xl border border-[#eee]">
-                    <FiCheck size={13} className="text-[#c8a96b] flex-shrink-0" />
-                    <span className="text-[#222] text-[13px] font-medium">{item}</span>
-                  </div>
-                ))}
-              </div>
+              <p className="text-[#666] text-[14px] sm:text-[15px] leading-relaxed max-w-xl mb-7">
+                Whether you are preparing for a bridal occasion, seeking a bespoke blouse, or require precise alterations on a cherished piece, our skilled artisans work closely with you at every step to ensure an impeccable result.
+              </p>
 
               <div className="flex flex-wrap gap-3">
                 <a href="#booking-form" className="bg-[#111] hover:bg-[#c8a96b] text-white px-7 py-3 rounded-full text-[14px] font-semibold transition-all duration-300">
