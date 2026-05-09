@@ -27,11 +27,11 @@ export default function HeroSection() {
         md      → 52vw
         lg+     → 44vw
       */}
-      <div className="relative w-full h-[75vw] sm:h-[60vw] md:h-[52vw] lg:h-[44vw] min-h-[260px] max-h-[720px] overflow-hidden"
+      <div className="relative w-full overflow-hidden"
         style={{ display: 'grid' }}
       >
 
-        {/* All images stacked — smooth crossfade, zero layout shift */}
+        {/* All images stacked — full image visible, smooth crossfade, zero layout shift */}
         {slides.map((s, i) => (
           <motion.img
             key={i}
@@ -40,7 +40,7 @@ export default function HeroSection() {
             animate={{ opacity: i === current ? 1 : 0 }}
             transition={{ duration: 0.9, ease: 'easeInOut' }}
             style={{ gridArea: '1 / 1' }}
-            className="w-full h-full object-cover object-top select-none"
+            className="w-full h-auto block select-none"
           />
         ))}
 
@@ -62,7 +62,7 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.4, delay: 0.15 }}
-              className="text-[5.5vw] sm:text-[4vw] md:text-[3.5vw] lg:text-[3vw] xl:text-[2.8vw] font-bold text-white leading-[1.15] tracking-tight drop-shadow-lg"
+              className="text-[5vw] sm:text-[3.8vw] md:text-[3.2vw] lg:text-[2.8vw] xl:text-[2.5vw] font-bold text-white leading-[1.15] tracking-tight drop-shadow-lg"
               style={{ fontFamily: 'Playfair Display, serif' }}
             >
               {slides[current].heading.split('\n').map((line, i) => (
