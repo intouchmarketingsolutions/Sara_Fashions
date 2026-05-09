@@ -38,10 +38,15 @@ export default function Footer() {
 
           {/* SOCIAL */}
           <div className="flex gap-4 mt-6">
-            {[FiInstagram, FiFacebook].map((Icon, i) => (
+            {[
+              { Icon: FiInstagram, href: 'https://www.instagram.com/sara_central_udyavara' },
+              { Icon: FiFacebook,  href: 'https://www.facebook.com/TheSaraCentral' },
+            ].map(({ Icon, href }, i) => (
               <a
                 key={i}
-                href="#"
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full border border-[#d4af7a]/30 flex items-center justify-center hover:bg-[#d4af7a] hover:text-black transition-all duration-300"
               >
                 <Icon size={17} />
