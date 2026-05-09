@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { FiCheck, FiScissors, FiClock, FiAward } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
-import tailoringImage from '../assets/images/categories/kurti.jpg'
+import tailoringImage from '../assets/images/categories/tailoring.jpg'
 
 const services = [
   'Custom Measurements', 'Bridal Alterations',

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { FiCheck, FiUser, FiCalendar, FiAward } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
-import consultationImage from '../assets/images/categories/western.jpg'
+import consultationImage from '../assets/images/categories/consultation.jpg'
 
 const services = [
   'Occasion Styling', 'Colour Coordination',
