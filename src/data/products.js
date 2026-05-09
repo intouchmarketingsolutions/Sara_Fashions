@@ -1,4 +1,6 @@
 // src/data/products.js
+import kanjImg1 from '../assets/images/categories/Kanjeevaram Wedding Saree.jpg'
+import kanjImg2 from '../assets/images/categories/Kanjeevaram Wedding Saree1.jpg'
 
 export const womenProducts = [
 
@@ -35,7 +37,8 @@ export const womenProducts = [
     subcategory: 'Sarees',
     price: 18999,
     rating: 4.9,
-    image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e1?w=800&q=80',
+    image: kanjImg1,
+    images: [kanjImg1, kanjImg2],
     description: 'Premium Kanjeevaram saree designed beautifully for weddings and festive occasions.',
     tags: ['saree', 'kanjeevaram', 'silk', 'wedding', 'bridal', 'festive'],
     details: {

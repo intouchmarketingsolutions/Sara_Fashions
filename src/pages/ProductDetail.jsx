@@ -19,13 +19,14 @@ export default function ProductDetail() {
 
   const product = allProducts.find((p) => p.id === id)
 
+  const [activeImg,    setActiveImg]    = useState(0)
   const [selectedSize, setSelectedSize] = useState('M')
   const [quantity,     setQuantity]     = useState(1)
   const [added,        setAdded]        = useState(false)
   const [wishlist,     setWishlist]     = useState(false)
   const [showSticky,   setShowSticky]   = useState(false)
 
-  useEffect(() => { window.scrollTo(0, 0) }, [id])
+  useEffect(() => { window.scrollTo(0, 0); setActiveImg(0) }, [id])
 
   useEffect(() => {
     const handleScroll = () => setShowSticky(window.scrollY > 300)
@@ -72,7 +73,7 @@ export default function ProductDetail() {
             >
               <div className="overflow-hidden rounded-2xl shadow-xl bg-white">
                 <img
-                  src={product.image}
+                  src={(product.images || [product.image])[activeImg]}
                   alt={product.name}
                   className="w-full h-[320px] sm:h-[420px] md:h-[560px] object-cover object-top hover:scale-105 transition-transform duration-600"
                 />
@@ -80,9 +81,13 @@ export default function ProductDetail() {
 
               {/* THUMBNAILS */}
               <div className="flex gap-3 mt-3">
-                {[1, 2, 3].map((n) => (
-                  <div key={n} className="w-20 h-24 sm:w-24 sm:h-28 rounded-xl overflow-hidden border border-[#eee] bg-white">
-                    <img src={product.image} alt="" className="w-full h-full object-cover object-top" />
+                {(product.images || [product.image, product.image, product.image]).map((img, n) => (
+                  <div
+                    key={n}
+                    onClick={() => setActiveImg(n)}
+                    className={`w-20 h-24 sm:w-24 sm:h-28 rounded-xl overflow-hidden border-2 bg-white cursor-pointer transition-all duration-200 ${activeImg === n ? 'border-[#c8a96b]' : 'border-[#eee] hover:border-[#c8a96b]'}`}
+                  >
+                    <img src={img} alt="" className="w-full h-full object-cover object-top" />
                   </div>
                 ))}
               </div>
