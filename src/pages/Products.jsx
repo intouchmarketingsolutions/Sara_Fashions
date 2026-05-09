@@ -77,25 +77,8 @@ export default function Products({ embedded = false }) {
     <div className={`bg-[#f8f3eb] min-h-screen ${topPadding}`}>
       <section className="px-4 sm:px-6 lg:px-10 py-8 md:py-12 max-w-7xl mx-auto">
 
-        {/* Header label */}
-        <div className="mb-6 flex items-center justify-between flex-wrap gap-2">
-          {category && !query ? (
-            <p className="text-[#666] text-[14px]">
-              Showing{' '}
-              <span className="text-[#b68b45] font-semibold">{category}</span>
-              {exact.length > 0 && (
-                <span className="ml-2 text-[#999]">({exact.length} products)</span>
-              )}
-            </p>
-          ) : (
-            <p className="text-[#666] text-[14px]">
-              Showing results for{' '}
-              <span className="text-[#b68b45] font-semibold">"{query}"</span>
-              {exact.length > 0 && (
-                <span className="ml-2 text-[#999]">({exact.length} found)</span>
-              )}
-            </p>
-          )}
+        {/* Clear filter link */}
+        <div className="mb-6 flex justify-end">
           <Link to="/products" className="text-[13px] text-[#b68b45] underline underline-offset-2">
             View All
           </Link>
