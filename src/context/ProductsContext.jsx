@@ -17,7 +17,7 @@ export function ProductsProvider({ children }) {
   ]
 
   const addProduct = (data) => {
-    const product = { ...data, id: `adm_${Date.now()}`, isAdmin: true, status: 'available', rating: 4, reviews: 0 }
+    const product = { ...data, id: `adm_${Date.now()}`, isAdmin: true, status: 'available', rating: data.rating || 4, reviews: 0 }
     const updated = [...adminProducts, product]
     setAdminProducts(updated)
     localStorage.setItem('sara_admin_products', JSON.stringify(updated))
