@@ -39,6 +39,12 @@ export default function ProductCard({ product, index = 0 }) {
               <span className="text-[12px] text-[#c8a96b] font-medium uppercase tracking-widest">{product.subcategory}</span>
             </div>
 
+            {/* Sold Out overlay */}
+            {product.status === 'sold' && (
+              <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                <span className="bg-white text-[#333] text-[12px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-[#ccc]">Sold Out</span>
+              </div>
+            )}
           </div>
 
           {/* CONTENT */}

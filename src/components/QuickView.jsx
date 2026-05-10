@@ -62,35 +62,43 @@ export default function QuickView({ product, onClose }) {
           </div>
 
           {/* Size */}
-          <div className="mb-4">
-            <p className="text-[11px] uppercase tracking-wider text-[#888] mb-2">Select Size</p>
-            <div className="flex flex-wrap gap-2">
-              {['XS', 'S', 'M', 'L', 'XL'].map((size) => (
-                <button
-                  key={size}
-                  onClick={() => setSelectedSize(size)}
-                  className={`w-10 h-10 rounded-full border text-[13px] font-medium transition-all duration-200 ${
-                    selectedSize === size
-                      ? 'bg-[#111] text-white border-[#111]'
-                      : 'bg-white border-[#ddd] hover:border-[#c8a96b]'
-                  }`}
-                >
-                  {size}
-                </button>
-              ))}
+          {product.status !== 'sold' && (
+            <div className="mb-4">
+              <p className="text-[11px] uppercase tracking-wider text-[#888] mb-2">Select Size</p>
+              <div className="flex flex-wrap gap-2">
+                {['XS', 'S', 'M', 'L', 'XL'].map((size) => (
+                  <button
+                    key={size}
+                    onClick={() => setSelectedSize(size)}
+                    className={`w-10 h-10 rounded-full border text-[13px] font-medium transition-all duration-200 ${
+                      selectedSize === size
+                        ? 'bg-[#111] text-white border-[#111]'
+                        : 'bg-white border-[#ddd] hover:border-[#c8a96b]'
+                    }`}
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Buttons */}
           <div className="flex gap-3">
-            <button
-              onClick={handleAdd}
-              className={`flex-1 py-3.5 rounded-full flex items-center justify-center gap-2 text-[14px] font-semibold transition-all duration-300 ${
-                added ? 'bg-green-600 text-white' : 'bg-[#111] hover:bg-[#c8a96b] text-white'
-              }`}
-            >
-              {added ? <><FiCheck size={15} /> Added!</> : <><FiShoppingBag size={15} /> Add To Cart</>}
-            </button>
+            {product.status === 'sold' ? (
+              <div className="flex-1 py-3.5 rounded-full bg-gray-200 text-gray-500 text-[14px] font-semibold text-center">
+                Sold Out
+              </div>
+            ) : (
+              <button
+                onClick={handleAdd}
+                className={`flex-1 py-3.5 rounded-full flex items-center justify-center gap-2 text-[14px] font-semibold transition-all duration-300 ${
+                  added ? 'bg-green-600 text-white' : 'bg-[#111] hover:bg-[#c8a96b] text-white'
+                }`}
+              >
+                {added ? <><FiCheck size={15} /> Added!</> : <><FiShoppingBag size={15} /> Add To Cart</>}
+              </button>
+            )}
             <Link
               to={`/product/${product.id}`}
               onClick={() => { window.scrollTo(0, 0); onClose() }}

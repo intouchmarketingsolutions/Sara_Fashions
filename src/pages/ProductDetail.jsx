@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FiStar, FiShoppingBag, FiHeart, FiMinus, FiPlus, FiCheck, FiArrowLeft } from 'react-icons/fi'
 
-import { allProducts } from '../data/products'
+import { useProducts } from '../context/ProductsContext'
 import { useCart } from '../context/CartContext'
 import ProductCard from '../components/ProductCard'
 
@@ -17,6 +17,7 @@ export default function ProductDetail() {
   const { id } = useParams()
   const { addItem } = useCart()
   const navigate = useNavigate()
+  const { allProducts } = useProducts()
 
   const product = allProducts.find((p) => p.id === id)
 
@@ -48,6 +49,7 @@ export default function ProductDetail() {
     )
   }
 
+  const isSoldOut = product.status === 'sold'
   const related = allProducts.filter((p) => p.subcategory === product.subcategory && p.id !== product.id).slice(0, 4)
   const stars   = Array.from({ length: 5 }, (_, i) => i < Math.floor(product.rating || 5))
 
@@ -162,24 +164,30 @@ export default function ProductDetail() {
               </div>
 
               {/* ACTIONS */}
-              <div className="flex gap-3 mb-6">
-                <button
-                  onClick={handleAddToCart}
-                  className={`flex-1 py-3.5 rounded-full flex items-center justify-center gap-2 text-[14px] font-semibold transition-all duration-300 ${
-                    added ? 'bg-green-600 text-white' : 'bg-[#111] hover:bg-[#c8a96b] text-white'
-                  }`}
-                >
-                  {added ? <><FiCheck size={16} /> Added</> : <><FiShoppingBag size={16} /> Add To Cart</>}
-                </button>
-                <button
-                  onClick={() => setWishlist(!wishlist)}
-                  className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all duration-300 ${
-                    wishlist ? 'bg-[#c8a96b] text-white border-[#c8a96b]' : 'bg-white border-[#ddd] hover:border-[#c8a96b]'
-                  }`}
-                >
-                  <FiHeart size={16} className={wishlist ? 'fill-white' : ''} />
-                </button>
-              </div>
+              {isSoldOut ? (
+                <div className="mb-6 py-3.5 rounded-full bg-gray-200 text-gray-500 text-[14px] font-semibold text-center">
+                  Sold Out
+                </div>
+              ) : (
+                <div className="flex gap-3 mb-6">
+                  <button
+                    onClick={handleAddToCart}
+                    className={`flex-1 py-3.5 rounded-full flex items-center justify-center gap-2 text-[14px] font-semibold transition-all duration-300 ${
+                      added ? 'bg-green-600 text-white' : 'bg-[#111] hover:bg-[#c8a96b] text-white'
+                    }`}
+                  >
+                    {added ? <><FiCheck size={16} /> Added</> : <><FiShoppingBag size={16} /> Add To Cart</>}
+                  </button>
+                  <button
+                    onClick={() => setWishlist(!wishlist)}
+                    className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all duration-300 ${
+                      wishlist ? 'bg-[#c8a96b] text-white border-[#c8a96b]' : 'bg-white border-[#ddd] hover:border-[#c8a96b]'
+                    }`}
+                  >
+                    <FiHeart size={16} className={wishlist ? 'fill-white' : ''} />
+                  </button>
+                </div>
+              )}
 
               {/* INFO PILLS */}
               <div className="grid grid-cols-2 gap-2">
@@ -307,7 +315,7 @@ export default function ProductDetail() {
       )}
 
       {/* STICKY ADD TO CART BAR */}
-      <motion.div
+      {!isSoldOut && <motion.div
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: showSticky ? 0 : 100, opacity: showSticky ? 1 : 0 }}
         transition={{ duration: 0.3 }}
@@ -326,7 +334,7 @@ export default function ProductDetail() {
         >
           {added ? <><FiCheck size={14} /> Added</> : <><FiShoppingBag size={14} /> Add To Cart</>}
         </button>
-      </motion.div>
+      </motion.div>}
     </div>
   )
 }

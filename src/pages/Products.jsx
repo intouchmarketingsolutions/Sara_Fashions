@@ -3,7 +3,7 @@ import { useLocation, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
 import ProductCard from '../components/ProductCard'
-import { allProducts } from '../data/products'
+import { useProducts } from '../context/ProductsContext'
 
 function matchScore(product, q) {
   const lower = q.toLowerCase().trim()
@@ -16,24 +16,21 @@ function matchScore(product, q) {
   return score
 }
 
-function filterByCategory(category) {
-  const cat = category.toLowerCase().trim()
-  return allProducts.filter(p =>
-    p.subcategory.toLowerCase() === cat ||
-    (p.tags || []).some(t => t.toLowerCase().includes(cat))
-  )
-}
-
 export default function Products({ embedded = false }) {
   const location = useLocation()
   const params   = new URLSearchParams(location.search)
   const query    = params.get('search') || ''
   const category = params.get('category') || ''
+  const { allProducts } = useProducts()
 
   const { exact, related } = useMemo(() => {
     // Category filter
     if (category.trim() && !query.trim()) {
-      const filtered = filterByCategory(category)
+      const cat = category.toLowerCase().trim()
+      const filtered = allProducts.filter(p =>
+        p.subcategory.toLowerCase() === cat ||
+        (p.tags || []).some(t => t.toLowerCase().includes(cat))
+      )
       return { exact: filtered, related: [] }
     }
 
@@ -54,7 +51,7 @@ export default function Products({ embedded = false }) {
     }
 
     return { exact: allProducts, related: [] }
-  }, [query, category])
+  }, [query, category, allProducts])
 
   const topPadding = !embedded ? 'pt-[64px] sm:pt-[70px] lg:pt-[76px]' : ''
 

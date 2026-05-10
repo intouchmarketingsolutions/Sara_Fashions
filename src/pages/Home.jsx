@@ -6,9 +6,10 @@ import HeroSection from '../components/HeroSection'
 import TailoringSection from '../components/TailoringSection'
 import ConsultationSection from '../components/ConsultationSection'
 import ProductCard from '../components/ProductCard'
-import { allProducts } from '../data/products'
+import { useProducts } from '../context/ProductsContext'
 
 export default function Home() {
+  const { allProducts } = useProducts()
   const featured = allProducts.slice(0, 4)
   const [email, setEmail] = useState('')
   const [subscribed, setSubscribed] = useState(false)

@@ -19,6 +19,7 @@ function ScrollToTop() {
 /* CONTEXT */
 import { CartProvider } from './context/CartContext'
 import { AuthProvider } from './context/AuthContext'
+import { ProductsProvider } from './context/ProductsContext'
 
 /* COMPONENTS */
 import Navbar from './components/Navbar'
@@ -37,88 +38,49 @@ import MyOrders from './pages/MyOrders'
 import Tailoring from './pages/Tailoring'
 import Consultation from './pages/Consultation'
 import Contact from './pages/Contact'
+import AdminLogin from './pages/AdminLogin'
+import Admin from './pages/Admin'
 
 /* -------------------------------- */
-/* ROUTES */
+/* LAYOUT WRAPPER */
 /* -------------------------------- */
 
-function AppRoutes() {
+function AppLayout() {
   const location = useLocation()
+  const isAdmin = location.pathname.startsWith('/admin')
 
   return (
-    <AnimatePresence mode="wait">
+    <div className="min-h-screen bg-[#f8f3eb] text-[#111111] flex flex-col overflow-x-hidden">
+      <ScrollToTop />
 
-      <Routes
-        location={location}
-        key={location.pathname}
-      >
+      {!isAdmin && <Navbar />}
 
-        {/* HOME */}
-        <Route
-          path="/"
-          element={<Home />}
-        />
+      <main className="flex-1">
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
 
-        {/* PRODUCTS */}
-        <Route
-          path="/products"
-          element={<Products />}
-        />
+            <Route path="/" element={<Home />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/women" element={<Women />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/tailoring" element={<Tailoring />} />
+            <Route path="/consultation" element={<Consultation />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/my-orders" element={<MyOrders />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="*" element={<Home />} />
 
-        {/* WOMEN COLLECTION */}
-        <Route
-          path="/women"
-          element={<Women />}
-        />
+          </Routes>
+        </AnimatePresence>
+      </main>
 
-        {/* PRODUCT DETAIL */}
-        <Route
-          path="/product/:id"
-          element={<ProductDetail />}
-        />
-
-        {/* CART */}
-        <Route
-          path="/cart"
-          element={<Cart />}
-        />
-
-        {/* TAILORING */}
-        <Route
-          path="/tailoring"
-          element={<Tailoring />}
-        />
-
-        {/* CONSULTATION */}
-        <Route
-          path="/consultation"
-          element={<Consultation />}
-        />
-
-        {/* ABOUT */}
-        <Route
-          path="/about"
-          element={<About />}
-        />
-
-        {/* CONTACT */}
-        <Route
-          path="/contact"
-          element={<Contact />}
-        />
-
-        {/* LOGIN */}
-        <Route path="/login" element={<Login />} />
-
-        {/* MY ORDERS */}
-        <Route path="/my-orders" element={<MyOrders />} />
-
-        {/* FALLBACK ROUTE */}
-        <Route path="*" element={<Home />} />
-
-      </Routes>
-
-    </AnimatePresence>
+      {!isAdmin && <Footer />}
+      {!isAdmin && <WhatsAppButton />}
+    </div>
   )
 }
 
@@ -129,34 +91,13 @@ function AppRoutes() {
 export default function App() {
   return (
     <AuthProvider>
-    <CartProvider>
-
-      <Router>
-        <ScrollToTop />
-
-        <div className="min-h-screen bg-[#f8f3eb] text-[#111111] flex flex-col overflow-x-hidden">
-
-          {/* NAVBAR */}
-          <Navbar />
-
-          {/* MAIN CONTENT */}
-          <main className="flex-1">
-
-            <AppRoutes />
-
-          </main>
-
-          {/* FOOTER */}
-          <Footer />
-
-          {/* WHATSAPP BUTTON */}
-          <WhatsAppButton />
-
-        </div>
-
-      </Router>
-
-    </CartProvider>
+      <CartProvider>
+        <ProductsProvider>
+          <Router>
+            <AppLayout />
+          </Router>
+        </ProductsProvider>
+      </CartProvider>
     </AuthProvider>
   )
 }

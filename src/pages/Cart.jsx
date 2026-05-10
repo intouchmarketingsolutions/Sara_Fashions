@@ -45,6 +45,10 @@ export default function Cart() {
     const existing = JSON.parse(localStorage.getItem(key) || '[]')
     localStorage.setItem(key, JSON.stringify([receipt, ...existing]))
 
+    // Save to central admin orders store
+    const allOrders = JSON.parse(localStorage.getItem('sara_all_orders') || '[]')
+    localStorage.setItem('sara_all_orders', JSON.stringify([receipt, ...allOrders]))
+
     setOrderData(receipt)
     setStep('success')
     clearCart()
