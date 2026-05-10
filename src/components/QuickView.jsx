@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiX, FiShoppingBag, FiCheck } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
@@ -8,6 +8,11 @@ export default function QuickView({ product, onClose }) {
   const { addItem } = useCart()
   const [selectedSize, setSelectedSize] = useState('M')
   const [added, setAdded] = useState(false)
+
+  useEffect(() => {
+    window.dispatchEvent(new Event('quickview-open'))
+    return () => window.dispatchEvent(new Event('quickview-close'))
+  }, [])
 
   if (!product) return null
 
