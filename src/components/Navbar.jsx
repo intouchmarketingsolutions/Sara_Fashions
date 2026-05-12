@@ -278,8 +278,8 @@ export default function Navbar() {
             transition={{ duration: 0.3, ease: 'easeInOut' }}
             className="overflow-hidden border-t border-[#e8e0d4] bg-white"
           >
-          <div className="px-4 sm:px-6 md:px-8 lg:px-12">
-              <div className="flex items-start gap-4 sm:gap-5 md:gap-6 lg:gap-8 overflow-x-auto scrollbar-hide py-2.5 sm:py-3">
+          <div className="px-4 sm:px-6 md:px-8 lg:px-0 lg:max-w-7xl lg:mx-auto">
+              <div className="flex items-start gap-4 sm:gap-5 md:gap-6 lg:gap-6 xl:gap-8 overflow-x-auto lg:overflow-visible lg:justify-center scrollbar-hide py-2.5 sm:py-3">
                 {categories.map((item, i) => (
                   <Link
                     key={i}

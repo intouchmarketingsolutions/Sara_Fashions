@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { FiCheck, FiUser, FiCalendar, FiAward, FiArrowLeft } from 'react-icons/fi'
 import { Link, useNavigate } from 'react-router-dom'
 import consultationImage from '../assets/images/categories/consultation.jpg'
@@ -17,6 +18,23 @@ const process = [
 
 export default function Consultation() {
   const navigate = useNavigate()
+  const [form, setForm] = useState({ name: '', phone: '', email: '', type: '', notes: '' })
+  const [submitted, setSubmitted] = useState(false)
+
+  const handleChange = (e) => setForm(f => ({ ...f, [e.target.name]: e.target.value }))
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const entry = { ...form, type_category: 'consultation', date: new Date().toLocaleString('en-IN'), id: Date.now() }
+    try {
+      const existing = JSON.parse(localStorage.getItem('sara_bookings') || '[]')
+      localStorage.setItem('sara_bookings', JSON.stringify([entry, ...existing]))
+    } catch {}
+    setSubmitted(true)
+    setForm({ name: '', phone: '', email: '', type: '', notes: '' })
+    setTimeout(() => setSubmitted(false), 4000)
+  }
+
   return (
     <div className="bg-[#f8f3eb] overflow-hidden min-h-screen">
 
@@ -132,18 +150,29 @@ export default function Consultation() {
           >
             <h2 className="text-[20px] sm:text-[24px] font-semibold text-[#1a1a1a] mb-5 text-center">Book a Styling Session</h2>
 
-            <form className="grid sm:grid-cols-2 gap-4">
-              <input type="text"  placeholder="Full Name"     className="border border-[#ddd] px-4 py-3 rounded-xl outline-none focus:border-[#c8a96b] text-[14px]" />
-              <input type="tel"   placeholder="Phone Number"  className="border border-[#ddd] px-4 py-3 rounded-xl outline-none focus:border-[#c8a96b] text-[14px]" />
-              <input type="email" placeholder="Email Address" className="border border-[#ddd] px-4 py-3 rounded-xl outline-none focus:border-[#c8a96b] text-[14px]" />
-              <select className="border border-[#ddd] px-4 py-3 rounded-xl outline-none focus:border-[#c8a96b] text-[14px] text-[#555]">
-                <option>Consultation Type</option>
+            <AnimatePresence>
+              {submitted && (
+                <motion.div
+                  initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+                  className="flex items-center gap-2 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl mb-4 text-[13px] font-semibold"
+                >
+                  <FiCheck size={15} /> Booking received! We'll contact you shortly.
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <form onSubmit={handleSubmit} className="grid sm:grid-cols-2 gap-4">
+              <input required type="text"  name="name"  value={form.name}  onChange={handleChange} placeholder="Full Name"     className="border border-[#ddd] px-4 py-3 rounded-xl outline-none focus:border-[#c8a96b] text-[14px]" />
+              <input required type="tel"   name="phone" value={form.phone} onChange={handleChange} placeholder="Phone Number"  className="border border-[#ddd] px-4 py-3 rounded-xl outline-none focus:border-[#c8a96b] text-[14px]" />
+              <input required type="email" name="email" value={form.email} onChange={handleChange} placeholder="Email Address" className="border border-[#ddd] px-4 py-3 rounded-xl outline-none focus:border-[#c8a96b] text-[14px]" />
+              <select required name="type" value={form.type} onChange={handleChange} className="border border-[#ddd] px-4 py-3 rounded-xl outline-none focus:border-[#c8a96b] text-[14px] text-[#555]">
+                <option value="">Consultation Type</option>
                 <option>Bridal Styling</option>
                 <option>Festive Occasion</option>
                 <option>Everyday Fashion</option>
                 <option>Party Look</option>
               </select>
-              <textarea rows="3" placeholder="Describe your requirement…"
+              <textarea rows="3" name="notes" value={form.notes} onChange={handleChange} placeholder="Describe your requirement…"
                 className="sm:col-span-2 border border-[#ddd] px-4 py-3 rounded-xl outline-none focus:border-[#c8a96b] text-[14px] resize-none" />
               <button type="submit" className="sm:col-span-2 bg-[#111] hover:bg-[#c8a96b] text-white py-3.5 rounded-full text-[14px] font-semibold transition-all duration-300">
                 Submit Booking

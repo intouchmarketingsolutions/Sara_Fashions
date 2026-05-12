@@ -5,8 +5,8 @@ import heroImage1 from '../assets/images/banners/banner.png'
 import heroImage2 from '../assets/images/banners/banner1.png'
 
 const slides = [
-  { image: heroImage1, heading: 'Bridal & Festive\nCollection' },
-  { image: heroImage2, heading: 'Modern Ethnic\nFashion' },
+  { image: heroImage1, heading: 'Festive Offer\nUp to 10% Off\nOn Sarees & Lehengas' },
+  { image: heroImage2, heading: 'New Arrivals\nFresh styles just for you' },
 ]
 
 export default function HeroSection() {
@@ -27,7 +27,8 @@ export default function HeroSection() {
         md      → 52vw
         lg+     → 44vw
       */}
-      <div className="relative w-full overflow-hidden"
+      <div
+        className="relative w-full overflow-hidden lg:[grid-template-rows:80vh]"
         style={{ display: 'grid' }}
       >
 
@@ -40,7 +41,7 @@ export default function HeroSection() {
             animate={{ opacity: i === current ? 1 : 0 }}
             transition={{ duration: 0.9, ease: 'easeInOut' }}
             style={{ gridArea: '1 / 1' }}
-            className="w-full h-auto block select-none"
+            className="w-full h-auto block select-none lg:h-full lg:w-full lg:object-cover lg:object-top"
           />
         ))}
 
@@ -65,7 +66,7 @@ export default function HeroSection() {
               className="text-[5vw] sm:text-[3.8vw] md:text-[3.2vw] lg:text-[2.8vw] xl:text-[2.5vw] font-bold text-white leading-[1.15] tracking-tight drop-shadow-lg"
               style={{ fontFamily: 'Playfair Display, serif' }}
             >
-              {slides[current].heading.split('\n').map((line, i) => (
+              {(slides[current].heading || '').split('\n').map((line, i) => (
                 <span key={i} className="block">{line}</span>
               ))}
             </motion.h1>

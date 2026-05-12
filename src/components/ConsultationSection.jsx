@@ -5,7 +5,7 @@ import consultationImage from '../assets/images/categories/consultation.jpg'
 export default function ConsultationSection() {
   return (
     <section className="bg-white py-10 md:py-16 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-5 lg:px-10">
+      <div className="w-full max-w-[1500px] mx-auto px-5 lg:px-8">
 
         <div className="flex items-center justify-center gap-4 mb-10">
           <div className="w-12 h-[1px] bg-[#c8a96b]" />

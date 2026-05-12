@@ -13,8 +13,10 @@ export default function MyOrders() {
   useEffect(() => {
     if (!user) { navigate('/login'); return }
     const key = `sara_orders_${user.phone}`
-    const stored = JSON.parse(localStorage.getItem(key) || '[]')
-    setOrders(stored)
+    try {
+      const stored = JSON.parse(localStorage.getItem(key) || '[]')
+      setOrders(stored)
+    } catch { setOrders([]) }
   }, [user, navigate])
 
   const toggle = (id) => setExpanded(prev => prev === id ? null : id)
@@ -122,10 +124,10 @@ export default function MyOrders() {
                                 />
                                 <div className="flex-1 min-w-0">
                                   <p className="text-[13px] font-semibold text-[#1a1a1a] truncate">{item.name}</p>
-                                  <p className="text-[12px] text-[#888]">Qty: {item.qty}</p>
+                                  <p className="text-[12px] text-[#888]">Qty: {item.quantity}</p>
                                 </div>
                                 <p className="text-[13px] font-semibold text-[#1a1a1a] flex-shrink-0">
-                                  ₹{(item.price * item.qty).toLocaleString('en-IN')}
+                                  ₹{(item.price * item.quantity).toLocaleString('en-IN')}
                                 </p>
                               </div>
                             ))}
@@ -138,7 +140,7 @@ export default function MyOrders() {
                           <p className="text-[13px] text-[#444]">
                             {order.form?.name}<br />
                             {order.form?.address}, {order.form?.city}<br />
-                            {order.form?.state} — {order.form?.pincode}
+                            {order.form?.postal}
                           </p>
                         </div>
 

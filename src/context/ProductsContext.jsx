@@ -4,12 +4,12 @@ import { allProducts as staticProducts } from '../data/products'
 const ProductsContext = createContext()
 
 export function ProductsProvider({ children }) {
-  const [adminProducts, setAdminProducts] = useState(() =>
-    JSON.parse(localStorage.getItem('sara_admin_products') || '[]')
-  )
-  const [statusMap, setStatusMap] = useState(() =>
-    JSON.parse(localStorage.getItem('sara_product_status') || '{}')
-  )
+  const [adminProducts, setAdminProducts] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('sara_admin_products') || '[]') } catch { return [] }
+  })
+  const [statusMap, setStatusMap] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('sara_product_status') || '{}') } catch { return {} }
+  })
 
   const allProducts = [
     ...staticProducts.map(p => ({ ...p, isStatic: true, status: statusMap[p.id] || 'available' })),

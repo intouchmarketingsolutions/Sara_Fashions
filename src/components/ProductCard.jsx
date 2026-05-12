@@ -25,7 +25,7 @@ export default function ProductCard({ product, index = 0 }) {
             <img
               src={product.image}
               alt={product.name}
-              className="w-full h-[260px] sm:h-[300px] md:h-[340px] object-cover object-top group-hover:scale-105 transition-transform duration-600"
+              className="w-full h-[260px] sm:h-[300px] md:h-[340px] lg:h-[420px] object-cover object-top group-hover:scale-105 transition-transform duration-600"
               onError={(e) => {
                 e.target.style.display = 'none'
                 e.target.nextSibling.style.display = 'flex'
@@ -33,7 +33,7 @@ export default function ProductCard({ product, index = 0 }) {
             />
             <div
               style={{ display: 'none' }}
-              className="w-full h-[260px] sm:h-[300px] md:h-[340px] flex flex-col items-center justify-center bg-[#f5efe8] gap-2"
+              className="w-full h-[260px] sm:h-[300px] md:h-[340px] lg:h-[420px] flex flex-col items-center justify-center bg-[#f5efe8] gap-2"
             >
               <span className="text-5xl">👗</span>
               <span className="text-[12px] text-[#c8a96b] font-medium uppercase tracking-widest">{product.subcategory}</span>

@@ -26,7 +26,7 @@ const emptyForm = {
 }
 
 function getAllOrders() {
-  return JSON.parse(localStorage.getItem('sara_all_orders') || '[]')
+  try { return JSON.parse(localStorage.getItem('sara_all_orders') || '[]') } catch { return [] }
 }
 
 function FormSection({ title, icon, children, defaultOpen = true }) {

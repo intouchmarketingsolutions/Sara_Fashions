@@ -5,7 +5,7 @@ import tailoringImage from '../assets/images/categories/tailoring.jpg'
 export default function TailoringSection() {
   return (
     <section className="bg-white py-10 md:py-16 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-5 lg:px-10">
+      <div className="w-full max-w-[1500px] mx-auto px-5 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
           {/* IMAGE */}

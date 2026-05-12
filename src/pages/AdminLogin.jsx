@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FiLock, FiUser, FiEye, FiEyeOff } from 'react-icons/fi'
 
-const ADMIN_USER = 'sara_admin'
-const ADMIN_PASS = 'Sara@2024'
+const ADMIN_USER = import.meta.env.VITE_ADMIN_USER || 'sara_admin'
+const ADMIN_PASS = import.meta.env.VITE_ADMIN_PASS || 'Sara@2024'
 
 export default function AdminLogin() {
   const navigate = useNavigate()

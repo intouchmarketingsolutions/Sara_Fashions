@@ -2,7 +2,8 @@ import { createContext, useContext, useReducer, useEffect } from 'react'
 
 const AuthContext = createContext()
 
-const saved = JSON.parse(localStorage.getItem('sara_user') || 'null')
+let saved = null
+try { saved = JSON.parse(localStorage.getItem('sara_user') || 'null') } catch { saved = null }
 
 const reducer = (state, action) => {
   switch (action.type) {

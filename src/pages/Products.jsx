@@ -1,107 +1,139 @@
-import { useMemo } from 'react'
+import { useMemo, useState, useEffect, useRef } from 'react'
 import { useLocation, Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
+import { FiChevronDown, FiCheck } from 'react-icons/fi'
 
 import ProductCard from '../components/ProductCard'
 import { useProducts } from '../context/ProductsContext'
 
-function matchScore(product, q) {
-  const lower = q.toLowerCase().trim()
-  if (!lower) return 0
-  let score = 0
-  if (product.name.toLowerCase().includes(lower))        score += 10
-  if (product.subcategory.toLowerCase().includes(lower)) score += 8
-  if ((product.tags || []).some(t => t.toLowerCase().includes(lower))) score += 5
-  if (product.description.toLowerCase().includes(lower)) score += 2
-  return score
-}
+const SORT_OPTIONS = [
+  { value: 'default',   label: 'New Arrivals'       },
+  { value: 'price_asc', label: 'Price: Low to High'  },
+  { value: 'price_desc',label: 'Price: High to Low'  },
+  { value: 'rating',    label: 'Top Rated'            },
+]
 
 export default function Products({ embedded = false }) {
   const location = useLocation()
   const params   = new URLSearchParams(location.search)
   const query    = params.get('search') || ''
-  const category = params.get('category') || ''
+  const urlCat   = params.get('category') || ''
   const { allProducts } = useProducts()
 
-  const { exact, related } = useMemo(() => {
-    // Category filter
-    if (category.trim() && !query.trim()) {
-      const cat = category.toLowerCase().trim()
-      const filtered = allProducts.filter(p =>
+  const [sort, setSort]           = useState('default')
+  const [dropOpen, setDropOpen]   = useState(false)
+  const dropRef                   = useRef(null)
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handler = (e) => {
+      if (dropRef.current && !dropRef.current.contains(e.target)) setDropOpen(false)
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [])
+
+  const filtered = useMemo(() => {
+    let list = [...allProducts]
+
+    if (urlCat.trim()) {
+      const cat = urlCat.toLowerCase()
+      list = list.filter(p =>
         p.subcategory.toLowerCase() === cat ||
         (p.tags || []).some(t => t.toLowerCase().includes(cat))
       )
-      return { exact: filtered, related: [] }
     }
 
-    // Search filter
     if (query.trim()) {
-      const scored = allProducts
-        .map(p => ({ ...p, _score: matchScore(p, query) }))
-        .filter(p => p._score > 0)
-        .sort((a, b) => b._score - a._score)
-
-      const exactMatches = scored.filter(p => p._score >= 5)
-      const exactIds     = new Set(exactMatches.map(p => p.id))
-      const relatedSubcats = new Set(exactMatches.map(p => p.subcategory))
-      const relatedItems = allProducts.filter(
-        p => !exactIds.has(p.id) && relatedSubcats.has(p.subcategory)
+      const q = query.toLowerCase()
+      list = list.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.subcategory.toLowerCase().includes(q) ||
+        (p.tags || []).some(t => t.toLowerCase().includes(q)) ||
+        p.description.toLowerCase().includes(q)
       )
-      return { exact: exactMatches, related: relatedItems }
     }
 
-    return { exact: allProducts, related: [] }
-  }, [query, category, allProducts])
+    if (sort === 'price_asc')  list.sort((a, b) => a.price - b.price)
+    if (sort === 'price_desc') list.sort((a, b) => b.price - a.price)
+    if (sort === 'rating')     list.sort((a, b) => (b.rating || 0) - (a.rating || 0))
+
+    return list
+  }, [allProducts, query, urlCat, sort])
+
+  const activeLabel = SORT_OPTIONS.find(o => o.value === sort)?.label
 
   const topPadding = !embedded ? 'pt-[64px] sm:pt-[70px] lg:pt-[76px]' : ''
 
-  // All products (no filter)
-  if (!query.trim() && !category.trim()) {
-    return (
-      <div className={`bg-[#f8f3eb] min-h-screen ${topPadding}`}>
-        <section className="px-4 sm:px-6 lg:px-10 py-8 md:py-12 max-w-7xl mx-auto">
+  return (
+    <div className={`bg-[#f8f3eb] min-h-screen ${topPadding}`}>
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10">
+
+        {/* ── FILTER BAR ── */}
+        <div className="flex items-center justify-between mb-6">
+
+          {/* Left: active category / search label */}
+          <div className="flex items-center gap-3">
+            {(urlCat || query) && (
+              <Link
+                to="/products"
+                className="text-[13px] text-[#b68b45] underline underline-offset-2"
+              >
+                View All
+              </Link>
+            )}
+          </div>
+
+          {/* Right: Filter dropdown */}
+          <div className="relative" ref={dropRef}>
+            <button
+              onClick={() => setDropOpen(o => !o)}
+              className="flex items-center gap-2 bg-white border border-[#e0d8cc] hover:border-[#c8a96b] px-5 py-2.5 rounded-full text-[13px] font-semibold text-[#333] shadow-sm transition-all duration-200"
+            >
+              <span className="text-[#c8a96b] font-bold text-[12px] uppercase tracking-wider">Filter</span>
+              <span className="text-[#aaa] text-[11px]">|</span>
+              <span>{activeLabel}</span>
+              <motion.span animate={{ rotate: dropOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                <FiChevronDown size={14} className="text-[#888]" />
+              </motion.span>
+            </button>
+
+            <AnimatePresence>
+              {dropOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6, scale: 0.97 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 6, scale: 0.97 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute right-0 top-full mt-2 w-[210px] bg-white rounded-2xl shadow-2xl border border-[#ede8e0] py-2 z-50 overflow-hidden"
+                >
+                  {SORT_OPTIONS.map(opt => (
+                    <button
+                      key={opt.value}
+                      onClick={() => { setSort(opt.value); setDropOpen(false) }}
+                      className={`w-full flex items-center justify-between px-5 py-3 text-[13px] transition-colors ${
+                        sort === opt.value
+                          ? 'bg-[#f8f3eb] text-[#c8a96b] font-semibold'
+                          : 'text-[#444] hover:bg-[#f8f3eb] hover:text-[#c8a96b]'
+                      }`}
+                    >
+                      {opt.label}
+                      {sort === opt.value && <FiCheck size={13} className="text-[#c8a96b]" />}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* ── PRODUCT GRID ── */}
+        {filtered.length > 0 ? (
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
-            {allProducts.map((product, i) => (
+            {filtered.map((product, i) => (
               <ProductCard key={product.id} product={product} index={i} />
             ))}
           </div>
-        </section>
-      </div>
-    )
-  }
-
-  return (
-    <div className={`bg-[#f8f3eb] min-h-screen ${topPadding}`}>
-      <section className="px-4 sm:px-6 lg:px-10 pt-3 pb-8 md:pb-12 max-w-7xl mx-auto">
-
-        {/* Clear filter link */}
-        <div className="mb-4 flex justify-end">
-          <Link to="/products" className="text-[13px] text-[#b68b45] underline underline-offset-2">
-            View All
-          </Link>
-        </div>
-
-        {exact.length > 0 ? (
-          <>
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
-              {exact.map((product, i) => (
-                <ProductCard key={product.id} product={product} index={i} />
-              ))}
-            </div>
-
-            {related.length > 0 && (
-              <div className="mt-10">
-                <h2 className="text-[16px] sm:text-[18px] font-semibold text-[#1a1a1a] mb-5">
-                  You May Also Like
-                </h2>
-                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
-                  {related.map((product, i) => (
-                    <ProductCard key={product.id} product={product} index={i} />
-                  ))}
-                </div>
-              </div>
-            )}
-          </>
         ) : (
           <motion.div
             initial={{ opacity: 0 }}
@@ -121,7 +153,7 @@ export default function Products({ embedded = false }) {
             </Link>
           </motion.div>
         )}
-      </section>
+      </div>
     </div>
   )
 }
