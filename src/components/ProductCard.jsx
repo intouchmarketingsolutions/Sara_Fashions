@@ -18,14 +18,15 @@ export default function ProductCard({ product, index = 0 }) {
         onClick={() => setShowQuick(true)}
         className="cursor-pointer group"
       >
-        <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-400 border border-[#f1ebe3]">
+        <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-[#f1ebe3]">
 
           {/* IMAGE */}
           <div className="relative overflow-hidden bg-[#f5efe8]">
             <img
               src={product.image}
               alt={product.name}
-              className="w-full h-[260px] sm:h-[300px] md:h-[340px] lg:h-[420px] object-cover object-top group-hover:scale-105 transition-transform duration-600"
+              loading="lazy"
+              className="w-full h-[260px] sm:h-[300px] md:h-[340px] lg:h-[420px] object-cover object-top group-hover:scale-105 transition-transform duration-500"
               onError={(e) => {
                 e.target.style.display = 'none'
                 e.target.nextSibling.style.display = 'flex'

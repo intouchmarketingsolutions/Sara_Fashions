@@ -112,7 +112,7 @@ export default function Navbar() {
               <img
                 src={logo}
                 alt="Sara Central"
-                className="h-10 sm:h-11 lg:h-13 w-auto object-contain"
+                className="h-10 sm:h-11 lg:h-14 w-auto object-contain"
               />
             </Link>
 

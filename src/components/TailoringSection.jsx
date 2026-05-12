@@ -18,6 +18,7 @@ export default function TailoringSection() {
             <img
               src={tailoringImage}
               alt="Tailoring Service"
+              loading="lazy"
               className="w-full h-[280px] sm:h-[360px] md:h-[440px] object-cover object-top rounded-2xl shadow-xl"
             />
           </motion.div>

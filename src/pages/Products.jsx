@@ -73,14 +73,29 @@ export default function Products({ embedded = false }) {
         <div className="flex items-center justify-between mb-6">
 
           {/* Left: active category / search label */}
-          <div className="flex items-center gap-3">
-            {(urlCat || query) && (
-              <Link
-                to="/products"
-                className="text-[13px] text-[#b68b45] underline underline-offset-2"
-              >
-                View All
-              </Link>
+          <div className="flex flex-col gap-1">
+            {(urlCat || query) ? (
+              <>
+                <h1 className="text-[18px] sm:text-[22px] font-semibold text-[#1a1a1a] leading-tight">
+                  {urlCat || `"${query}"`}
+                  <span className="ml-2 text-[13px] font-normal text-[#888]">
+                    ({filtered.length} {filtered.length === 1 ? 'product' : 'products'})
+                  </span>
+                </h1>
+                <Link
+                  to="/products"
+                  className="text-[12px] text-[#b68b45] hover:underline underline-offset-2 w-fit"
+                >
+                  ← View All
+                </Link>
+              </>
+            ) : (
+              <h1 className="text-[18px] sm:text-[22px] font-semibold text-[#1a1a1a]">
+                All Products
+                <span className="ml-2 text-[13px] font-normal text-[#888]">
+                  ({filtered.length})
+                </span>
+              </h1>
             )}
           </div>
 

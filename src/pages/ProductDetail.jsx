@@ -86,7 +86,7 @@ export default function ProductDetail() {
                 <img
                   src={(product.images || [product.image])[activeImg]}
                   alt={product.name}
-                  className="w-full h-[320px] sm:h-[420px] md:h-[560px] object-cover object-top hover:scale-105 transition-transform duration-600"
+                  className="w-full h-[320px] sm:h-[420px] md:h-[560px] object-cover object-top hover:scale-105 transition-transform duration-500"
                 />
               </div>
 
@@ -98,7 +98,7 @@ export default function ProductDetail() {
                     onClick={() => setActiveImg(n)}
                     className={`w-20 h-24 sm:w-24 sm:h-28 rounded-xl overflow-hidden border-2 bg-white cursor-pointer transition-all duration-200 ${activeImg === n ? 'border-[#c8a96b]' : 'border-[#eee] hover:border-[#c8a96b]'}`}
                   >
-                    <img src={img} alt="" className="w-full h-full object-cover object-top" />
+                    <img src={img} alt="" loading="lazy" className="w-full h-full object-cover object-top" />
                   </div>
                 ))}
               </div>

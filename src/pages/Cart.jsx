@@ -113,7 +113,7 @@ export default function Cart() {
                 <div className="space-y-3">
                   {orderData.items.map((item, i) => (
                     <div key={i} className="flex gap-3 bg-[#f8f3eb] rounded-xl p-3">
-                      <img src={item.image} alt={item.name} className="w-14 h-16 rounded-lg object-cover object-top flex-shrink-0" />
+                      <img src={item.image} alt={item.name} loading="lazy" className="w-14 h-16 rounded-lg object-cover object-top flex-shrink-0" />
                       <div className="flex-1 min-w-0">
                         <p className="text-[#b68b45] text-[10px] uppercase tracking-wider">{item.subcategory}</p>
                         <p className="text-[#1a1a1a] text-[13px] font-semibold leading-snug">{item.name}</p>
@@ -218,7 +218,7 @@ export default function Cart() {
                     className="bg-white rounded-2xl border border-[#eee] p-4 sm:p-5 flex gap-4"
                   >
                     <div className="w-20 h-24 sm:w-24 sm:h-28 rounded-xl overflow-hidden flex-shrink-0">
-                      <img src={item.image} alt={item.name} className="w-full h-full object-cover object-top" />
+                      <img src={item.image} alt={item.name} loading="lazy" className="w-full h-full object-cover object-top" />
                     </div>
 
                     <div className="flex-1 min-w-0">

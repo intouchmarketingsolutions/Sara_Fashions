@@ -55,7 +55,7 @@ export default function QuickView({ product, onClose }) {
           <div className="flex gap-4 mb-4">
             {/* Image */}
             <div className="w-28 h-36 rounded-2xl overflow-hidden flex-shrink-0 bg-[#f8f3eb]">
-              <img src={product.image} alt={product.name} className="w-full h-full object-cover object-top" />
+              <img src={product.image} alt={product.name} loading="lazy" className="w-full h-full object-cover object-top" />
             </div>
 
             {/* Info */}

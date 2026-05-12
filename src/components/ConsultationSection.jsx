@@ -58,6 +58,7 @@ export default function ConsultationSection() {
                 <img
                   src={consultationImage}
                   alt="Style Consultation"
+                  loading="lazy"
                   className="w-full h-[280px] sm:h-[360px] md:h-[440px] object-cover object-top rounded-2xl shadow-xl"
                 />
               </motion.div>

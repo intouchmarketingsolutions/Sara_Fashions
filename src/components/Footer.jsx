@@ -72,7 +72,7 @@ export default function Footer() {
               <FiPhone className="text-[#d4af7a] flex-shrink-0" size={14} />
               <span>+91 9663098124</span>
             </a>
-            <a href="mailto:hello@saracentral.com" className="flex gap-2.5 hover:text-[#d4af7a] transition-colors">
+            <a href="mailto:info@saracentral.com" className="flex gap-2.5 hover:text-[#d4af7a] transition-colors">
               <FiMail className="text-[#d4af7a] flex-shrink-0" size={14} />
               <span>info@saracentral.com</span>
             </a>
