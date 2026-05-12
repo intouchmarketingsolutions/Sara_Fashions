@@ -225,7 +225,7 @@ export default function Cart() {
                       <p className="text-[#b68b45] text-[10px] uppercase tracking-widest font-semibold mb-1">{item.subcategory}</p>
                       <h3 className="text-[14px] sm:text-[15px] font-semibold text-[#1a1a1a] leading-snug mb-1 truncate">{item.name}</h3>
                       <p className="text-[#888] text-[12px] mb-2">Size: {item.size}</p>
-                      <p className="text-[#b68b45] text-[15px] font-semibold mb-3">₹{item.price.toLocaleString()}</p>
+                      <p className="text-[#b68b45] text-[15px] font-semibold mb-3">₹{(item.price * item.quantity).toLocaleString()}</p>
 
                       <div className="flex items-center gap-3">
                         <div className="flex items-center bg-[#f8f3eb] rounded-full border border-[#eee] overflow-hidden">
